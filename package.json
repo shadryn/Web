@@ -1,0 +1,25 @@
+{
+  "name": "nobreaks",
+  "version": "1.0.0",
+  "description": "Front End for nobreaksguild.com",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "awesome-typescript-loader": "0.15.10",
+    "typings": "0.7.8",
+    "typescript": "1.8.7",
+    "webpack": "1.12.14",
+    "webpack-dev-server": "1.14.1"
+  },
+  "dependencies": {
+    "angular2": "2.0.0-beta.10",
+    "es6-promise": "3.1.2",
+    "es6-shim": "0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.4"
+  }
+}
