@@ -1,1 +1,1 @@
-web: npm run front
+web: node server/index.js
