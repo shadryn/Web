@@ -4,9 +4,10 @@
   "description": "Front End for nobreaksguild.com",
   "scripts": {
     "server": "cd backend && npm i && node server.js",
-    "front": "webpack-dev-server --inline -d --colors --display-error-details --display-cached --port 3000",
+    "front": "webpack-dev-server --config ./client/webpack.config.js --inline -d --colors --display-error-details --display-cached --port 3000 --content-base ./client/app",
     "start": "npm run front",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:front": "webpack --config ./client/webpack.config.js"
   },
   "license": "MIT",
   "devDependencies": {
