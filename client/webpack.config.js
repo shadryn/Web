@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   content: __dirname + "/client/app",
@@ -8,7 +9,9 @@ module.exports = {
   },
   output: {
     path: __dirname,
-    filename: "./dist/[name].bundle.js"
+    filename: "./dist/[name].js",
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id].chunk.js'
   },
   resolve: {
     extensions: ['', '.js', '.ts']
@@ -41,6 +44,16 @@ module.exports = {
 
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw-loader' },
+
+      {
+        test: /(\.scss)$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass!postcss')
+      },
+
+      {
+        test: /(\.css)$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+      }
     ],
     noParse: [
      /zone\.js\/dist\/.+/,
@@ -51,7 +64,17 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin("vendor", "./dist/vendor.bundle.js")
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: './dist/vendor.js', minChunks: Infinity }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: './dist/common.js', minChunks: 2, chunks: ['app', 'vendor'] }),
+    new ExtractTextPlugin('./dist/[name].css'),
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: false,
+      compress : { screw_ie8 : true },
+      comments: false
+    })
   ],
 
   // Other module loader config
