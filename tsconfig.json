@@ -10,37 +10,24 @@
     "noImplicitAny": false
   },
   "exclude": [
-    "node_modules",
-    "typings/main.d.ts",
-    "typings/main"
+    "./node_modules",
+    "./typings/main",
+    "./typings/main.d.ts"
   ],
   "filesGlob": [
-    "typings/**/*.ts",
-    "app/**/*.ts",
-    "typings/browser.d.ts"
+    "./app/**/*.ts"
   ],
   "files": [
-    "typings/browser.d.ts",
-    "typings/browser/ambient/angular-protractor/index.d.ts",
-    "typings/browser/ambient/es6-shim/index.d.ts",
-    "typings/browser/ambient/hammerjs/index.d.ts",
-    "typings/browser/ambient/jasmine/index.d.ts",
-    "typings/browser/ambient/node/index.d.ts",
-    "typings/browser/ambient/selenium-webdriver/index.d.ts",
-    "typings/browser/ambient/webpack/index.d.ts",
-    "typings/browser/ambient/zone.js/index.d.ts",
-    "typings/browser/definitions/es6-promise/index.d.ts",
-    "typings/browser/definitions/zone.js/index.d.ts",
-    "app/app.component.ts",
-    "app/boot.ts",
-    "app/vendor.ts"
+    "./app/app.component.ts",
+    "./app/boot.ts",
+    "./app/components/dashboard/dashboard.ts",
+    "./app/components/hero-detail/hero-detail.ts",
+    "./app/components/heroes/heroes.ts",
+    "./app/interfaces/hero.ts",
+    "./app/services/hero/hero.ts",
+    "./app/services/hero/mock-heroes.ts",
+    "./app/vendor.ts"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "useCache": true,
-    "resolveGlobs": true,
-    "forkChecker": true,
-    "cacheDirectory": "node_modules/.awesome-typescript-loader-cache"
-  },
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": {
