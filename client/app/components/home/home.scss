@@ -1,0 +1,113 @@
+@mixin fadein {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s; /* Firefox */
+  -webkit-animation: fadein 2s; /* Safari and Chrome */
+  -o-animation: fadein 2s; /* Opera */
+
+  @keyframes fadein {
+      from {
+          opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }
+  @-moz-keyframes fadein { /* Firefox */
+      from {
+          opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }
+  @-webkit-keyframes fadein { /* Safari and Chrome */
+      from {
+          opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }
+  @-o-keyframes fadein { /* Opera */
+      from {
+          opacity:0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+}
+//navbar styles
+.navbar-collapse {
+  &[aria-expanded="true"] {
+    .nav {
+      display: block;
+    }
+  }
+}
+.navbar-default {
+  background-color: rgba(248, 248, 248, 0.15);
+  border: none;
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    width: 42%;
+    .nav-logo {
+      width: 0;
+      height: 0;
+      left: 0;
+      right: 0;
+      padding: 0;
+      position: absolute;
+      border-style: solid;
+      border-width: 100px 100px 0 100px;
+      border-color: #000000 transparent transparent transparent;
+
+      .icon-nobreaks {
+        color: #fff;
+        position: absolute;
+        top: -93px;
+        font-size: 4em;
+        left: -41px;
+      }
+      
+      a {
+        color: #fff;
+      }
+    }
+    li {
+      &.active {
+        border-bottom: 2px solid #fff;
+        a {
+          background-color: transparent;
+        }
+      }
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+//Home styles
+.home {
+  background-image: url('/assets/images/iron-horde.jpg');
+  background-size: cover;
+  height: 700px;
+  .logo-block {
+    margin-top: 50px;
+    text-align: center;
+    margin-top: 10%;
+    color: #fff;
+    @include fadein;
+
+    h1 {
+      font-size: 7em;
+    }
+    p {
+      font-size: 2em;
+    }
+    .icon-nobreaks {
+      font-size: 18em;
+    }
+  }
+}

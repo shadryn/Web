@@ -1,0 +1,30 @@
+/* Default App Styles */
+@font-face {
+    font-family: 'icomoon';
+    src:    url('./assets/fonts/nobreakslogo.eot');
+    src:    url('./assets/fonts/nobreakslogo.eot') format('embedded-opentype'),
+        url('./assets/fonts/nobreakslogo.ttf') format('truetype'),
+        url('./assets/fonts/nobreakslogo.woff') format('woff'),
+        url('./assets/fonts/nobreaks.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-nobreaks:before {
+    content: "\e900";
+}
