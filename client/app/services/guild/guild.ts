@@ -2,7 +2,7 @@ import {Injectable} from 'angular2/core';
 import {Hero} from '../../interfaces/hero';
 import {HEROES} from './mock-heroes';
 @Injectable()
-export class HeroService {
+export class GuildService {
   getHeroes() {
     return Promise.resolve(HEROES);
   }

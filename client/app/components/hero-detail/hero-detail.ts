@@ -2,7 +2,7 @@ import { Component, OnInit } from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 
 import { Hero } from '../../interfaces/hero';
-import { HeroService } from '../../services/hero/hero';
+import { GuildService } from '../../services/guild/guild';
 
 @Component({
   selector: 'my-hero-detail',
@@ -14,13 +14,13 @@ export class HeroDetailComponent implements OnInit {
   hero: Hero;
 
   constructor(
-    private _heroService: HeroService,
+    private _GuildService: GuildService,
     private _routeParams: RouteParams) {
   }
 
   ngOnInit() {
     let id = +this._routeParams.get('id');
-    this._heroService.getHero(id)
+    this._GuildService.getHero(id)
       .then(hero => this.hero = hero);
   }
 

@@ -47,7 +47,7 @@ module.exports = {
 
       {
         test: /(\.scss)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass!postcss')
+        loaders: ['raw-loader', 'sass-loader']
       },
 
       {

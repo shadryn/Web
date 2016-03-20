@@ -3,7 +3,7 @@ import { Router } from 'angular2/router';
 
 import { Hero } from '../../interfaces/hero';
 import { HeroDetailComponent } from '../hero-detail/hero-detail';
-import { HeroService } from '../../services/hero/hero';
+import { GuildService } from '../../services/guild/guild';
 
 @Component({
   selector: 'my-heroes',
@@ -18,10 +18,10 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _heroService: HeroService) { }
+    private _GuildService: GuildService) { }
 
   getHeroes() {
-    this._heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this._GuildService.getHeroes().then(heroes => this.heroes = heroes);
   }
 
   ngOnInit() {
