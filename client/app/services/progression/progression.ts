@@ -4,6 +4,7 @@ import {BOSSES} from './mock-progression';
 @Injectable()
 export class ProgressionService {
   getBosses() {
+    console.log('bosses', BOSSES);
     return Promise.resolve(BOSSES);
   }
 

@@ -1,3 +1,10 @@
 <div id="raiding">
-  <h1>Raiding!</h1>
+  <ul class="bosses">
+    <li *ngFor="#boss of bosses"
+      [class.normal]="boss.normalKills > 0"
+      [class.heroic]="boss.heroicKills > 0"
+      [class.mythic]="boss.mythicKills > 0">
+      {{boss.name}}
+    </li>
+  </ul>
 </div>

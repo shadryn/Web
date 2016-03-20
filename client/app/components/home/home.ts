@@ -2,6 +2,7 @@ import { Component, OnInit } from 'angular2/core';
 import { RouteParams } from 'angular2/router';
 import { GuildService } from '../../services/guild/guild';
 import { TheGuildComponent } from '../the-guild/the-guild';
+import { RaidingComponent } from '../raiding/raiding';
 
 @Component({
   selector: 'home',
@@ -10,7 +11,8 @@ import { TheGuildComponent } from '../the-guild/the-guild';
   styles: [require('./home.scss')],
   providers: [GuildService],
   directives: [
-    TheGuildComponent
+    TheGuildComponent,
+    RaidingComponent
   ]
 })
 export class HomeComponent implements OnInit {
