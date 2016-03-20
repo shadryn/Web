@@ -1,17 +1,17 @@
-var webpack = require("webpack");
+var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  content: __dirname + "/client/app",
+  content: __dirname + '/client/app',
   entry: {
-    "vendor": "./client/app/vendor",
-    "app": "./client/app/boot"
+    'vendor': './client/app/vendor',
+    'app': './client/app/boot'
   },
   output: {
-    path: __dirname,
-    filename: "./dist/[name].js",
-    sourceMapFilename: './dist/[name].map',
-    chunkFilename: './dist/[id].chunk.js'
+    path: __dirname + '/dist/',
+    filename: '[name].js',
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id].chunk.js'
   },
   resolve: {
     extensions: ['', '.js', '.ts']
@@ -69,9 +69,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: './dist/vendor.js', minChunks: Infinity }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: './dist/common.js', minChunks: 2, chunks: ['app', 'vendor'] }),
-    new ExtractTextPlugin('./dist/[name].css'),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: './vendor.js', minChunks: Infinity }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: './common.js', minChunks: 2, chunks: ['app', 'vendor'] }),
+    new ExtractTextPlugin('./[name].css'),
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
