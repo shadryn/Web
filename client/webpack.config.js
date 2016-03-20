@@ -10,8 +10,8 @@ module.exports = {
   output: {
     path: __dirname,
     filename: "./dist/[name].js",
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id].chunk.js'
+    sourceMapFilename: './dist/[name].map',
+    chunkFilename: './dist/[id].chunk.js'
   },
   resolve: {
     extensions: ['', '.js', '.ts']
@@ -53,6 +53,11 @@ module.exports = {
       {
         test: /(\.css)$/,
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+      },
+
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|otf)$/,
+        loader: 'file'
       }
     ],
     noParse: [
