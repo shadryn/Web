@@ -24,6 +24,7 @@ import { JoinComponent } from '../join/join';
 export class HomeComponent implements OnInit {
   activePage: '';
   stickyTop: boolean;
+  scrollTop: number;
 
   constructor(
     private _location: Location,
@@ -38,7 +39,8 @@ export class HomeComponent implements OnInit {
     }
 
     $(window).scroll(() => {
-      this.stickyTop = ($(window).scrollTop() >= 700) ? true : false;
+      this.scrollTop = $(window).scrollTop();
+      this.stickyTop = (this.scrollTop >= 700) ? true : false;
     });
   }
 
