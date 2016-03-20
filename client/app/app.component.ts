@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home';
   template: `
     <router-outlet></router-outlet>
   `,
-  styles: [require('./app.component.css')],
+  styles: [require('./app.component.scss')],
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS]
 })
