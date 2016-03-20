@@ -1,0 +1,10 @@
+<div id="events">
+  <h2>Events</h2>
+
+  <h3>Upcoming</h3>
+  <ul class="events">
+    <li *ngFor="#event of events">
+      {{event.name}} {{event.time}}
+    </li>
+  </ul>
+</div>

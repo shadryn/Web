@@ -78,7 +78,8 @@ module.exports = {
       beautify: false,
       mangle: false,
       compress : { screw_ie8 : true },
-      comments: false
+      comments: false,
+      warnings: false
     })
   ],
 

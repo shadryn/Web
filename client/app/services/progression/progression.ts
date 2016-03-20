@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Boss} from '../../interfaces/boss';
 import {BOSSES} from './mock-progression';
+
 @Injectable()
 export class ProgressionService {
   getBosses() {

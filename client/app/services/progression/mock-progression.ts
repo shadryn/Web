@@ -1,4 +1,5 @@
 import {Boss} from '../../interfaces/boss';
+
 export var BOSSES: Boss[] = [
   {
     "id": 93023,

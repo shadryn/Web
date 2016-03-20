@@ -20,10 +20,7 @@
   "files": [
     "./app/app.component.ts",
     "./app/boot.ts",
-    "./app/components/dashboard/dashboard.ts",
     "./app/components/events/events.ts",
-    "./app/components/hero-detail/hero-detail.ts",
-    "./app/components/heroes/heroes.ts",
     "./app/components/home/home.ts",
     "./app/components/join/join.ts",
     "./app/components/logs/logs.ts",
@@ -31,9 +28,9 @@
     "./app/components/the-guild/the-guild.ts",
     "./app/components/twitch/twitch.ts",
     "./app/interfaces/boss.ts",
-    "./app/interfaces/hero.ts",
-    "./app/services/guild/guild.ts",
-    "./app/services/guild/mock-heroes.ts",
+    "./app/interfaces/event.ts",
+    "./app/services/events/events.ts",
+    "./app/services/events/mock-events.ts",
     "./app/services/progression/mock-progression.ts",
     "./app/services/progression/progression.ts",
     "./app/vendor.ts"

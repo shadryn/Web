@@ -1,23 +1,24 @@
 import { Component, OnInit } from 'angular2/core';
 import { RouteParams } from 'angular2/router';
-import { GuildService } from '../../services/guild/guild';
 import { TheGuildComponent } from '../the-guild/the-guild';
 import { RaidingComponent } from '../raiding/raiding';
+import { EventsComponent } from '../events/events';
+import { JoinComponent } from '../join/join';
 
 @Component({
   selector: 'home',
   moduleId: 'components/home/home',
   template: require('./home.html'),
   styles: [require('./home.scss')],
-  providers: [GuildService],
   directives: [
     TheGuildComponent,
-    RaidingComponent
+    RaidingComponent,
+    EventsComponent,
+    JoinComponent
   ]
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private _GuildService: GuildService,
     private _routeParams: RouteParams) {
   }
 
