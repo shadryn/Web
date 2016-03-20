@@ -19,6 +19,7 @@ import { JoinComponent } from '../join/join';
 })
 export class HomeComponent implements OnInit {
   activePage: '';
+  stickyTop: boolean;
 
   constructor(
     private _location: Location,
@@ -31,6 +32,10 @@ export class HomeComponent implements OnInit {
     if (['guild', 'raiding', 'logs', 'twitch', 'events', 'join'].indexOf(sectionKey) > -1) {
       this.goToPage(sectionKey);
     }
+
+    $(window).scroll(() => {
+      this.stickyTop = ($(window).scrollTop() >= 700) ? true : false;
+    });
   }
 
   goToPage(page) {

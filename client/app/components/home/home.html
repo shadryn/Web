@@ -15,7 +15,7 @@
         <li [class.active]="activePage === 'raiding'"><a (click)="goToPage('raiding')">Raiding</a></li>
         <li [class.active]="activePage === 'logs'"><a (click)="goToPage('logs')">Logs</a></li>
         <li class="nav-logo center-block hidden-xs">
-          <span class="icon-nobreaks"></span>
+          <span [class.icon-nobreaks]="stickyTop"></span>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
