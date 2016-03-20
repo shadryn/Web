@@ -1,7 +1,6 @@
 import { Component } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
-import { GuildService } from './services/guild/guild';
-// import { HomeComponent } from './components/home/home';
+import { HomeComponent } from './components/home/home';
 
 @Component({
   selector: 'no-breaks',
@@ -10,16 +9,13 @@ import { GuildService } from './services/guild/guild';
   `,
   styles: [require('./app.component.css')],
   directives: [ROUTER_DIRECTIVES],
-  providers: [
-    ROUTER_PROVIDERS,
-    GuildService
-  ]
+  providers: [ROUTER_PROVIDERS]
 })
 @RouteConfig([
   {
     path: '/:sectionKey',
     name: 'Home',
-    component: AppComponent,
+    component: HomeComponent,
     useAsDefault: true
   }
 ])

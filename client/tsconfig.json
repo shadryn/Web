@@ -24,6 +24,7 @@
     "./app/components/events/events.ts",
     "./app/components/hero-detail/hero-detail.ts",
     "./app/components/heroes/heroes.ts",
+    "./app/components/home/home.ts",
     "./app/components/join/join.ts",
     "./app/components/logs/logs.ts",
     "./app/components/raiding/raiding.ts",
