@@ -1,14 +1,43 @@
-.home {
-  background-image: url('/assets/images/iron-horde.jpg');
-  background-size: cover;
-  height: 600px;
-  .logo-block {
-    margin-top: 50px;
-    text-align: center;
-    margin-top: 25%;
-    color: #fff;
+@mixin fadein {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s; /* Firefox */
+  -webkit-animation: fadein 2s; /* Safari and Chrome */
+  -o-animation: fadein 2s; /* Opera */
+
+  @keyframes fadein {
+      from {
+          opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }
+  @-moz-keyframes fadein { /* Firefox */
+      from {
+          opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }
+  @-webkit-keyframes fadein { /* Safari and Chrome */
+      from {
+          opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }
+  @-o-keyframes fadein { /* Opera */
+      from {
+          opacity:0;
+      }
+      to {
+          opacity: 1;
+      }
   }
 }
+//navbar styles
 .navbar-collapse {
   &[aria-expanded="true"] {
     .nav {
@@ -34,6 +63,14 @@
       border-width: 100px 100px 0 100px;
       border-color: #000000 transparent transparent transparent;
 
+      .icon-nobreaks {
+        color: #fff;
+        position: absolute;
+        top: -93px;
+        font-size: 4em;
+        left: -41px;
+      }
+      
       a {
         color: #fff;
       }
@@ -48,6 +85,29 @@
       a {
         color: #fff;
       }
+    }
+  }
+}
+//Home styles
+.home {
+  background-image: url('/assets/images/iron-horde.jpg');
+  background-size: cover;
+  height: 700px;
+  .logo-block {
+    margin-top: 50px;
+    text-align: center;
+    margin-top: 10%;
+    color: #fff;
+    @include fadein;
+
+    h1 {
+      font-size: 7em;
+    }
+    p {
+      font-size: 2em;
+    }
+    .icon-nobreaks {
+      font-size: 18em;
     }
   }
 }
