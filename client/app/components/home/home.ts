@@ -2,6 +2,8 @@ import { Component, OnInit } from 'angular2/core';
 import { Location, RouteParams } from 'angular2/router';
 import { TheGuildComponent } from '../the-guild/the-guild';
 import { RaidingComponent } from '../raiding/raiding';
+import { LogsComponent } from '../logs/logs';
+import { TwitchComponent } from '../twitch/twitch';
 import { EventsComponent } from '../events/events';
 import { JoinComponent } from '../join/join';
 
@@ -13,6 +15,8 @@ import { JoinComponent } from '../join/join';
   directives: [
     TheGuildComponent,
     RaidingComponent,
+    LogsComponent,
+    TwitchComponent,
     EventsComponent,
     JoinComponent
   ]
@@ -20,6 +24,7 @@ import { JoinComponent } from '../join/join';
 export class HomeComponent implements OnInit {
   activePage: '';
   stickyTop: boolean;
+  scrollTop: number;
 
   constructor(
     private _location: Location,
@@ -34,14 +39,14 @@ export class HomeComponent implements OnInit {
     }
 
     $(window).scroll(() => {
-      this.stickyTop = ($(window).scrollTop() >= 700) ? true : false;
+      this.scrollTop = $(window).scrollTop();
+      this.stickyTop = (this.scrollTop >= 700) ? true : false;
     });
   }
 
   goToPage(page) {
     this.activePage = page;
     this._location.go(page);
-    page = (page === 'logs' || page === 'twitch') ? 'raiding' : page;
     $('html, body').animate({scrollTop: $('#' + page).offset().top }, 500);
   }
 }

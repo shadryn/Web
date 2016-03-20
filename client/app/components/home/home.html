@@ -32,7 +32,7 @@
 </nav>
 <div class="body container-fluid">
   <div class="row home">
-    <div class="logo-block">
+    <div class="logo-block" [style.opacity]="1 - (scrollTop / 700)">
       <div class="logo"><span class="icon-nobreaks"></span></div>
       <h1>No Breaks</h1>
       <p>A pretty sweet raiding guild on Thrall</p>
@@ -40,7 +40,9 @@
   </div>
 </div>
 
-<the-guild></the-guild>
-<raiding></raiding>
-<events></events>
-<join></join>
+<the-guild class="col-xs-12"></the-guild>
+<raiding class="col-xs-12 col-md-4"></raiding>
+<logs class="col-xs-12 col-md-4"></logs>
+<twitch class="col-xs-12 col-md-4"></twitch>
+<events class="col-xs-12"></events>
+<join class="col-xs-12"></join>
