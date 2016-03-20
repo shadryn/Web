@@ -1,5 +1,5 @@
 import { Component, OnInit } from 'angular2/core';
-import { RouteParams } from 'angular2/router';
+import { Location, RouteParams } from 'angular2/router';
 import { TheGuildComponent } from '../the-guild/the-guild';
 import { RaidingComponent } from '../raiding/raiding';
 import { EventsComponent } from '../events/events';
@@ -18,12 +18,25 @@ import { JoinComponent } from '../join/join';
   ]
 })
 export class HomeComponent implements OnInit {
+  activePage: '';
+
   constructor(
+    private _location: Location,
     private _routeParams: RouteParams) {
   }
 
   ngOnInit() {
     let sectionKey = this._routeParams.get('sectionKey');
-    console.log('sectionkey', sectionKey);
+
+    if (['guild', 'raiding', 'logs', 'twitch', 'events', 'join'].indexOf(sectionKey) > -1) {
+      this.goToPage(sectionKey);
+    }
+  }
+
+  goToPage(page) {
+    this.activePage = page;
+    this._location.go(page);
+    page = (page === 'logs' || page === 'twitch') ? 'raiding' : page;
+    $('html, body').animate({scrollTop: $('#' + page).offset().top }, 500);
   }
 }

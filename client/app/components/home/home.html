@@ -11,17 +11,17 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#home">Guild <span class="sr-only">(current)</span></a></li>
-        <li><a href="#raiding">Raiding</a></li>
-        <li><a href="#logs">Logs</a></li>
+        <li [class.active]="activePage === 'guild'"><a (click)="goToPage('guild')">Guild <span class="sr-only">(current)</span></a></li>
+        <li [class.active]="activePage === 'raiding'"><a (click)="goToPage('raiding')">Raiding</a></li>
+        <li [class.active]="activePage === 'logs'"><a (click)="goToPage('logs')">Logs</a></li>
         <li class="nav-logo center-block hidden-xs">
           <span class="icon-nobreaks"></span>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#twitch">Twitch</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#join">Join</a></li>
+        <li [class.active]="activePage === 'twitch'"><a (click)="goToPage('twitch')">Twitch</a></li>
+        <li [class.active]="activePage === 'events'"><a (click)="goToPage('events')">Events</a></li>
+        <li [class.active]="activePage === 'join'"><a (click)="goToPage('join')">Join</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
