@@ -30,9 +30,12 @@
     "./app/components/raiding/raiding.ts",
     "./app/components/the-guild/the-guild.ts",
     "./app/components/twitch/twitch.ts",
+    "./app/interfaces/boss.ts",
     "./app/interfaces/hero.ts",
     "./app/services/guild/guild.ts",
     "./app/services/guild/mock-heroes.ts",
+    "./app/services/progression/mock-progression.ts",
+    "./app/services/progression/progression.ts",
     "./app/vendor.ts"
   ],
   "compileOnSave": false,
