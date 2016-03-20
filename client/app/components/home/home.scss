@@ -169,6 +169,8 @@
   .logo-block {
     margin-top: 50px;
     text-align: center;
+    position: fixed;
+    width: 100%;
     margin-top: 10%;
     color: #fff;
     @include fadein;
