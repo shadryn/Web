@@ -1,4 +1,6 @@
 import { Component, OnInit } from 'angular2/core';
+import { LogsComponent } from '../logs/logs';
+import { TwitchComponent } from '../twitch/twitch';
 
 import { Boss } from '../../interfaces/boss';
 import { ProgressionService } from '../../services/progression/progression';
@@ -8,7 +10,11 @@ import { ProgressionService } from '../../services/progression/progression';
   moduleId: 'components/raiding/raiding',
   template: require('./raiding.html'),
   styles: [require('./raiding.scss')],
-  providers: [ProgressionService]
+  providers: [ProgressionService],
+  directives: [
+    LogsComponent,
+    TwitchComponent
+  ]
 })
 export class RaidingComponent implements OnInit {
   bosses: Boss[];

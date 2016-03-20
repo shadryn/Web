@@ -2,8 +2,6 @@ import { Component, OnInit } from 'angular2/core';
 import { Location, RouteParams } from 'angular2/router';
 import { TheGuildComponent } from '../the-guild/the-guild';
 import { RaidingComponent } from '../raiding/raiding';
-import { LogsComponent } from '../logs/logs';
-import { TwitchComponent } from '../twitch/twitch';
 import { EventsComponent } from '../events/events';
 import { JoinComponent } from '../join/join';
 
@@ -15,8 +13,6 @@ import { JoinComponent } from '../join/join';
   directives: [
     TheGuildComponent,
     RaidingComponent,
-    LogsComponent,
-    TwitchComponent,
     EventsComponent,
     JoinComponent
   ]

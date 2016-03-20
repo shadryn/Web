@@ -1,10 +1,16 @@
-<div id="raiding">
-  <ul class="bosses">
-    <li *ngFor="#boss of bosses"
-      [class.normal]="boss.normalKills > 0"
-      [class.heroic]="boss.heroicKills > 0"
-      [class.mythic]="boss.mythicKills > 0">
-      {{boss.name}}
-    </li>
-  </ul>
+<div class="row" id="raiding">
+  <logs class="col-xs-12 col-md-4"></logs>
+  <div class="col-xs-12-col-md-4">
+    <h2>Mythic Hellfire Citadel</h2>
+    <p>Tuesday, Wednesday and Thursday 7-10pm EST</p>
+    <ul class="bosses">
+      <li *ngFor="#boss of bosses"
+        [class.normal]="boss.normalKills > 0"
+        [class.heroic]="boss.heroicKills > 0"
+        [class.mythic]="boss.mythicKills > 0">
+        {{boss.name}}
+      </li>
+    </ul>
+  </div>
+  <twitch class="col-xs-12 col-md-4"></twitch>
 </div>
