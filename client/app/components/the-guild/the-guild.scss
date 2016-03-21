@@ -1,4 +1,13 @@
 #guild {
+  margin-top: 700px;
   height: 900px;
-  background-color: yellow;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  position: relative;
+
+  .text-block {
+    padding-top: 300px;
+    padding-left: 50px;
+    max-width: 60%;
+  }
 }
