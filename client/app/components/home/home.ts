@@ -43,6 +43,6 @@ export class HomeComponent implements OnInit {
   goToPage(page) {
     this.activePage = page;
     this._location.go(page);
-    $('html, body').animate({scrollTop: $('#' + page).offset().top }, 500);
+    $('html, body').animate({scrollTop: $('#' + page).offset().top - 100 }, 500);
   }
 }

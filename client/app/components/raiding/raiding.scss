@@ -1,4 +1,35 @@
 #raiding {
-  height: 700px;
-  background: red;
+  min-height: 700px;
+  background: #252525;
+  color: #F0F0F0;
+  position: relative;
+
+  &.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+  }
+
+  logs, twitch {
+    background: #1D1D1D;
+  }
+
+  .bosses {
+    padding-top: 25px;
+    list-style: none;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+
+    li {
+      padding-bottom: 25px;
+
+      &.mythic {
+        text-decoration: line-through;
+      }
+    }
+  }
 }
