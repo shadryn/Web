@@ -5,7 +5,7 @@
     <p>Tuesday, Wednesday and Thursday 7-10pm EST</p>
     <ul class="bosses row">
       <li *ngFor="#boss of bosses"
-        class="col-xs-12 col-md-4"
+        class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
         [class.normal]="boss.normalKills > 0"
         [class.heroic]="boss.heroicKills > 0"
         [class.mythic]="boss.mythicKills > 0">
