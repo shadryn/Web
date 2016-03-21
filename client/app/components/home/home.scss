@@ -165,7 +165,10 @@
 .home {
   background-image: url('/assets/images/iron-horde.jpg');
   background-size: cover;
-  height: 700px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
   .logo-block {
     margin-top: 50px;
     text-align: center;
