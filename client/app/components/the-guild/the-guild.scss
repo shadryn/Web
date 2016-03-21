@@ -6,9 +6,12 @@
   position: relative;
 
   .text-block {
-    padding-top: 300px;
-    padding-left: 50px;
+    padding: 50px;
     max-width: 60%;
+    margin-top: 230px;
+    position: absolute;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     p {
       font-family: 'Oxygen', sans-serif;
     }

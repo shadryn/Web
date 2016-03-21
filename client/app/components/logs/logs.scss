@@ -1,5 +1,5 @@
 #logs {
-  padding: 50px;
+  padding: 100px 50px 50px 50px;
 
   ul {
     list-style: none;
@@ -10,7 +10,11 @@
     -webkit-padding-start: 0px;
 
     li {
-
+      padding: 10px;
+      i {
+        vertical-align: middle;
+        padding-right: 10px;
+      }
       a {
         color: #F0F0F0;
       }

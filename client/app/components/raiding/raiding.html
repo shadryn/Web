@@ -1,6 +1,6 @@
 <div class="row row-eq-height" id="raiding">
   <logs class="col-xs-12 col-lg-3"></logs>
-  <div class="col-xs-12 col-lg-6">
+  <div class="col-xs-12 col-lg-6 raiding-center">
     <h2>Mythic Hellfire Citadel</h2>
     <p>Tuesday, Wednesday and Thursday 7-10pm EST</p>
     <ul class="bosses row">
@@ -9,7 +9,9 @@
         [class.normal]="boss.normalKills > 0"
         [class.heroic]="boss.heroicKills > 0"
         [class.mythic]="boss.mythicKills > 0">
-        {{boss.name}}
+        <img *ngIf="boss.mythicKills > 0" src="./assets/images/dead.png" alt="killed" class="kill">
+        <img src="{{boss.thumbnail}}">
+        <span>{{boss.name}}</span>
       </li>
     </ul>
   </div>

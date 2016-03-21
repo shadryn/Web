@@ -1,5 +1,5 @@
 #raiding {
-  min-height: 700px;
+  min-height: 1200px;
   background: #252525;
   color: #F0F0F0;
   position: relative;
@@ -14,7 +14,10 @@
   logs, twitch {
     background: #1D1D1D;
   }
-
+  .raiding-center {
+    padding-top: 50px;
+    text-align: center;
+  }
   .bosses {
     padding-top: 25px;
     list-style: none;
@@ -26,9 +29,22 @@
 
     li {
       padding-bottom: 25px;
+      text-align: center;
+      img {
+        border-radius: 50%;
+        height: 10em;
+        ~span {
+          display: block;
+          clear: both;
+        }
+      }
 
       &.mythic {
         text-decoration: line-through;
+        .kill {
+          position: absolute;
+          opacity: .7;
+        }
       }
     }
   }

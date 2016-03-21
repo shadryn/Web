@@ -11,7 +11,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 16,
     "heroicTimestamp": 1458343240000,
     "mythicKills": 12,
-    "mythicTimestamp": 1458086311000
+    "mythicTimestamp": 1458086311000,
+    "thumbnail": "./assets/bosses/hellfire-citadel/hellfireassault.jpg"
   },
   {
     "id": 90284,
@@ -23,7 +24,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 16,
     "heroicTimestamp": 1458343919000,
     "mythicKills": 10,
-    "mythicTimestamp": 1458087962000
+    "mythicTimestamp": 1458087962000,
+    "thumbnail": "./assets/bosses/hellfire-citadel/ironreaver.jpg"
   },
   {
     "id": 90435,
@@ -35,7 +37,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 15,
     "heroicTimestamp": 1458344593000,
     "mythicKills": 8,
-    "mythicTimestamp": 1458090207000
+    "mythicTimestamp": 1458090207000,
+    "thumbnail": "./assets/bosses/hellfire-citadel/kormrok.jpg"
   },
   {
     "id": 92146,
@@ -47,7 +50,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 15,
     "heroicTimestamp": 1458345197000,
     "mythicKills": 6,
-    "mythicTimestamp": 1458092387000
+    "mythicTimestamp": 1458092387000,
+    "thumbnail": "./assets/bosses/hellfire-citadel/council.jpg"
   },
   {
     "id": 90378,
@@ -59,7 +63,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 15,
     "heroicTimestamp": 1458345702000,
     "mythicKills": 3,
-    "mythicTimestamp": 1458172650000
+    "mythicTimestamp": 1458172650000,
+    "thumbnail": "./assets/bosses/hellfire-citadel/kilrogg.jpg"
   },
   {
     "id": 90199,
@@ -71,7 +76,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 15,
     "heroicTimestamp": 1458346395000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/gorefiend.jpg"
   },
   {
     "id": 90316,
@@ -83,7 +89,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 16,
     "heroicTimestamp": 1458348780000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/iskar.jpg"
   },
   {
     "id": 90296,
@@ -95,7 +102,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 14,
     "heroicTimestamp": 1458349644000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/socrethar.jpg"
   },
   {
     "id": 90269,
@@ -107,7 +115,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 15,
     "heroicTimestamp": 1458350960000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/tyrantvelhari.jpg"
   },
   {
     "id": 89890,
@@ -119,7 +128,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 16,
     "heroicTimestamp": 1458351631000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/zakuun.jpg"
   },
   {
     "id": 93068,
@@ -131,7 +141,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 15,
     "heroicTimestamp": 1458352181000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/xhulhorac.jpg"
   },
   {
     "id": 91349,
@@ -143,7 +154,8 @@ export var BOSSES: Boss[] = [
     "heroicKills": 16,
     "heroicTimestamp": 1458352978000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/mannoroth.jpg"
   },
   {
     "id": 91331,
@@ -155,6 +167,7 @@ export var BOSSES: Boss[] = [
     "heroicKills": 14,
     "heroicTimestamp": 1458354052000,
     "mythicKills": 0,
-    "mythicTimestamp": 0
+    "mythicTimestamp": 0,
+    "thumbnail": "./assets/bosses/hellfire-citadel/archimonde.jpg"
   }
 ];

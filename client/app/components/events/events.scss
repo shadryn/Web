@@ -1,4 +1,25 @@
 #events {
-  height: 700px;
-  background: blue;
+  height: 600px;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  position: relative;
+  margin-top: 0;
+
+  .text-block {
+    padding: 50px;
+    max-width: 60%;
+    margin-top: 75px;
+    position: absolute;
+    h3 {
+      padding-left: 40px;
+    }
+    li {
+      list-style: none;
+      padding: 10px 0;
+      i {
+        vertical-align: middle;
+        padding-right: 10px;
+      }
+    }
+  }
 }

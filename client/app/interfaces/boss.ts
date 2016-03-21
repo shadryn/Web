@@ -9,4 +9,5 @@ export interface Boss {
   heroicTimestamp: number;
   mythicKills: number;
   mythicTimestamp: number;
+  thumbnail: string;
 }

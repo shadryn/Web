@@ -1,10 +1,12 @@
 <div id="events">
-  <h2>Events</h2>
+  <div class="text-block">
+    <h2>Events</h2>
 
-  <h3>Upcoming</h3>
-  <ul class="events">
-    <li *ngFor="#event of events">
-      {{event.name}} {{event.time}}
-    </li>
-  </ul>
+    <h3>Upcoming</h3>
+    <ul class="events">
+      <li *ngFor="#event of events">
+        <i class="material-icons">insert_invitation</i>{{event.name}} {{event.time}}
+      </li>
+    </ul>
+  </div>
 </div>
