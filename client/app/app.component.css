@@ -4,3 +4,15 @@ body {
 a, a:hover {
   cursor: pointer;
 }
+.btn-default {
+  color: #fff;
+  background-color: transparent;
+  border: 1px solid #fff;
+  font-weight: bolder;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active {
+  transition: all .3s ease;
+  background-color: #fff;
+  color: #000;
+  outline: none;
+}
