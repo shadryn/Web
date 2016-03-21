@@ -32,7 +32,7 @@
 </nav>
 <div class="body container-fluid">
   <div class="row home">
-    <div class="logo-block" [style.opacity]="1 - (scrollTop / 700)">
+    <div class="logo-block" [class.hide]="!showHomeLogo" [style.opacity]="1 - (scrollTop / 500)">
       <div class="logo"><span class="icon-nobreaks"></span></div>
       <h1>No Breaks</h1>
       <p>A pretty sweet raiding guild on Thrall</p>

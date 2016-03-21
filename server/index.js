@@ -3,6 +3,7 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
+app.use('/assets/', express.static(__dirname + '/../client/app/assets'));
 app.use(express.static(__dirname + '/../client/dist'));
 
 // views is directory for all template files
@@ -10,6 +11,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
+  response.render('index');
+});
+
+app.get('/*', function(request, response) {
   response.render('index');
 });
 

@@ -19,6 +19,7 @@ import { JoinComponent } from '../join/join';
 })
 export class HomeComponent implements OnInit {
   activePage: '';
+  showHomeLogo: boolean;
   stickyTop: boolean;
   scrollTop: number;
 
@@ -28,21 +29,25 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.scrollTop = $(window).scrollTop();
+    this.showHomeLogo = (this.scrollTop < 649);
     let sectionKey = this._routeParams.get('sectionKey');
 
     if (['guild', 'raiding', 'logs', 'twitch', 'events', 'join'].indexOf(sectionKey) > -1) {
+      this.showHomeLogo = false;
       this.goToPage(sectionKey);
     }
 
     $(window).scroll(() => {
       this.scrollTop = $(window).scrollTop();
       this.stickyTop = (this.scrollTop >= 700) ? true : false;
+      this.showHomeLogo = (this.scrollTop < 649);
     });
   }
 
   goToPage(page) {
     this.activePage = page;
     this._location.go(page);
-    $('html, body').animate({scrollTop: $('#' + page).offset().top - 100 }, 500);
+    $('html, body').animate({scrollTop: $('#' + page).offset().top - 51 }, 500);
   }
 }

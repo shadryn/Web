@@ -174,17 +174,20 @@
     text-align: center;
     margin-top: 10%;
     color: #fff;
-    @include fadein;
 
-    h1 {
-      font-size: 7em;
-    }
-    p {
-      font-size: 2em;
-    }
-    .icon-nobreaks {
-      font-size: 18em;
+    &:not(.hide) {
       @include fadein;
+
+      h1 {
+        font-size: 7em;
+      }
+      p {
+        font-size: 2em;
+      }
+      .icon-nobreaks {
+        font-size: 18em;
+        @include fadein;
+      }
     }
   }
 }
