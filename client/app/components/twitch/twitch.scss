@@ -5,3 +5,14 @@
     width: 100%;
   }
 }
+
+@media(max-width: 767px) {
+  #twitch {
+    text-align: center;
+    padding: 15px 50px;
+
+    iframe {
+      width: auto;
+    }
+  }
+}

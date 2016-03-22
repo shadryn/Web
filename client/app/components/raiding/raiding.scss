@@ -4,11 +4,21 @@
   color: #F0F0F0;
   position: relative;
 
-  &.row-eq-height {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display:         flex;
+  @media(min-width: 768px) {
+    &.row-eq-height {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display:         flex;
+    }
+  }
+
+  @media(max-width: 767px) {
+    logs, twitch {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+    }
   }
 
   logs, twitch {
