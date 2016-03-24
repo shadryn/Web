@@ -1,6 +1,6 @@
 # nobreaks
 
 ```
-npm install -g typings
-typings install
+npm install
+npm run front
 ```
