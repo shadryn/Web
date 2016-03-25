@@ -22,15 +22,15 @@ $(function () {
         listItems = list_slideshow.children('li'),
         listLen = listItems.length,
         i = 0,
-        randomNum = function() {
-        	return Math.floor(Math.random() * listLen);
-        },
         changeList = function () {
             listItems.eq(i).fadeOut(300, function () {
-                i = randomNum();
+                i += 1;
+                if (i === listLen) {
+                    i = 0;
+                }
                 listItems.eq(i).fadeIn(300);
             });
         };
     listItems.not(':first').hide();
-    setInterval(changeList, 5000);
+    setInterval(changeList, 4000);
 });
