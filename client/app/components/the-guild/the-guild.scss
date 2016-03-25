@@ -1,5 +1,5 @@
 #guild {
-  margin-top: 700px;
+  margin-top: 750px;
   height: 900px;
   background-color: rgba(0,0,0,0.5);
   color: #fff;
@@ -11,5 +11,28 @@
     position: absolute;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+  }
+  .image-block {
+    padding: 50px;
+    margin-top: 230px;
+    text-align: center;
+
+    .icon-nobreaks {
+      font-size: 13em;
+    }
+    .bear-sayings {
+      margin-top: 1em;
+      list-style: none;
+      padding: 0;
+    }
+  }
+}
+@media only screen and (max-width : 480px) {
+  #guild {
+    height: 1100px;
+    .image-block {
+      position: absolute;
+      margin-top: 700px;
+    }
   }
 }

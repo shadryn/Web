@@ -191,3 +191,25 @@
     }
   }
 }
+@media only screen and (max-width : 480px) {
+  .home {
+    .logo-block {
+      margin-top: 40%;
+
+      &:not(.hide) {
+        @include fadein;
+
+        h1 {
+          font-size: 5em;
+        }
+        p {
+          font-size: 2rem;
+        }
+        .icon-nobreaks {
+          font-size: 16em;
+          @include fadein;
+        }
+      }
+    }
+  }
+}
