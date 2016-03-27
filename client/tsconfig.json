@@ -27,6 +27,7 @@
     "./app/components/raiding/raiding.ts",
     "./app/components/the-guild/the-guild.ts",
     "./app/components/twitch/twitch.ts",
+    "./app/components/guildroster/guildroster.ts",
     "./app/interfaces/boss.ts",
     "./app/interfaces/event.ts",
     "./app/services/events/events.ts",

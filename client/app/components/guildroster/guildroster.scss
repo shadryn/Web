@@ -1,0 +1,41 @@
+#guildroster {
+  display: block;
+  background-color: rgba(0,0,0,0.25);
+  color: #fff;
+  position: relative;
+  max-width: 100%;
+  min-width: 100%;
+  margin-top: 200px;
+}
+
+#rostersection {
+  max-width: 80%;
+  min-width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 30px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#chartable {
+  padding: 2px;
+  background-color: rgba(0,0,0,0.0);
+}
+
+#grheading {
+  position: relative;
+  font-size: 1.5em;
+  max-width: 80%;
+  min-width: 80%;
+  margin-left: 5%;
+  margin-right: 15%;
+}
+
+div.hr {
+  background-color: #c0c0c0;
+  max-width: 90%;
+  min-width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height:1px;
+}
