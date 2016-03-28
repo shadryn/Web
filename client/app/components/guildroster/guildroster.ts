@@ -1,5 +1,5 @@
 import { Component, OnInit } from 'angular2/core';
-import {GuildRosterService}       from './guildroster.service';
+import {GuildRosterService}       from '../../services/guildroster/guildroster.service';
 import {ObjToArr}       from './pipe.ts';
 
 
@@ -10,6 +10,8 @@ import {ObjToArr}       from './pipe.ts';
   styles: [require('./guildroster.scss')],
   pipes: [ObjToArr]
 })
+
+
 export class GuildRosterComponent {
 
   public roster;

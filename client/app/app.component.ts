@@ -1,6 +1,8 @@
 import { Component } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import { HomeComponent } from './components/home/home';
+import {HTTP_PROVIDERS}    from 'angular2/http';
+import {GuildRosterService} from './services/guildroster/guildroster.service';
 
 @Component({
   selector: 'no-breaks',
@@ -12,7 +14,7 @@ import { HomeComponent } from './components/home/home';
     require('./bear-font.css')
   ],
   directives: [ROUTER_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS]
+  providers: [HTTP_PROVIDERS, GuildRosterService, ROUTER_PROVIDERS]
 })
 @RouteConfig([
   {
