@@ -7,15 +7,9 @@ import 'rxjs/add/operator/map'
 export class GuildRosterService {
   constructor (private http: Http) {}
 
-  private _grUrl = 'https://nobreaksguild.com/v1/guild/members';  // URL to web api
+  private _grUrl = 'https://api.nobreaksguild.com/v1/guild/members';  // URL to web api
 
   getRoster() {
-
-
-    // auto switch url for dev environment
-    if (window.location.hostname == 'localhost') {
-      this._grUrl = 'http://localhost:5000/v1/guild/members';
-    }
 
     return this.http.get(this._grUrl)
              .map((res:Response) => res.json())

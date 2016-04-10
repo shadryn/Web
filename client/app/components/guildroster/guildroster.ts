@@ -17,7 +17,11 @@ export class GuildRosterComponent {
   public roster;
   public members;
   public raiders;
+
+  // arrays to map ids to text for class and race
   public wowClass = ['','Warrior','Paladin','Hunter','Rogue','Priest','DeathKnight','Shaman','Mage','Warlock','Monk','Druid'];
+  public wowRace = ['0','Human','Orc','Dwarf','Night Elf','Undead','Tauren','Gnome','Troll','Blood Elf','Draenei','11','12','13','14','15','16','17','18','19','20','21','Worgen','23','Pandaren','Pandaren','Pandaren'];
+
 
   constructor(private _guildrosterService: GuildRosterService) {}
 
@@ -40,14 +44,7 @@ export class GuildRosterComponent {
 
   parseRoster() {
 
-    // only return raiders.. this is a pain..
-    // rank 0 is guild leader
-    // rank 1 is officers
-    // rank 4 is veteran raiders
-    // rank 5 is raiders
-    this.raiders = this.roster.filter(function (el) {
-      return el.rank == 0 || el.rank == 1 || el.rank == 4 || el.rank == 5 ;
-    });
+    return this.roster;
 
   }
 
