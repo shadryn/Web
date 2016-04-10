@@ -13,7 +13,8 @@
       <ul class="nav navbar-nav">
         <li [class.active]="activePage === 'guild'"><a (click)="goToPage('guild')">Guild <span class="sr-only">(current)</span></a></li>
         <li [class.active]="activePage === 'raiding'"><a (click)="goToPage('raiding')">Raiding</a></li>
-        <li [class.active]="activePage === 'logs'"><a (click)="goToPage('logs')">Logs</a></li>
+        <!--<li [class.active]="activePage === 'logs'"><a (click)="goToPage('logs')">Logs</a></li>-->
+        <li [class.active]="activePage === 'twitch'"><a (click)="goToPage('twitch')">Twitch</a></li>
         <li class="nav-logo center-block hidden-xs">
           <a (click)="goToPage('home')">
             <span
@@ -25,9 +26,9 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li [class.active]="activePage === 'twitch'"><a (click)="goToPage('twitch')">Twitch</a></li>
         <li [class.active]="activePage === 'events'"><a (click)="goToPage('events')">Events</a></li>
         <li [class.active]="activePage === 'join'"><a (click)="goToPage('join')">Join</a></li>
+        <li><a href="https://forum.nobreaksguild.com" target="_blank">Forum</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
