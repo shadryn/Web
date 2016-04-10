@@ -4,6 +4,7 @@ import { TheGuildComponent } from '../the-guild/the-guild';
 import { RaidingComponent } from '../raiding/raiding';
 import { EventsComponent } from '../events/events';
 import { JoinComponent } from '../join/join';
+import { GuildRosterComponent } from '../guildroster/guildroster';
 
 @Component({
   selector: 'home',
@@ -14,6 +15,7 @@ import { JoinComponent } from '../join/join';
     TheGuildComponent,
     RaidingComponent,
     EventsComponent,
+    GuildRosterComponent,
     JoinComponent
   ]
 })

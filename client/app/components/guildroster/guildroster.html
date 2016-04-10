@@ -1,0 +1,64 @@
+
+
+
+
+<div id="guildroster" class="container">
+
+		<div id="rostersection" class="row">
+
+			<div id="grheading">No Breaks - Raiders:</div>
+			<div class="hr"><hr></div><br><br>
+		  <div *ngFor="#r of roster" class="col-xs-6 col-sm-3" height="100px" align="center">
+				<div style="font-size: 1.25em;">{{r.name}}</div>
+				<table height="84" id="chartable">
+				  <tr>
+						<td width="84" height="84">
+							<img src="https://us.battle.net/static-render/us/{{r.thumbnail}}" width="84" height="84">&nbsp;
+						</td>
+						<td width="8" height="84">
+							&nbsp;
+						</td>
+						<td>
+							<table height="84">
+								<tr>
+									<td align="left">
+										<div style="font-size: .7em;"> iLvl {{r.items.averageItemLevelEquipped}} / {{r.items.averageItemLevel}}</div>
+									</td>
+								</tr>
+								<tr>
+									<td align="left">
+										<table height="84">
+											<tr>
+												<td>
+													<table>
+														<tr>
+															<td>
+																<img src="../../assets/images/icons/races/{{r.gender}}/{{r.race}}.png" width="32" height="32">&nbsp;
+															</td>
+															<td width="4">
+																&nbsp;
+															</td>
+															<td>
+			  												<img src="../../assets/images/icons/classes/{{r.class}}.png" width="32" height="32">&nbsp;
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="font-size: .6em;">{{wowRace[r.race]}}</div>
+			  									<div style="font-size: .6em;">{{wowClass[r.class]}}</div>&nbsp;
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+			    </tr>
+			  </table>
+			</div>
+		</div>
+
+</div> <!-- /container -->
