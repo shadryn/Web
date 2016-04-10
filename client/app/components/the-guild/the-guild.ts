@@ -14,7 +14,6 @@ export class TheGuildComponent implements OnInit {
 
   ngOnInit() {
     let sectionKey = this._routeParams.get('sectionKey');
-    console.log(sectionKey);
   }
 }
 $(function () {
