@@ -20,7 +20,7 @@ export class GuildRosterComponent {
 
   // arrays to map ids to text for class and race
   public wowClass = ['','Warrior','Paladin','Hunter','Rogue','Priest','DeathKnight','Shaman','Mage','Warlock','Monk','Druid'];
-  public wowRace = ['0','Human','Orc','Dwarf','Night Elf','Undead','Tauren','Gnome','Troll','Blood Elf','Draenei','11','12','13','14','15','16','17','18','19','20','21','Worgen','23','Pandaren','Pandaren','Pandaren'];
+  public wowRace = ['0','Human','Orc','Dwarf','Night Elf','Undead','Tauren','Gnome','Troll','Goblin','Blood Elf','Draenei','12','13','14','15','16','17','18','19','20','21','Worgen','23','Pandaren','Pandaren','Pandaren'];
 
 
   constructor(private _guildrosterService: GuildRosterService) {}
