@@ -88,8 +88,8 @@ export var BOSSES: Boss[] = [
     "normalTimestamp": 1456449518000,
     "heroicKills": 16,
     "heroicTimestamp": 1458348780000,
-    "mythicKills": 0,
-    "mythicTimestamp": 0,
+    "mythicKills": 1,
+    "mythicTimestamp": 1463016770000,
     "thumbnail": "./assets/bosses/hellfire-citadel/iskar.jpg"
   },
   {
