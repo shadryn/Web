@@ -75,7 +75,7 @@ export var BOSSES: Boss[] = [
     "normalTimestamp": 1456448947000,
     "heroicKills": 15,
     "heroicTimestamp": 1458346395000,
-    "mythicKills": 0,
+    "mythicKills": 1,
     "mythicTimestamp": 0,
     "thumbnail": "./assets/bosses/hellfire-citadel/gorefiend.jpg"
   },
