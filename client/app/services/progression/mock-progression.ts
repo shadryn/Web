@@ -102,7 +102,7 @@ export var BOSSES: Boss[] = [
     "heroicKills": 14,
     "heroicTimestamp": 1458349644000,
     "mythicKills": 0,
-    "mythicTimestamp": 0,
+    "mythicTimestamp": 1,
     "thumbnail": "./assets/bosses/hellfire-citadel/socrethar.jpg"
   },
   {
