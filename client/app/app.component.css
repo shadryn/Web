@@ -12,6 +12,7 @@ a, a:hover {
 }
 h1, h2, h3, h4, h5, h6, .navbar-nav {
   font-family: 'Abel', sans-serif;
+  text-transform: uppercase;
   font-weight: 400;
 }
 .btn-default {
