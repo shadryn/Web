@@ -10,8 +10,8 @@ body > no-breaks {
 a, a:hover {
   cursor: pointer;
 }
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Raleway', sans-serif;
+h1, h2, h3, h4, h5, h6, .navbar-nav {
+  font-family: 'Abel', sans-serif;
   font-weight: 400;
 }
 .btn-default {

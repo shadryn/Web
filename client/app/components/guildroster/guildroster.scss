@@ -15,6 +15,12 @@
   margin-right: 10%;
   padding: 30px;
   background-color: rgba(0,0,0,0.5);
+
+  .raider-name {
+    text-align: left;
+    margin-left: .5em;
+    padding-bottom: 3px;
+  }
 }
 
 #chartable {
@@ -22,13 +28,8 @@
   background-color: rgba(0,0,0,0.0);
 }
 
-#grheading {
-  position: relative;
-  font-size: 1.5em;
-  max-width: 80%;
-  min-width: 80%;
-  margin-left: 5%;
-  margin-right: 15%;
+.grheading {
+  text-align: center;
 }
 
 div.hr {
