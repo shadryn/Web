@@ -1,4 +1,27 @@
-<h2 id="title">Welcome to Ember</h2>
+<div class="navbar-fixed">
+  {{#md-navbar name='No Breaks' class='indigo' homeRoute='index'}}
+    <div class="navbar-fixed">
+      <!-- A workaround to get the "active" class
+        to apply to the active <li> automatically -->
+      {{#link-to 'index' tagName='li'}}
+        {{link-to 'About' 'index'}}
+      {{/link-to}}
+      {{#link-to 'raiding' tagName='li'}}
+        {{link-to 'Raiding' 'raiding'}}
+      {{/link-to}}
+      {{#link-to 'join' tagName='li'}}
+        {{link-to 'Join' 'join'}}
+      {{/link-to}}
+      <li>
+        <a href="https://forum.nobreaksguild.com">Forums</a>
+      </li>
+      {{#link-to 'social' tagName='li'}}
+        {{link-to 'Social & Events' 'social'}}
+      {{/link-to}}
+    </div>
+  {{/md-navbar}}
+</div>
+
 
 {{outlet}}
 
