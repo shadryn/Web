@@ -6,6 +6,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('raiding');
+  this.route('join');
+  this.route('social');
 });
 
 export default Router;
