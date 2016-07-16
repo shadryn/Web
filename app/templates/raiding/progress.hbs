@@ -1,0 +1,19 @@
+<ul>
+  {{#each model.raids as |raid|}}
+    <li>
+      <h3>{{raid.name}}</h3>
+
+      <ul>
+        {{#each raid.bosses as |boss|}}
+          <li class={{if boss.mythicKills 'killed'}}>
+            {{#if boss.mythicKills}}
+              <img src="/assets/images/bosses/dead.png" />
+            {{/if}}
+            <img src={{boss.thumbnail}} />
+            {{boss.name}}
+          </li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/each}}
+</ul>

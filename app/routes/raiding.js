@@ -5,7 +5,20 @@ import { API_PATH, API_MEMBERS_PATH } from '../const';
 export default Ember.Route.extend({
 
   model() {
-    return fetch(API_PATH + API_MEMBERS_PATH)
+    /*return new Ember.RSVP.Promise((resolve) => {
+      return Ember.RSVP.Promise.all([
+        () => {*/
+          //return new Ember.RSVP.Promise((resolve) => {
+          //  fetch(API_PATH + API_MEMBERS_PATH).then((response) => { resolve(response.json()); });
+          //});
+  /*      }
+      ], (data) => {
+        console.log('data', data);
+
+        resolve(data);
+      });
+    });*/
+    /*return fetch(API_PATH + API_MEMBERS_PATH)
       .then((response) => { return response.json(); }); /*
       .then((members) => {
 
@@ -27,5 +40,21 @@ export default Ember.Route.extend({
 
         console.dir(this.get('store').findAll('member'));
       }); */
+  },
+
+  actions: {
+    error(reason) {
+      alert(reason); // "FAIL"
+
+      // Can transition to another route here, e.g.
+      // this.transitionTo('index');
+
+      // Uncomment the line below to bubble this error event:
+      // return true;
+    }
+  },
+
+  beforeModel() {
+    this.transitionTo('raiding.roster');
   }
 });
