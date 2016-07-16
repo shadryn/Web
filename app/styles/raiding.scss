@@ -1,9 +1,24 @@
 // Raiding Page Styles
+.raiding {
+  padding: 20px;
+  margin: 0;
+  @extend .grey, .lighten-4;
 
+  .tabs {
+    margin-top: 50px;
+  }
+}
 //Roster Styles
 .roster {
-  padding: 20px;
-  margin-bottom: 0;
+  padding-top: 50px;
+  h4 {
+    padding-left: 10px;
+  }
+  h6 {
+    ~p {
+      font-size: .8em;
+    }
+  }
   .name {
     font-size: 1.2em;
     padding-bottom: 10px;

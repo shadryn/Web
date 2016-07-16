@@ -1,22 +1,24 @@
-<ul class="row roster grey lighten-4">
-  {{#each model as |character|}}
-  <li class="col s12 m6 l3">
-    <div class="card">
-      <div class="card-content row">
-        <div class="name col s12">{{character.name}}</div>
-        <img src="https://us.battle.net/static-render/us/{{character.thumbnail}}" class="col s6"/>
-        <div class="info col s6">
-          <h6>Item Level</h6>
-          {{character.items.averageItemLevelEquipped}} /
-          {{character.items.averageItemLevel}}
-          <h6>Race</h6>
-          <h6>Class</h6>
-        </div>
-        <div class="epgp-count col s12">
-          EPGP Count: n/a
+<div class="roster">
+  <h4>Mythic Raid Team</h4>
+  <ul class="row">
+    {{#each model as |character|}}
+    <li class="col s12 m6 l3">
+      <div class="card grey darken-4">
+        <div class="card-content row">
+          <h6 class="name col s12 white-text">{{character.name}}</h6>
+          <img src="https://us.battle.net/static-render/us/{{character.thumbnail}}" class="col s6"/>
+          <div class="info col s6 red-text">
+            <h6>Item Level</h6>
+            <p>{{character.items.averageItemLevelEquipped}} /
+            {{character.items.averageItemLevel}}</p>
+            <h6>Race <br> Class</h6>
+          </div>
+          <div class="epgp-count col s12 amber-text">
+            EPGP: n/a
+          </div>
         </div>
       </div>
-    </div>
-  </li>
-  {{/each}}
-</ul>
+    </li>
+    {{/each}}
+  </ul>
+</div>

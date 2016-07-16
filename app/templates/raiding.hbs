@@ -1,8 +1,18 @@
-{{#md-tabs
-  selected=tabsSelection}}
-  {{md-tab value='roster' title="Roster"}}
-  {{md-tab value='loot' title="Loot"}}
-  {{md-tab value='progress' title="Progress & LOgs"}}
-{{/md-tabs}}
+<div class="raiding">
+  <h3>Raiding</h3>
+  <h4>Schedule</h4>
+  <p>
+    Tuesday, Wednesday, and Thursday from 7-10pm server time.
+  </p>
+  <h4>Required Addons</h4>
+  <p>We require a few addons to make the raiding experience more efficient. They are mandatory.</p>
+  <a href="https://forum.nobreaksguild.com/topic/7/required-addons" target="_blank" class="btn primary">The Complete List</a>
+  {{#md-tabs
+    selected=tabsSelection class="grey lighten-4"}}
+    {{md-tab value='roster' title="Roster"}}
+    {{md-tab value='loot' title="Loot"}}
+    {{md-tab value='progress' title="Progress & Logs"}}
+  {{/md-tabs}}
 
-{{outlet}}
+  {{outlet}}
+</div>
