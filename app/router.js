@@ -13,6 +13,9 @@ Router.map(function() {
   });
   this.route('join');
   this.route('social');
+  this.route('admin', function() {
+    this.route('epgp');
+  });
 });
 
 export default Router;
