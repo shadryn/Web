@@ -1,1 +1,12 @@
-{{outlet}}
+<ul>
+  {{#each model as |character|}}
+    <li>
+      {{character.name}}
+      {{character.race}}
+      {{character.gender}}
+      {{character.thumbnail}}
+      {{character.items.averageItemLevel}} 
+      {{character.items.averageItemLevelEquipped}}
+    </li>
+  {{/each}}
+</ul>
