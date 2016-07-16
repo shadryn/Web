@@ -2,9 +2,7 @@
   {{#each model as |character|}}
     <li>
       {{character.name}}
-      {{character.race}}
-      {{character.gender}}
-      {{character.thumbnail}}
+      <img src="https://us.battle.net/static-render/us/{{character.thumbnail}}" />
       {{character.items.averageItemLevel}}
       {{character.items.averageItemLevelEquipped}}
     </li>
