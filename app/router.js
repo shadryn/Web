@@ -6,7 +6,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('raiding');
+  this.route('raiding', function() {
+    this.route('roster');
+    this.route('loot');
+    this.route('progress');
+  });
   this.route('join');
   this.route('social');
 });

@@ -1,12 +1,8 @@
-<ul>
-  {{#each model as |character|}}
-    <li>
-      {{character.name}}
-      {{character.race}}
-      {{character.gender}}
-      {{character.thumbnail}}
-      {{character.items.averageItemLevel}} 
-      {{character.items.averageItemLevelEquipped}}
-    </li>
-  {{/each}}
-</ul>
+{{#md-tabs
+  selected=tabsSelection}}
+  {{md-tab value='roster' title="Roster"}}
+  {{md-tab value='loot' title="Loot"}}
+  {{md-tab value='progress' title="Progress & LOgs"}}
+{{/md-tabs}}
+
+{{outlet}}
