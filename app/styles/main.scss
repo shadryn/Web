@@ -3,10 +3,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Abel', sans-serif;
   text-transform: uppercase;
 }
+
 nav {
   .brand-logo {
     font-family: 'Abel', sans-serif;
     text-transform: uppercase;
+  }
+}
+button {
+  a {
+    color: #fff;
   }
 }
 .row {
@@ -27,5 +33,21 @@ nav {
   }
   .indicator, .indicator1, .indicator2 {
     background-color: #00bcd4; //cyan
+  }
+}
+
+#footer {
+  a {
+    color: #fff;
+    font-size: 1.8em;
+    padding: 0 5px;
+  }
+  p {
+    text-align: left;
+
+    ~p {
+      text-align: right;
+      line-height: 3;
+    }
   }
 }

@@ -22,26 +22,41 @@
 </div>
 
 {{md-parallax image="/assets/images/emerald-nightmare.jpg"}}
-<div id="raiding" class="section grey darken-4 white-text">
+<div id="raiding" class="section blue-grey white-text">
   <div class="row container">
       <h1>Raiding</h1>
       <p>Did we mention we raid? Check out our progress, laugh at our logs, and watch us on Twitch!</p>
       <br>
-      <button type="button" name="button" class="btn default">Raiding</button>
+      {{#link-to 'raiding' tagName='button' class='btn cyan'}}
+        {{link-to 'Raiding' 'raiding'}}
+      {{/link-to}}
   </div>
 </div>
 
-<div id="social" class="section cyan">
+<div id="social" class="section blue-grey darken-3">
   <div class="row container white-text">
     <h1>Social</h1>
-    <p class="col s12 m4"><i class="fa fa-facebook-official" aria-hidden="true"></i><a href="https://www.facebook.com/groups/448758615283027/" target="_blank">Facebook Group</a></p>
-    <p class="col s12 m4"><i class="fa fa-twitch" aria-hidden="true"></i><a href="https://www.twitch.tv/nobreaksraiding" target="_blank">Twitch Channel</a></p>
-    <p class="col s12 m4"><i class="fa fa-youtube-square" aria-hidden="true"></i><a href="https://www.youtube.com/channel/UCiTx1a_BI53itw-fHNIib2w">Murloc's Youtube Channel</a></p>
+    <div class="col s12 m4">
+      <a href="https://www.facebook.com/groups/448758615283027/" target="_blank" class="btn cyan">
+        <i class="fa fa-facebook-official" aria-hidden="true"></i>Facebook Group
+      </a>
+    </div>
+    <div class="col s12 m4">
+      <a href="https://www.twitch.tv/nobreaksraiding" target="_blank" class="btn cyan">
+        <i class="fa fa-twitch" aria-hidden="true"></i>Twitch Channel
+      </a>
+    </div>
+    <div class="col s12 m4">
+      <a href="https://www.youtube.com/channel/UCiTx1a_BI53itw-fHNIib2w" target="_blank" class="btn cyan">
+        <i class="fa fa-youtube-square" aria-hidden="true"></i>
+        Murloc's Channel
+      </a>
+    </div>
   </div>
 </div>
 
 {{md-parallax image="/assets/images/legion.png"}}
-<div id="join" class="section grey lighten-2">
+<div id="join" class="section grey lighten-4">
   <div class="row container">
     <div class="col s12 m6">
       <h1>Call to Arms!</h1>
@@ -49,7 +64,9 @@
       <p>
         Either post on the forums or message a guild member for more information. ShdowHuntr (SweetTea#1139) is the recruitment officer.
       </p>
-      <button type="button" name="button" class="primary btn">Join</button>
+      {{#link-to 'join' tagName='button' class='cyan btn'}}
+        {{link-to 'Join' 'join'}}
+      {{/link-to}}
     </div>
     <div class="col s12 m6">
       <img src="/assets/images/nobreaks-crest.png" alt="Mistakes Have Been Made">
@@ -57,28 +74,17 @@
   </div>
 </div>
 
-<div id="store" class="section white">
+<div id="store" class="section blue-grey lighten-4">
   <div class="row container">
     <div class="col s12 m6">
       <h3>Looking for Loot?</h3>
       <p>Score some No Breaks swag and represent. All profit from items sold directly supports our website, forums, Mumble server, and guild activities.
         <br><br>
-        <button type="button" class="btn primary">Go Shopping</button>
+        <a href="http://nobreaks.storenvy.com/" target="_blank" type="button" class="btn cyan">Go Shopping</a>
       </p>
     </div>
     <div class="col s12 m6">
       <img src="/assets/images/mug.png" alt="Mistakes Have Been Made">
     </div>
-  </div>
-</div>
-
-<div id="footer" class="section grey darken-4 white-text">
-  <div class="row container">
-    <p class="col s6">
-      <a href="https://www.facebook.com/groups/448758615283027/" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-      <a href="https://www.twitch.tv/nobreaksraiding" target="_blank"><i class="fa fa-twitch" aria-hidden="true"></i></a>
-      <a href="https://www.youtube.com/channel/UCiTx1a_BI53itw-fHNIib2w" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
-    </p>
-    <p class="col s6"><i class="fa fa-copyright" aria-hidden="true"></i> 2016. Made with <i class="fa fa-heart" aria-hidden="true"></i> by Vxar and Shadryn</p>
   </div>
 </div>
