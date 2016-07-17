@@ -1,17 +1,21 @@
-<p>Enter the contents of the EPGP export into the below form.</p>
+<div class="row">
+  <div class="col s6 offset-s3">
+    <span class="flow-text">Enter the contents of the EPGP export into the below form.</span>
 
-{{#if submitError}}
-  <span class="red-text">{{submitError}}</span>
-{{/if}}
+    {{#if submitError}}
+      <span class="red-text">{{submitError}}</span>
+    {{/if}}
 
-<form class="form-horizontal" {{action "submit" on="submit"}}>
-  <div class="control-group">
-    {{md-input value=apiKey label='API Key' class="col s12" validate=true required=true}}
+    <form class="form-horizontal" {{action "submit" on="submit"}}>
+      <div class="control-group">
+        {{md-input value=apiKey label='API Key' class="col s12" validate=true required=true}}
+      </div>
+
+      <div class="control-group">
+        {{md-textarea label='EPGP Export' value=epgpData class="col s12"}}
+      </div>
+
+      {{md-btn-submit icon='mdi-content-send' iconPosition='right' text='Submit' isDisabled=isProcessing}}
+    </form>
   </div>
-
-  <div class="control-group">
-    {{md-textarea label='EPGP Export' value=epgpData class="col s12"}}
-  </div>
-
-  {{md-btn-submit icon='mdi-content-send' iconPosition='right' text='Submit' isDisabled=isProcessing}}
-</form>
+</div>
