@@ -10,7 +10,8 @@ nav {
     text-transform: uppercase;
   }
 }
-button {
+button, .btn {
+  margin-bottom: 10px;
   a {
     color: #fff;
   }
