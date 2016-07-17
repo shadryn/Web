@@ -55,7 +55,7 @@ export default Ember.Route.extend({
     }
   },
 
-  beforeModel(transition) {
+  redirect(model, transition) {
     let target = (transition.targetName !== 'raiding.index') ? transition.targetName : 'raiding.roster';
     this.set('transitionTarget', target);
     this.transitionTo(target);
