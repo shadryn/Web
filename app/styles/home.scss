@@ -4,33 +4,32 @@
 }
 
 #raiding {
-  min-height: 500px;
-  padding-top: 100px;
+  min-height: 700px;
+  padding: 150px 0;
+
+  .col {
+    ~ .col {
+      text-align: center;
+      img {
+        max-width: 320px;
+        padding-top: 20px;
+      }
+    }
+  }
 }
 
 #social {
   min-height: 300px;
-  p {
+  a {
     i {
-      font-size: 1.5em;
       padding-right: 10px;
-    }
-    a {
-      color: #fff;
-      transition: color .3s ease;
-      cursor: pointer;
-
-      &:hover {
-        transition: color .3s ease;
-        color: darken(#fff, 15%);
-      }
     }
   }
 }
 
 #join {
   min-height: 800px;
-  padding-top: 200px;
+  padding: 200px 0 100px 0;
 
   .row {
     ~.row {
@@ -39,7 +38,6 @@
   }
   img {
     max-width: 300px;
-    float: right;
   }
 }
 
@@ -48,22 +46,5 @@
   padding-top: 100px;
   img {
     width: 300px;
-    float: right;
-  }
-}
-
-#footer {
-  a {
-    color: #fff;
-    font-size: 1.8em;
-    padding: 0 5px;
-  }
-  p {
-    text-align: left;
-
-    ~p {
-      text-align: right;
-      line-height: 3;
-    }
   }
 }

@@ -1,5 +1,5 @@
 {{md-parallax image="/assets/images/social-header.jpg"}}
-<div class="social section">
+<div class="social section blue-grey darken-3 white-text">
   <div class="row container">
     <h3>Social</h3>
     <p>Guild events and other activities outside of WoW.</p>
@@ -17,7 +17,9 @@
     <p>Interested in Raiding? Head over to the Raiding section!
       <br>
       <br>
-      <button type="button" class="btn primary">Raiding</button>
+      {{#link-to 'raiding' tagName='button' class='btn cyan'}}
+        {{link-to 'Raiding' 'raiding'}}
+      {{/link-to}}
     </p>
   </div>
 
