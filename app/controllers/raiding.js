@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  tabsSelection: 'roster',
+  tabsSelection: 'raiding.roster',
 
   tabChange: function() {
-    this.transitionToRoute('raiding.' + this.tabsSelection);
+    this.transitionToRoute(this.tabsSelection);
   }.observes('tabsSelection')
 });

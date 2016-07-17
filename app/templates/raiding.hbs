@@ -1,17 +1,19 @@
 <div class="raiding">
-  <h3>Raiding</h3>
-  <h5>Schedule</h5>
-  <p>
-    Tuesday, Wednesday, and Thursday from 7-10pm server time.
-  </p>
-  <h5>Required Addons</h5>
-  <p>We require a few addons to make the raiding experience more efficient. They are mandatory.</p>
-  <a href="https://forum.nobreaksguild.com/topic/7/required-addons" target="_blank" class="btn primary">The Complete List</a>
+  <div class="container">
+    <h3>Raiding</h3>
+    <h5>Schedule</h5>
+    <p>
+      Tuesday, Wednesday, and Thursday from 7-10pm server time.
+    </p>
+    <h5>Required Addons</h5>
+    <p>We require a few addons to make the raiding experience more efficient. They are mandatory.</p>
+    <a href="https://forum.nobreaksguild.com/topic/7/required-addons" target="_blank" class="btn primary">The Complete List</a>
+  </div>
   {{#md-tabs
-    selected=tabsSelection class="grey lighten-4"}}
-    {{md-tab value='roster' title="Roster"}}
-    {{md-tab value='loot' title="Loot"}}
-    {{md-tab value='progress' title="Progress & Logs"}}
+    selected=tabsSelection class="grey darken-4"}}
+    {{md-tab value='raiding.roster' title="Roster"}}
+    {{!-- {{md-tab value='loot' title="Loot"}} --}}
+    {{md-tab value='raiding.progress' title="Progress & Logs"}}
   {{/md-tabs}}
 
   {{outlet}}
