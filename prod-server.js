@@ -4,7 +4,7 @@ let express = require('express');
 let FastBootServer = require('ember-fastboot-server');
 
 var server = new FastBootServer({
-  distPath: 'dist'
+  distPath: express.static(__dirname + '/dist')
 });
 
 var app = express();
