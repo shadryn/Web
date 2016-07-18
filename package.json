@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
+    "start": "node ./prod-server",
     "test": "ember test",
     "server": "node ./prod-server"
   },
