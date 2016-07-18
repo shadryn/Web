@@ -2539,11 +2539,11 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 94,
+                "line": 93,
                 "column": 8
               },
               "end": {
-                "line": 94,
+                "line": 93,
                 "column": 33
               }
             },
@@ -2574,11 +2574,11 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 93,
+              "line": 92,
               "column": 6
             },
             "end": {
-              "line": 95,
+              "line": 94,
               "column": 6
             }
           },
@@ -2603,7 +2603,7 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["block", "link-to", ["join"], [], 0, null, ["loc", [null, [94, 8], [94, 33]]]]],
+        statements: [["block", "link-to", ["join"], [], 0, null, ["loc", [null, [93, 8], [93, 33]]]]],
         locals: [],
         templates: [child0]
       };
@@ -2622,7 +2622,7 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 114,
+            "line": 113,
             "column": 0
           }
         },
@@ -2730,12 +2730,6 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
         var el4 = dom.createElement("img");
         dom.setAttribute(el4, "src", "/assets/images/nobreaks.png");
         dom.setAttribute(el4, "alt", "whaaa");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("p");
-        var el5 = dom.createTextNode("Reasons");
-        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
@@ -3081,7 +3075,7 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "md-parallax", [], ["image", "/assets/images/legion-2560x1440-wide.jpg"], ["loc", [null, [1, 0], [1, 64]]]], ["inline", "md-parallax", [], ["image", "/assets/images/emerald-nightmare.jpg"], ["loc", [null, [21, 0], [21, 60]]]], ["block", "link-to", ["raiding.roster"], ["tagName", "button", "class", "btn cyan"], 0, null, ["loc", [null, [28, 6], [30, 18]]]], ["inline", "md-parallax", [], ["image", "/assets/images/legion.png"], ["loc", [null, [81, 0], [81, 49]]]], ["block", "link-to", ["join"], ["tagName", "button", "class", "cyan btn"], 1, null, ["loc", [null, [93, 6], [95, 18]]]]],
+      statements: [["inline", "md-parallax", [], ["image", "/assets/images/legion-2560x1440-wide.jpg"], ["loc", [null, [1, 0], [1, 64]]]], ["inline", "md-parallax", [], ["image", "/assets/images/emerald-nightmare.jpg"], ["loc", [null, [21, 0], [21, 60]]]], ["block", "link-to", ["raiding.roster"], ["tagName", "button", "class", "btn cyan"], 0, null, ["loc", [null, [28, 6], [30, 18]]]], ["inline", "md-parallax", [], ["image", "/assets/images/legion.png"], ["loc", [null, [80, 0], [80, 49]]]], ["block", "link-to", ["join"], ["tagName", "button", "class", "cyan btn"], 1, null, ["loc", [null, [92, 6], [94, 18]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -3103,7 +3097,7 @@ define("nobreaks/templates/join", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 24,
+            "line": 32,
             "column": 0
           }
         },
@@ -3148,30 +3142,62 @@ define("nobreaks/templates/join", ["exports"], function (exports) {
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
+        var el2 = dom.createElement("br");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("br");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2, "class", "row container");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("h3");
-        var el4 = dom.createTextNode("Apply");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        var el4 = dom.createTextNode("Please head over to our forums to apply. The officers will review your\n      application and get back to you. You can also talk to us in-game if you\n      would like some more information.\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("br");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("br");
-        dom.appendChild(el3, el4);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "col s12");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("a");
-        dom.setAttribute(el4, "href", "https://forum.nobreaksguild.com/category/26/recruitment");
-        dom.setAttribute(el4, "target", "_blank");
-        dom.setAttribute(el4, "class", "btn primary cyan");
-        var el5 = dom.createTextNode("Apply");
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "card blue-grey darken-1");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "card-content");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-title");
+        var el7 = dom.createElement("h4");
+        var el8 = dom.createTextNode("Apply");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("p");
+        var el7 = dom.createTextNode("Please head over to our forums to apply. The officers will review your\n            application and get back to you. You can also talk to us in-game if you\n            would like some more information.\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("br");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("br");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n            ");
+        dom.appendChild(el6, el7);
+        var el7 = dom.createElement("a");
+        dom.setAttribute(el7, "href", "https://forum.nobreaksguild.com/category/26/recruitment");
+        dom.setAttribute(el7, "target", "_blank");
+        dom.setAttribute(el7, "class", "btn primary cyan");
+        var el8 = dom.createTextNode("Apply");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        var el7 = dom.createTextNode("\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
@@ -3198,7 +3224,7 @@ define("nobreaks/templates/join", ["exports"], function (exports) {
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "md-parallax", [], ["image", "/assets/images/join-us.jpg"], ["loc", [null, [1, 0], [1, 50]]]], ["content", "outlet", ["loc", [null, [23, 0], [23, 10]]]]],
+      statements: [["inline", "md-parallax", [], ["image", "/assets/images/join-us.jpg"], ["loc", [null, [1, 0], [1, 50]]]], ["content", "outlet", ["loc", [null, [31, 0], [31, 10]]]]],
       locals: [],
       templates: []
     };
@@ -3214,11 +3240,11 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 12,
+              "line": 20,
               "column": 2
             },
             "end": {
-              "line": 17,
+              "line": 25,
               "column": 2
             }
           },
@@ -3250,7 +3276,7 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
           morphs[1] = dom.createMorphAt(fragment, 4, 4, contextualElement);
           return morphs;
         },
-        statements: [["inline", "md-tab", [], ["value", "raiding.roster", "title", "Roster"], ["loc", [null, [14, 4], [14, 52]]]], ["inline", "md-tab", [], ["value", "raiding.progress", "title", "Progress & Logs"], ["loc", [null, [16, 4], [16, 63]]]]],
+        statements: [["inline", "md-tab", [], ["value", "raiding.roster", "title", "Roster"], ["loc", [null, [22, 4], [22, 52]]]], ["inline", "md-tab", [], ["value", "raiding.progress", "title", "Progress & Logs"], ["loc", [null, [24, 4], [24, 63]]]]],
         locals: [],
         templates: []
       };
@@ -3268,7 +3294,7 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 21,
+            "line": 29,
             "column": 0
           }
         },
@@ -3285,44 +3311,76 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "container");
+        dom.setAttribute(el2, "class", "row");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("h3");
-        var el4 = dom.createTextNode("Raiding");
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "col s12 m8 offset-m2");
+        var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("h5");
-        var el4 = dom.createTextNode("Schedule");
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "card blue-grey darken-1");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("div");
+        dom.setAttribute(el5, "class", "card-content");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("div");
+        dom.setAttribute(el6, "class", "card-title");
+        var el7 = dom.createElement("h4");
+        var el8 = dom.createTextNode("Raiding");
+        dom.appendChild(el7, el8);
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("h5");
+        var el7 = dom.createTextNode("Schedule");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("p");
+        var el7 = dom.createTextNode("\n            Tuesday, Wednesday, and Thursday from 7-10pm server time.\n          ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("h5");
+        var el7 = dom.createTextNode("Required Addons");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("p");
+        var el7 = dom.createTextNode("We require a few addons to make the raiding experience more efficient. They are mandatory.");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("br");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("a");
+        dom.setAttribute(el6, "href", "https://forum.nobreaksguild.com/topic/7/required-addons");
+        dom.setAttribute(el6, "target", "_blank");
+        dom.setAttribute(el6, "class", "btn cyan");
+        var el7 = dom.createTextNode("The Complete List");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("br");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        var el4 = dom.createTextNode("\n      Tuesday, Wednesday, and Thursday from 7-10pm server time.\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("h5");
-        var el4 = dom.createTextNode("Required Addons");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        var el4 = dom.createTextNode("We require a few addons to make the raiding experience more efficient. They are mandatory.");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("a");
-        dom.setAttribute(el3, "href", "https://forum.nobreaksguild.com/topic/7/required-addons");
-        dom.setAttribute(el3, "target", "_blank");
-        dom.setAttribute(el3, "class", "btn primary");
-        var el4 = dom.createTextNode("The Complete List");
+        var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -3350,7 +3408,7 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(element0, 5, 5);
         return morphs;
       },
-      statements: [["block", "md-tabs", [], ["selected", ["subexpr", "@mut", [["get", "tabsSelection", ["loc", [null, [13, 13], [13, 26]]]]], [], []], "class", "grey darken-4"], 0, null, ["loc", [null, [12, 2], [17, 14]]]], ["content", "outlet", ["loc", [null, [19, 2], [19, 12]]]]],
+      statements: [["block", "md-tabs", [], ["selected", ["subexpr", "@mut", [["get", "tabsSelection", ["loc", [null, [21, 13], [21, 26]]]]], [], []], "class", "blue-grey darken-3"], 0, null, ["loc", [null, [20, 2], [25, 14]]]], ["content", "outlet", ["loc", [null, [27, 2], [27, 12]]]]],
       locals: [],
       templates: [child0]
     };
@@ -3562,7 +3620,7 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
           dom.setAttribute(el1, "class", "raid");
           var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
-          var el2 = dom.createElement("h3");
+          var el2 = dom.createElement("h5");
           var el3 = dom.createComment("");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
@@ -3958,7 +4016,7 @@ define("nobreaks/templates/social", ["exports"], function (exports) {
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "social section blue-grey darken-3 white-text");
+        dom.setAttribute(el1, "class", "social section blue-grey darken-4 white-text");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
@@ -4117,7 +4175,7 @@ define("nobreaks/templates/social", ["exports"], function (exports) {
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "card");
+        dom.setAttribute(el4, "class", "card blue-grey darken-1 white-text");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("div");
@@ -4182,7 +4240,7 @@ define("nobreaks/templates/social", ["exports"], function (exports) {
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "card");
+        dom.setAttribute(el4, "class", "card blue-grey darken-1 white-text");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("div");
@@ -4240,7 +4298,7 @@ define("nobreaks/templates/social", ["exports"], function (exports) {
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "card");
+        dom.setAttribute(el4, "class", "card blue-grey darken-1 white-text");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("div");
@@ -4379,7 +4437,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+2a0fbcd5"});
+  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+fd17e8b4"});
 }
 
 define('~fastboot/app-factory', ['nobreaks/app', 'nobreaks/config/environment'], function(App, config) {
