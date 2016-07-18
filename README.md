@@ -1,25 +1,52 @@
-# nobreaks
+# Nobreaks
 
-```
-$ npm install
-$ npm run front
-```
+This README outlines the details of collaborating on this Ember application.
+A short introduction of this app could easily go here.
 
+## Prerequisites
 
-## Production Deployment
+You will need the following things properly installed on your computer.
 
-To see the running projects:
-```
-$ pm2 list
-$ pm2 show <id>
-```
+* [Git](http://git-scm.com/)
+* [Node.js](http://nodejs.org/) (with NPM)
+* [Bower](http://bower.io/)
+* [Ember CLI](http://ember-cli.com/)
+* [PhantomJS](http://phantomjs.org/)
 
-Make note of the id of the current production project
+## Installation
 
-Pull the changes into the project that is NOT running
-Run `npm install` then `npm run build`
-Start the process on an empty port with `PORT=5000 pm2 start ubuntu`
+* `git clone <repository-url>` this repository
+* change into the new directory
+* `npm install`
+* `bower install`
 
+## Running / Development
 
-Update `/etc/nginx/sites-available/default` to point to the new port on the proxy_pass field
-Restart nginx with `sudo service nginx restart`
+* `ember server`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
+
+### Code Generators
+
+Make use of the many generators for code, try `ember help generate` for more details
+
+### Running Tests
+
+* `ember test`
+* `ember test --server`
+
+### Building
+
+* `ember build` (development)
+* `ember build --environment production` (production)
+
+### Deploying
+
+Specify what it takes to deploy your app.
+
+## Further Reading / Useful Links
+
+* [ember.js](http://emberjs.com/)
+* [ember-cli](http://ember-cli.com/)
+* Development Browser Extensions
+  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)

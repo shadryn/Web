@@ -1,0 +1,50 @@
+#home {
+  min-height: 800px;
+  padding-top: 100px;
+}
+
+#raiding {
+  min-height: 700px;
+  padding: 150px 0;
+
+  .col {
+    ~ .col {
+      text-align: center;
+      img {
+        max-width: 320px;
+        padding-top: 20px;
+      }
+    }
+  }
+}
+
+#social {
+  min-height: 300px;
+  a {
+    i {
+      padding-right: 10px;
+    }
+  }
+}
+
+#join {
+  min-height: 800px;
+  padding: 200px 0 100px 0;
+
+  .row {
+    ~.row {
+      padding-top: 100px;
+    }
+  }
+  img {
+    max-width: 300px;
+  }
+}
+
+#store {
+  min-height: 500px;
+  padding-top: 100px;
+  img {
+    width: 300px;
+  }
+}

@@ -1,0 +1,29 @@
+<div class="progress-tab">
+  <h4>Mythic Progression</h4>
+
+  {{#each model.raids as |raid|}}
+  <div class="raid">
+    <h3>{{raid.name}}</h3>
+
+    <ul class="row">
+      {{#each raid.bosses as |boss|}}
+      <li class="col s12 m6 l3 {{if boss.mythicKills 'killed'}}">
+        <div class="card grey darken-4">
+          <div class="card-content row">
+            <div class="content-wrap">
+              <h6 class="name col s12 white-text">{{boss.name}}</h6>
+              {{#if boss.mythicKills}}
+                <div class="killed">
+                  <img class="dead" src="/assets/images/bosses/dead.png" />
+                </div>
+              {{/if}}
+              <img src={{boss.thumbnail}} />
+            </div>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+</div>

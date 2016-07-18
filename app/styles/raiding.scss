@@ -1,0 +1,111 @@
+// Raiding Page Styles
+.raiding {
+  padding: 20px;
+  margin: 0;
+  @extend .grey, .darken-4;
+  color: #fff;
+
+  .tabs {
+    margin-top: 50px;
+  }
+}
+
+@mixin class_crests($imageUrl:'') {
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0,0,0,0.8) ,rgba(0, 0, 0, 0.95)), url($imageUrl) no-repeat center center;
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0,0,0,0.8) ,rgba(0, 0, 0, 0.95)), url($imageUrl) no-repeat center center;
+  background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0,0,0,0.8) ,rgba(0, 0, 0, 0.95)), url($imageUrl) no-repeat center center;
+}
+
+.roster,
+.progress-tab {
+  padding-top: 50px;
+  h4 {
+    padding-left: 10px;
+  }
+  h6 {
+    ~p {
+      font-size: .8em;
+    }
+  }
+  .name {
+    font-size: 1.2em;
+    padding-bottom: 10px;
+  }
+
+}
+
+//Roster Styles
+.roster {
+  .epgp-count {
+    padding-top: 10px;
+  }
+  .card-content {
+
+    &.deathknight {
+      @include class_crests('/assets/images/classes/crests/deathknight.png');
+    }
+    &.demonhunter {
+      @include class_crests('/assets/images/classes/crests/demonhunter.png');
+    }
+    &.druid {
+      @include class_crests('/assets/images/classes/crests/druid.png');
+    }
+    &.hunter {
+      @include class_crests('/assets/images/classes/crests/hunter.png');
+    }
+    &.mage {
+      @include class_crests('/assets/images/classes/crests/mage.png');
+    }
+    &.monk {
+      @include class_crests('/assets/images/classes/crests/monk.png');
+    }
+    &.paladin {
+      @include class_crests('/assets/images/classes/crests/paladin.png');
+    }
+    &.priest {
+      @include class_crests('/assets/images/classes/crests/priest.png');
+    }
+    &.rogue {
+      @include class_crests('/assets/images/classes/crests/rogue.png');
+    }
+    &.shaman {
+      @include class_crests('/assets/images/classes/crests/shaman.png');
+    }
+    &.warlock {
+      @include class_crests('/assets/images/classes/crests/warlock.png');
+    }
+    &.warrior {
+      @include class_crests('/assets/images/classes/crests/warrior.png');
+    }
+  }
+}
+
+// progress tab
+.progress-tab {
+
+  .card {
+    position: relative;
+
+    .name {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .killed {
+      position: absolute;
+      bottom: 10%;
+      top: 22%;
+      left: 10%;
+      right: 10%;
+    }
+
+    .card-content {
+      @include class_crests()
+    }
+  }
+}
