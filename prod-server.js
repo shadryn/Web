@@ -1,16 +1,12 @@
 'use strict';
 
 let express = require('express');
-let FastBootServer = require('ember-fastboot-server');
-
-var server = new FastBootServer({
-  distPath: express.static(__dirname + '/dist')
-});
+//let fastbootMiddleware = require('fastboot-express-middleware');
 
 var app = express();
 app.use('/', express.static(__dirname + '/dist'));
 
-app.get('/*', server.middleware());
+//app.get('/*', fastbootMiddleware(express.static(__dirname + '/dist')));
 
 var listener = app.listen(process.env.PORT || 5000, function() {
   var host = listener.address().address;
