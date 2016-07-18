@@ -11,7 +11,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember test",
-    "prod": "node ./prod-server"
+    "server": "node ./prod-server"
   },
   "repository": "",
   "engines": {
