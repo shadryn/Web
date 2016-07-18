@@ -2,7 +2,7 @@
 .raiding {
   padding: 20px;
   margin: 0;
-  @extend .grey, .darken-4;
+  @extend .blue-grey, .darken-3;
   color: #fff;
 
   .tabs {
@@ -19,7 +19,7 @@
 .roster,
 .progress-tab {
   padding-top: 50px;
-  h4 {
+  h4, h5 {
     padding-left: 10px;
   }
   h6 {
