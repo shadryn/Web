@@ -64338,6 +64338,11 @@ requireModule("ember");
   generateModule('rsvp', { 'default': Ember.RSVP });
 })();
 
+;(function() {
+  define('moment', ['exports'], function(self) {
+    self['default'] = FastBoot.require('moment-timezone');
+  });
+})();
 ;/* globals define */
 define('ember/load-initializers', ['exports', 'ember-load-initializers', 'ember'], function(exports, loadInitializers, Ember) {
   Ember['default'].deprecate(
@@ -87897,14 +87902,213 @@ define("ember-data/version", ["exports"], function (exports) {
 
   exports["default"] = "2.6.1";
 });
-define("ember-get-config/index", ["exports"], function (exports) {
+define("ember-get-config/find", ["exports"], function (exports) {
   "use strict";
 
-  var configName = Object.keys(window.requirejs.entries).filter(function (entry) {
-    return entry.match(/\/config\/environment/);
-  })[0];
+  exports.Array_find = Array_find;
 
-  exports["default"] = window.requirejs(configName)["default"];
+  // Polyfill only as much as we need (don't need thisArg)
+
+  function Array_find(callback) {
+    for (var i = 0, entry = this[i]; i < this.length; entry = this[++i]) {
+      if (callback(entry, i, this)) {
+        return entry;
+      }
+    }
+  }
+
+  exports["default"] = Array.prototype.find || Array_find;
+});
+define('ember-get-config/index', ['exports', 'ember-get-config/find'], function (exports, _emberGetConfigFind) {
+  'use strict';
+
+  exports.findConfigName = findConfigName;
+
+  var CONFIG_REGEX = /^[^/]+\/config\/environment$/;
+
+  function findConfigName(entries) {
+    return _emberGetConfigFind['default'].call(Object.keys(entries), function (entry) {
+      return CONFIG_REGEX.test(entry);
+    });
+  }
+
+  exports['default'] = window.requirejs(findConfigName(window.requirejs.entries))['default'];
+});
+define('ember-getowner-polyfill/fake-owner', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  var _createClass = (function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+  })();
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError('Cannot call a class as a function');
+    }
+  }
+
+  var CONTAINER = '__' + new Date() + '_container';
+  var REGISTRY = '__' + new Date() + '_registry';
+
+  var FakeOwner = (function () {
+    function FakeOwner(object) {
+      _classCallCheck(this, FakeOwner);
+
+      this[CONTAINER] = object.container;
+
+      if (_ember['default'].Registry) {
+        // object.container._registry is used by 1.11
+        this[REGISTRY] = object.container.registry || object.container._registry;
+      } else {
+        // Ember < 1.12
+        this[REGISTRY] = object.container;
+      }
+    }
+
+    // ContainerProxyMixin methods
+    //
+    // => http://emberjs.com/api/classes/ContainerProxyMixin.html
+    //
+
+    _createClass(FakeOwner, [{
+      key: 'lookup',
+      value: function lookup() {
+        var _CONTAINER;
+
+        return (_CONTAINER = this[CONTAINER]).lookup.apply(_CONTAINER, arguments);
+      }
+    }, {
+      key: '_lookupFactory',
+      value: function _lookupFactory() {
+        var _CONTAINER2;
+
+        return (_CONTAINER2 = this[CONTAINER]).lookupFactory.apply(_CONTAINER2, arguments);
+      }
+    }, {
+      key: 'ownerInjection',
+      value: function ownerInjection() {
+        return {
+          container: this[CONTAINER]
+        };
+      }
+
+      // RegistryProxyMixin methods
+      //
+      // => http://emberjs.com/api/classes/RegistryProxyMixin.html
+      //
+    }, {
+      key: 'hasRegistration',
+      value: function hasRegistration() {
+        var _REGISTRY;
+
+        return (_REGISTRY = this[REGISTRY]).has.apply(_REGISTRY, arguments);
+      }
+    }, {
+      key: 'inject',
+      value: function inject() {
+        var _REGISTRY2;
+
+        return (_REGISTRY2 = this[REGISTRY]).injection.apply(_REGISTRY2, arguments);
+      }
+    }, {
+      key: 'register',
+      value: function register() {
+        var _REGISTRY3;
+
+        return (_REGISTRY3 = this[REGISTRY]).register.apply(_REGISTRY3, arguments);
+      }
+    }, {
+      key: 'registerOption',
+      value: function registerOption() {
+        var _REGISTRY4;
+
+        return (_REGISTRY4 = this[REGISTRY]).option.apply(_REGISTRY4, arguments);
+      }
+    }, {
+      key: 'registerOptions',
+      value: function registerOptions() {
+        var _REGISTRY5;
+
+        return (_REGISTRY5 = this[REGISTRY]).options.apply(_REGISTRY5, arguments);
+      }
+    }, {
+      key: 'registerOptionsForType',
+      value: function registerOptionsForType() {
+        var _REGISTRY6;
+
+        return (_REGISTRY6 = this[REGISTRY]).optionsForType.apply(_REGISTRY6, arguments);
+      }
+    }, {
+      key: 'registeredOption',
+      value: function registeredOption() {
+        var _REGISTRY7;
+
+        return (_REGISTRY7 = this[REGISTRY]).getOption.apply(_REGISTRY7, arguments);
+      }
+    }, {
+      key: 'registeredOptions',
+      value: function registeredOptions() {
+        var _REGISTRY8;
+
+        return (_REGISTRY8 = this[REGISTRY]).getOptions.apply(_REGISTRY8, arguments);
+      }
+    }, {
+      key: 'registeredOptionsForType',
+      value: function registeredOptionsForType(type) {
+        if (this[REGISTRY].getOptionsForType) {
+          var _REGISTRY9;
+
+          return (_REGISTRY9 = this[REGISTRY]).getOptionsForType.apply(_REGISTRY9, arguments);
+        } else {
+          // used for Ember 1.10
+          return this[REGISTRY]._typeOptions[type];
+        }
+      }
+    }, {
+      key: 'resolveRegistration',
+      value: function resolveRegistration() {
+        var _REGISTRY10;
+
+        return (_REGISTRY10 = this[REGISTRY]).resolve.apply(_REGISTRY10, arguments);
+      }
+    }, {
+      key: 'unregister',
+      value: function unregister() {
+        var _REGISTRY11;
+
+        return (_REGISTRY11 = this[REGISTRY]).unregister.apply(_REGISTRY11, arguments);
+      }
+    }]);
+
+    return FakeOwner;
+  })();
+
+  exports['default'] = FakeOwner;
+});
+define('ember-getowner-polyfill/index', ['exports', 'ember', 'ember-getowner-polyfill/fake-owner'], function (exports, _ember, _emberGetownerPolyfillFakeOwner) {
+  'use strict';
+
+  var hasGetOwner = !!_ember['default'].getOwner;
+
+  exports['default'] = function (object) {
+    var owner = undefined;
+
+    if (hasGetOwner) {
+      owner = _ember['default'].getOwner(object);
+    }
+
+    if (!owner && object.container) {
+      owner = new _emberGetownerPolyfillFakeOwner['default'](object);
+    }
+
+    return owner;
+  };
 });
 define("ember-inflector/index", ["exports", "ember", "ember-inflector/lib/system", "ember-inflector/lib/ext/string"], function (exports, _ember, _emberInflectorLibSystem, _emberInflectorLibExtString) {
   /* global define, module */
@@ -88306,7 +88510,7 @@ define('ember-inflector/lib/system/inflector', ['exports', 'ember'], function (e
         return word;
       }
 
-      for (rule in this.rules.irregular) {
+      for (rule in irregular) {
         if (lowercase.match(rule + "$")) {
           substitution = irregular[rule];
 
@@ -88315,7 +88519,7 @@ define('ember-inflector/lib/system/inflector', ['exports', 'ember'], function (e
             rule = capitalize(rule);
           }
 
-          return word.replace(rule, substitution);
+          return word.replace(new RegExp(rule, 'i'), substitution);
         }
       }
 
@@ -88370,94 +88574,188 @@ define('ember-inflector/lib/utils/make-helper', ['exports', 'ember'], function (
     return _ember['default'].Handlebars.makeBoundHelper(helperFunction);
   }
 });
-define("ember-keyboard/fixtures/key-map", ["exports"], function (exports) {
-    // Based on the excellent `ember-keyboard-service`, https://github.com/Fabriquartz/ember-keyboard-service
+define('ember-keyboard/fixtures/code-map', ['exports', 'ember-keyboard/utils/generate-code-map'], function (exports, _emberKeyboardUtilsGenerateCodeMap) {
+  'use strict';
 
-    "use strict";
+  var platform = navigator.platform;
+  var product = navigator.product;
 
-    exports["default"] = {
-        8: "Backspace",
-        9: "Tab",
-        13: "Enter",
-        16: "Shift",
-        17: "Ctrl",
-        18: "Alt",
-        19: "Pause",
-        20: "CapsLock",
-        27: "Escape",
-        32: " ",
-        33: "PageUp",
-        34: "PageDown",
-        35: "End",
-        36: "Home",
-        37: "ArrowLeft",
-        38: "ArrowUp",
-        39: "ArrowRight",
-        40: "ArrowDown",
-        45: "Insert",
-        46: "Delete",
-        48: "0",
-        49: "1",
-        50: "2",
-        51: "3",
-        52: "4",
-        53: "5",
-        54: "6",
-        55: "7",
-        56: "8",
-        57: "9",
-        65: "a",
-        66: "b",
-        67: "c",
-        68: "d",
-        69: "e",
-        70: "f",
-        71: "g",
-        72: "h",
-        73: "i",
-        74: "j",
-        75: "k",
-        76: "l",
-        77: "m",
-        78: "n",
-        79: "o",
-        80: "p",
-        81: "q",
-        82: "r",
-        83: "s",
-        84: "t",
-        85: "u",
-        86: "v",
-        87: "w",
-        88: "x",
-        89: "y",
-        90: "z",
-        112: "F1",
-        113: "F2",
-        114: "F3",
-        115: "F4",
-        116: "F5",
-        117: "F6",
-        118: "F7",
-        119: "F8",
-        120: "F9",
-        121: "F10",
-        122: "F11",
-        123: "F12",
-        186: ";",
-        187: "=",
-        188: ",",
-        189: "-",
-        190: ".",
-        191: "/",
-        192: "`",
-        219: "[",
-        220: "\\",
-        221: "]",
-        222: "'"
-    };
+  exports['default'] = (0, _emberKeyboardUtilsGenerateCodeMap['default'])(platform, product);
 });
-define('ember-keyboard/index', ['exports', 'ember-keyboard/listeners/key-events', 'ember-keyboard/utils/get-key', 'ember-keyboard/utils/get-key-code', 'ember-keyboard/mixins/ember-keyboard', 'ember-keyboard/mixins/keyboard-first-responder-on-focus', 'ember-keyboard/mixins/activate-keyboard-on-focus', 'ember-keyboard/mixins/activate-keyboard-on-insert'], function (exports, _emberKeyboardListenersKeyEvents, _emberKeyboardUtilsGetKey, _emberKeyboardUtilsGetKeyCode, _emberKeyboardMixinsEmberKeyboard, _emberKeyboardMixinsKeyboardFirstResponderOnFocus, _emberKeyboardMixinsActivateKeyboardOnFocus, _emberKeyboardMixinsActivateKeyboardOnInsert) {
+define('ember-keyboard/fixtures/code-maps/chromium/linux', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = {
+    47: 'Help',
+    42: 'PrintScreen',
+    108: 'NumpadDecimal',
+    187: 'NumpadEqual'
+  };
+});
+define('ember-keyboard/fixtures/code-maps/default', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = {
+    48: 'Digit0',
+    49: 'Digit1',
+    50: 'Digit2',
+    51: 'Digit3',
+    52: 'Digit4',
+    53: 'Digit5',
+    54: 'Digit6',
+    55: 'Digit7',
+    56: 'Digit8',
+    57: 'Digit9',
+    65: 'KeyA',
+    66: 'KeyB',
+    67: 'KeyC',
+    68: 'KeyD',
+    69: 'KeyE',
+    70: 'KeyF',
+    71: 'KeyG',
+    72: 'KeyH',
+    73: 'KeyI',
+    74: 'KeyJ',
+    75: 'KeyK',
+    76: 'KeyL',
+    77: 'KeyM',
+    78: 'KeyN',
+    79: 'KeyO',
+    80: 'KeyP',
+    81: 'KeyQ',
+    82: 'KeyR',
+    83: 'KeyS',
+    84: 'KeyT',
+    85: 'KeyU',
+    86: 'KeyV',
+    87: 'KeyW',
+    88: 'KeyX',
+    89: 'KeyY',
+    90: 'KeyZ',
+    188: 'Comma',
+    190: 'Period',
+    186: 'Semicolon',
+    191: 'Slash',
+    222: 'Quote',
+    219: 'BracketLeft',
+    221: 'BracketRight',
+    192: 'Backquote',
+    220: 'Backslash',
+    189: 'Minus',
+    187: 'Equal',
+    18: 'AltLeft',
+    20: 'CapsLock',
+    17: 'ControlLeft',
+    91: 'OSLeft',
+    92: 'OSRight',
+    16: 'ShiftLeft',
+    93: 'ContextMenu',
+    13: 'Enter',
+    32: 'Space',
+    9: 'Tab',
+    8: 'Backspace',
+    46: 'Delete',
+    35: 'End',
+    36: 'Home',
+    45: 'Insert',
+    34: 'PageDown',
+    33: 'PageUp',
+    40: 'ArrowDown',
+    37: 'ArrowLeft',
+    39: 'ArrowRight',
+    38: 'ArrowUp',
+    27: 'Escape',
+    44: 'PrintScreen',
+    145: 'ScrollLock',
+    19: 'Pause',
+    112: 'F1',
+    113: 'F2',
+    114: 'F3',
+    115: 'F4',
+    116: 'F5',
+    117: 'F6',
+    118: 'F7',
+    119: 'F8',
+    120: 'F9',
+    121: 'F10',
+    122: 'F11',
+    123: 'F12',
+    124: 'F13',
+    125: 'F14',
+    126: 'F15',
+    127: 'F16',
+    128: 'F17',
+    129: 'F18',
+    130: 'F19',
+    131: 'F20',
+    132: 'F21',
+    133: 'F22',
+    134: 'F23',
+    135: 'F24',
+    144: 'NumLock',
+    96: 'Numpad0',
+    97: 'Numpad1',
+    98: 'Numpad2',
+    99: 'Numpad3',
+    100: 'Numpad4',
+    101: 'Numpad5',
+    102: 'Numpad6',
+    103: 'Numpad7',
+    104: 'Numpad8',
+    105: 'Numpad9',
+    107: 'NumpadAdd',
+    194: 'NumpadComma',
+    110: 'NumpadDecimal',
+    111: 'NumpadDivide',
+    12: 'NumpadEqual',
+    106: 'NumpadMultiply',
+    109: 'NumpadSubtract'
+  };
+});
+define('ember-keyboard/fixtures/code-maps/gecko', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = {
+    59: 'Semicolon',
+    173: 'Minus',
+    61: 'Equal',
+    91: 'OSRight'
+  };
+});
+define('ember-keyboard/fixtures/code-maps/gecko/linux', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = {
+    225: 'AltRight',
+    6: 'Help',
+    42: 'PrintScreen',
+    108: 'NumpadDecimal'
+  };
+});
+define('ember-keyboard/fixtures/code-maps/gecko/mac', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = {
+    224: 'OSLeft',
+    12: 'NumLock',
+    108: 'NumpadComma'
+  };
+});
+define('ember-keyboard/fixtures/code-maps/mac-safari-and-chrome', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = {
+    93: 'OSRight',
+    124: 'PrintScreen',
+    125: 'ScrollLock',
+    126: 'Pause',
+    12: 'NumLock',
+    188: 'NumpadComma',
+    190: 'NumpadComma',
+    187: 'NumpadEqual'
+  };
+});
+define('ember-keyboard/index', ['exports', 'ember-keyboard/listeners/key-events', 'ember-keyboard/utils/get-code', 'ember-keyboard/utils/get-key-code', 'ember-keyboard/utils/trigger-event', 'ember-keyboard/mixins/ember-keyboard', 'ember-keyboard/mixins/keyboard-first-responder-on-focus', 'ember-keyboard/mixins/activate-keyboard-on-focus', 'ember-keyboard/mixins/activate-keyboard-on-insert'], function (exports, _emberKeyboardListenersKeyEvents, _emberKeyboardUtilsGetCode, _emberKeyboardUtilsGetKeyCode, _emberKeyboardUtilsTriggerEvent, _emberKeyboardMixinsEmberKeyboard, _emberKeyboardMixinsKeyboardFirstResponderOnFocus, _emberKeyboardMixinsActivateKeyboardOnFocus, _emberKeyboardMixinsActivateKeyboardOnInsert) {
   'use strict';
 
   exports.EKMixin = _emberKeyboardMixinsEmberKeyboard['default'];
@@ -88467,8 +88765,11 @@ define('ember-keyboard/index', ['exports', 'ember-keyboard/listeners/key-events'
   exports.keyDown = _emberKeyboardListenersKeyEvents.keyDown;
   exports.keyUp = _emberKeyboardListenersKeyEvents.keyUp;
   exports.keyPress = _emberKeyboardListenersKeyEvents.keyPress;
-  exports.getKey = _emberKeyboardUtilsGetKey['default'];
+  exports.getCode = _emberKeyboardUtilsGetCode['default'];
   exports.getKeyCode = _emberKeyboardUtilsGetKeyCode['default'];
+  exports.triggerKeyDown = _emberKeyboardUtilsTriggerEvent.triggerKeyDown;
+  exports.triggerKeyPress = _emberKeyboardUtilsTriggerEvent.triggerKeyPress;
+  exports.triggerKeyUp = _emberKeyboardUtilsTriggerEvent.triggerKeyUp;
 });
 define('ember-keyboard/initializers/ember-keyboard-first-responder-inputs', ['exports', 'ember', 'ember-keyboard'], function (exports, _ember, _emberKeyboard) {
   'use strict';
@@ -88488,17 +88789,17 @@ define('ember-keyboard/initializers/ember-keyboard-first-responder-inputs', ['ex
     initialize: initialize
   };
 });
-define('ember-keyboard/listeners/key-events', ['exports', 'ember', 'ember-keyboard/fixtures/key-map', 'ember-keyboard/utils/listener-name'], function (exports, _ember, _emberKeyboardFixturesKeyMap, _emberKeyboardUtilsListenerName) {
+define('ember-keyboard/listeners/key-events', ['exports', 'ember', 'ember-keyboard/fixtures/code-map', 'ember-keyboard/utils/listener-name'], function (exports, _ember, _emberKeyboardFixturesCodeMap, _emberKeyboardUtilsListenerName) {
   'use strict';
 
   exports.keyDown = keyDown;
-  exports.keyUp = keyUp;
   exports.keyPress = keyPress;
+  exports.keyUp = keyUp;
 
-  var keyMapValues = Object.keys(_emberKeyboardFixturesKeyMap['default']).map(function (key) {
-    return _emberKeyboardFixturesKeyMap['default'][key];
+  var keyMapValues = Object.keys(_emberKeyboardFixturesCodeMap['default']).map(function (key) {
+    return _emberKeyboardFixturesCodeMap['default'][key];
   });
-  var validKeys = keyMapValues.concat(['alt', 'ctrl', 'meta', 'shift']);
+  var validKeys = keyMapValues.concat(['alt', 'ctrl', 'meta', 'shift', 'cmd']);
 
   var validateKeys = function validateKeys(keys) {
     keys.forEach(function (key) {
@@ -88520,12 +88821,12 @@ define('ember-keyboard/listeners/key-events', ['exports', 'ember', 'ember-keyboa
     return formattedListener('keydown', keys);
   }
 
-  function keyUp(keys) {
-    return formattedListener('keyup', keys);
-  }
-
   function keyPress(keys) {
     return formattedListener('keypress', keys);
+  }
+
+  function keyUp(keys) {
+    return formattedListener('keyup', keys);
   }
 });
 define('ember-keyboard/mixins/activate-keyboard-on-focus', ['exports', 'ember'], function (exports, _ember) {
@@ -88561,49 +88862,33 @@ define('ember-keyboard/mixins/activate-keyboard-on-insert', ['exports', 'ember']
 define('ember-keyboard/mixins/ember-keyboard', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
 
+  var Evented = _ember['default'].Evented;
   var Mixin = _ember['default'].Mixin;
-  var computed = _ember['default'].computed;
-  var _get = _ember['default'].get;
-  var getProperties = _ember['default'].getProperties;
-  var observer = _ember['default'].observer;
-  var on = _ember['default'].on;
+  var get = _ember['default'].get;
   var service = _ember['default'].inject.service;
 
-  exports['default'] = Mixin.create({
+  exports['default'] = Mixin.create(Evented, {
     keyboardPriority: 0,
 
     keyboard: service(),
 
-    _activateKeyboard: on('init', observer('keyboardActivated', function () {
-      var _getProperties = getProperties(this, 'keyboard', 'keyboardActivated');
+    init: function init() {
+      get(this, 'keyboard').register(this);
 
-      var keyboard = _getProperties.keyboard;
-      var keyboardActivated = _getProperties.keyboardActivated;
+      return this._super.apply(this, arguments);
+    },
 
-      if (keyboardActivated === true) {
-        keyboard.activate(this);
-      } else if (keyboardActivated === false) {
-        keyboard.deactivate(this);
-      }
-    })),
+    willDestroyElement: function willDestroyElement() {
+      this._super.apply(this, arguments);
 
-    _pushToKeyboardPriorityLevel: observer('_keyboardPriorityLevel', function () {
-      var _getProperties2 = getProperties(this, 'keyboard', 'keyboardActivated');
+      get(this, 'keyboard').unregister(this);
+    },
 
-      var keyboard = _getProperties2.keyboard;
-      var keyboardActivated = _getProperties2.keyboardActivated;
+    willDestroy: function willDestroy() {
+      this._super.apply(this, arguments);
 
-      if (keyboardActivated === true) {
-        keyboard.deactivate(this);
-        keyboard.activate(this);
-      }
-    }),
-
-    _keyboardPriorityLevel: computed('keyboardPriority', 'keyboardFirstResponder', {
-      get: function get() {
-        return _get(this, 'keyboardFirstResponder') ? 'firstResponder' : parseInt(_get(this, 'keyboardPriority'), 10);
-      }
-    }).readOnly()
+      get(this, 'keyboard').unregister(this);
+    }
   });
 });
 define('ember-keyboard/mixins/keyboard-first-responder-on-focus', ['exports', 'ember'], function (exports, _ember) {
@@ -88627,58 +88912,35 @@ define('ember-keyboard/mixins/keyboard-first-responder-on-focus', ['exports', 'e
     })
   });
 });
-define('ember-keyboard/services/keyboard', ['exports', 'ember', 'ember-get-config', 'ember-keyboard/utils/handle-key-event'], function (exports, _ember, _emberGetConfig, _emberKeyboardUtilsHandleKeyEvent) {
+define('ember-keyboard/services/keyboard', ['exports', 'ember', 'ember-get-config', 'ember-keyboard/utils/handle-key-event', 'ember-keyboard/listeners/key-events'], function (exports, _ember, _emberGetConfig, _emberKeyboardUtilsHandleKeyEvent, _emberKeyboardListenersKeyEvents) {
   'use strict';
 
   var Service = _ember['default'].Service;
   var computed = _ember['default'].computed;
   var get = _ember['default'].get;
-  var on = _ember['default'].on;
-  var set = _ember['default'].set;
-  var typeOf = _ember['default'].typeOf;
+  var run = _ember['default'].run;
+  var filterBy = computed.filterBy;
+  var sort = computed.sort;
 
   exports['default'] = Service.extend({
-    priorityLevels: computed(function () {
-      return _ember['default'].Object.create();
+    registeredResponders: computed(function () {
+      return _ember['default'].A();
     }),
-
-    activate: function activate(responder) {
-      var priorityLevels = get(this, 'priorityLevels');
-      var priority = get(responder, '_keyboardPriorityLevel').toString();
-
-      var priorityLevel = get(priorityLevels, priority) || set(priorityLevels, priority, _ember['default'].A());
-
-      if (!priorityLevel.contains(responder)) {
-        get(priorityLevels, priority).pushObject(responder);
-
-        responder.on('willDestroyElement', this, function () {
-          this.deactivate(responder);
-        });
+    activeResponders: filterBy('registeredResponders', 'keyboardActivated').volatile(),
+    sortedResponders: sort('activeResponders', function (a, b) {
+      if (get(a, 'keyboardFirstResponder')) {
+        return -1;
+      } else if (get(b, 'keyboardFirstResponder')) {
+        return 1;
+      } else {
+        return get(b, 'keyboardPriority') - get(a, 'keyboardPriority');
       }
-    },
+    }).volatile(),
 
-    deactivate: function deactivate(responder) {
-      var priorityLevels = get(this, 'priorityLevels');
-
-      Object.keys(priorityLevels).forEach(function (key) {
-        var priorityLevel = get(priorityLevels, key);
-
-        if (typeOf(priorityLevel) !== 'array') {
-          return;
-        }
-
-        if (priorityLevel.contains(responder)) {
-          priorityLevel.removeObject(responder);
-
-          if (get(priorityLevel, 'length') === 0) {
-            delete priorityLevels[key];
-          }
-        }
-      });
-    },
-
-    _initializeListener: on('init', function () {
+    init: function init() {
       var _this = this;
+
+      this._super.apply(this, arguments);
 
       var listeners = get(_emberGetConfig['default'], 'emberKeyboard.listeners') || ['keyUp', 'keyDown', 'keyPress'];
       var eventNames = listeners.map(function (name) {
@@ -88686,55 +88948,150 @@ define('ember-keyboard/services/keyboard', ['exports', 'ember', 'ember-get-confi
       }).join(' ');
 
       _ember['default'].$(document).on(eventNames, null, function (event) {
-        (0, _emberKeyboardUtilsHandleKeyEvent['default'])(event, get(_this, 'priorityLevels'));
+        run(function () {
+          (0, _emberKeyboardUtilsHandleKeyEvent['default'])(event, get(_this, 'sortedResponders'));
+        });
       });
-    }),
+    },
 
-    _teardownListener: on('isDestroying', function () {
+    willDestroy: function willDestroy() {
+      this._super.apply(this, arguments);
+
       _ember['default'].$(document).off('.ember-keyboard-listener');
-    })
+    },
+
+    register: function register(responder) {
+      get(this, 'registeredResponders').pushObject(responder);
+    },
+
+    unregister: function unregister(responder) {
+      get(this, 'registeredResponders').removeObject(responder);
+    },
+
+    keyDown: function keyDown() {
+      return _emberKeyboardListenersKeyEvents.keyDown.apply(undefined, arguments);
+    },
+
+    keyPress: function keyPress() {
+      return _emberKeyboardListenersKeyEvents.keyPress.apply(undefined, arguments);
+    },
+
+    keyUp: function keyUp() {
+      return _emberKeyboardListenersKeyEvents.keyUp.apply(undefined, arguments);
+    }
   });
 });
-define('ember-keyboard/utils/get-key-code', ['exports', 'ember-keyboard/fixtures/key-map'], function (exports, _emberKeyboardFixturesKeyMap) {
+define("ember-keyboard/utils/assign-polyfill", ["exports"], function (exports) {
+  "use strict";
+
+  exports["default"] = assignPolyfill;
+
+  function assignPolyfill(original) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    for (var i = 0, l = args.length; i < l; i++) {
+      var arg = args[i];
+      if (!arg) {
+        continue;
+      }
+
+      var updates = Object.keys(arg);
+
+      for (var _i = 0, _l = updates.length; _i < _l; _i++) {
+        var prop = updates[_i];
+        original[prop] = arg[prop];
+      }
+    }
+
+    return original;
+  }
+});
+define('ember-keyboard/utils/generate-code-map', ['exports', 'ember', 'ember-keyboard/utils/assign-polyfill', 'ember-keyboard/fixtures/code-maps/default', 'ember-keyboard/fixtures/code-maps/mac-safari-and-chrome', 'ember-keyboard/fixtures/code-maps/gecko', 'ember-keyboard/fixtures/code-maps/gecko/linux', 'ember-keyboard/fixtures/code-maps/gecko/mac', 'ember-keyboard/fixtures/code-maps/chromium/linux'], function (exports, _ember, _emberKeyboardUtilsAssignPolyfill, _emberKeyboardFixturesCodeMapsDefault, _emberKeyboardFixturesCodeMapsMacSafariAndChrome, _emberKeyboardFixturesCodeMapsGecko, _emberKeyboardFixturesCodeMapsGeckoLinux, _emberKeyboardFixturesCodeMapsGeckoMac, _emberKeyboardFixturesCodeMapsChromiumLinux) {
+  'use strict';
+
+  exports['default'] = generateCodeMap;
+
+  var assign = _ember['default'].assign || _emberKeyboardUtilsAssignPolyfill['default'];
+  function generateCodeMap() {
+    var platform = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+    var product = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+
+    var isGecko = product.indexOf('Gecko') > -1;
+    var isChromium = product.indexOf('Chromium') > -1;
+    var isChrome = product.indexOf('Chrome') > -1;
+    var isSafari = product.indexOf('Safari') > -1;
+    var isLinux = platform.indexOf('Linux') > -1;
+    var isMac = platform.indexOf('Mac') > -1;
+
+    var codeMap = assign({}, _emberKeyboardFixturesCodeMapsDefault['default']);
+
+    if (isGecko) {
+      assign(codeMap, _emberKeyboardFixturesCodeMapsGecko['default']);
+
+      if (isLinux) {
+        assign(codeMap, _emberKeyboardFixturesCodeMapsGeckoLinux['default']);
+      } else if (isMac) {
+        assign(codeMap, _emberKeyboardFixturesCodeMapsGeckoMac['default']);
+      }
+    } else if (isChromium && isLinux) {
+      assign(codeMap, _emberKeyboardFixturesCodeMapsChromiumLinux['default']);
+    } else if (isMac && (isSafari || isChrome)) {
+      assign(codeMap, _emberKeyboardFixturesCodeMapsMacSafariAndChrome['default']);
+    }
+
+    return codeMap;
+  }
+});
+define('ember-keyboard/utils/get-cmd-key', ['exports'], function (exports) {
+  'use strict';
+
+  exports['default'] = translateCmd;
+
+  function translateCmd() {
+    var platform = arguments.length <= 0 || arguments[0] === undefined ? navigator.platform : arguments[0];
+
+    if (platform.indexOf('Mac') > -1) {
+      return 'meta';
+    } else {
+      return 'ctrl';
+    }
+  }
+});
+define('ember-keyboard/utils/get-code', ['exports', 'ember-keyboard/fixtures/code-map'], function (exports, _emberKeyboardFixturesCodeMap) {
+  'use strict';
+
+  exports['default'] = getCode;
+
+  function getCode(event) {
+    return event.code || _emberKeyboardFixturesCodeMap['default'][event.keyCode];
+  }
+});
+define('ember-keyboard/utils/get-key-code', ['exports', 'ember-keyboard/fixtures/code-map'], function (exports, _emberKeyboardFixturesCodeMap) {
   'use strict';
 
   exports['default'] = getKeyCode;
 
   function getKeyCode(key) {
-    return Object.keys(_emberKeyboardFixturesKeyMap['default']).filter(function (keyCode) {
-      return _emberKeyboardFixturesKeyMap['default'][keyCode] === key;
+    return Object.keys(_emberKeyboardFixturesCodeMap['default']).filter(function (keyCode) {
+      return _emberKeyboardFixturesCodeMap['default'][keyCode] === key;
     })[0];
   }
 });
-define('ember-keyboard/utils/get-key', ['exports', 'ember-keyboard/fixtures/key-map'], function (exports, _emberKeyboardFixturesKeyMap) {
-  'use strict';
-
-  exports['default'] = getKey;
-
-  function getKey(event) {
-    return event.key || _emberKeyboardFixturesKeyMap['default'][event.keyCode];
-  }
-});
-define('ember-keyboard/utils/handle-key-event', ['exports', 'ember', 'ember-keyboard/utils/get-key', 'ember-keyboard/utils/listener-name'], function (exports, _ember, _emberKeyboardUtilsGetKey, _emberKeyboardUtilsListenerName) {
+define('ember-keyboard/utils/handle-key-event', ['exports', 'ember', 'ember-keyboard/utils/get-code', 'ember-keyboard/utils/listener-name'], function (exports, _ember, _emberKeyboardUtilsGetCode, _emberKeyboardUtilsListenerName) {
   'use strict';
 
   exports['default'] = handleKeyEvent;
 
-  function _toConsumableArray(arr) {
-    if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
-    } else {
-      return Array.from(arr);
-    }
-  }
-
   var hasListeners = _ember['default'].hasListeners;
   var get = _ember['default'].get;
+  var getProperties = _ember['default'].getProperties;
 
   var gatherKeys = function gatherKeys(event) {
-    var key = (0, _emberKeyboardUtilsGetKey['default'])(event);
+    var key = (0, _emberKeyboardUtilsGetCode['default'])(event);
 
-    return ['ctrl', 'meta', 'alt', 'shift'].reduce(function (keys, keyName) {
+    return ['alt', 'ctrl', 'meta', 'shift'].reduce(function (keys, keyName) {
       if (event[keyName + 'Key']) {
         keys.push(keyName);
       }
@@ -88742,58 +89099,111 @@ define('ember-keyboard/utils/handle-key-event', ['exports', 'ember', 'ember-keyb
       return keys;
     }, [key]);
   };
-
-  var sortPriorityLevelKeys = function sortPriorityLevelKeys(priorityLevels) {
-    return Object.keys(priorityLevels).sort(function (a, b) {
-      if (a === 'firstResponder') {
-        return -1;
-      } else if (b === 'firstResponder') {
-        return 1;
-      } else {
-        return b - a;
-      }
-    });
-  };
-
-  var triggerListeners = function triggerListeners(event, responders, listenerNames) {
+  function handleKeyEvent(event, sortedResponders) {
+    var currentPriorityLevel = undefined;
+    var noFirstResponders = true;
     var isLax = true;
 
-    [].concat(_toConsumableArray(responders)).forEach(function (responder) {
-      if (!get(responder, 'keyboardLaxPriority')) {
-        isLax = false;
-      }
-
-      listenerNames.forEach(function (triggerName) {
-        if (hasListeners(responder, triggerName)) {
-          responder.trigger(triggerName, event);
-        }
-      });
-    });
-
-    return isLax;
-  };
-  function handleKeyEvent(event, priorityLevels) {
     var keys = gatherKeys(event);
     var listenerNames = [(0, _emberKeyboardUtilsListenerName['default'])(event.type, keys), (0, _emberKeyboardUtilsListenerName['default'])(event.type)];
-    var sortedPriorityLevelKeys = sortPriorityLevelKeys(priorityLevels);
 
-    sortedPriorityLevelKeys.every(function (key) {
-      return triggerListeners(event, get(priorityLevels, key), listenerNames);
+    sortedResponders.every(function (responder) {
+      var _getProperties = getProperties(responder, 'keyboardFirstResponder', 'keyboardPriority');
+
+      var keyboardFirstResponder = _getProperties.keyboardFirstResponder;
+      var keyboardPriority = _getProperties.keyboardPriority;
+
+      if (keyboardFirstResponder || noFirstResponders && keyboardPriority >= currentPriorityLevel || isLax) {
+        if (!get(responder, 'keyboardLaxPriority')) {
+          isLax = false;
+        }
+
+        if (keyboardFirstResponder) {
+          if (!isLax) {
+            noFirstResponders = false;
+          }
+        } else {
+          currentPriorityLevel = keyboardPriority;
+        }
+
+        listenerNames.forEach(function (triggerName) {
+          if (hasListeners(responder, triggerName)) {
+            responder.trigger(triggerName, event);
+          }
+        });
+
+        return true;
+      } else {
+        return false;
+      }
     });
   }
 });
-define('ember-keyboard/utils/listener-name', ['exports'], function (exports) {
+define('ember-keyboard/utils/listener-name', ['exports', 'ember-keyboard/utils/get-cmd-key'], function (exports, _emberKeyboardUtilsGetCmdKey) {
   'use strict';
 
   exports['default'] = listenerName;
 
+  function sortedKeys(keyArray) {
+    return keyArray.sort().join('+');
+  }
   function listenerName(type) {
     var keyArray = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 
-    var keys = keyArray.length === 0 ? '_all' : keyArray.sort().join('+');
+    if (keyArray.indexOf('cmd') > -1) {
+      keyArray[keyArray.indexOf('cmd')] = (0, _emberKeyboardUtilsGetCmdKey['default'])();
+    }
+
+    var keys = keyArray.length === 0 ? '_all' : sortedKeys(keyArray);
 
     return type + ':' + keys;
   }
+});
+define('ember-keyboard/utils/trigger-event', ['exports', 'ember', 'ember-keyboard/utils/assign-polyfill', 'ember-keyboard/utils/get-cmd-key', 'ember-keyboard'], function (exports, _ember, _emberKeyboardUtilsAssignPolyfill, _emberKeyboardUtilsGetCmdKey, _emberKeyboard) {
+  'use strict';
+
+  function _toArray(arr) {
+    return Array.isArray(arr) ? arr : Array.from(arr);
+  }
+
+  var triggerKeyEvent = function triggerKeyEvent(eventType, rawCode) {
+    var event = _ember['default'].$.Event(eventType);
+
+    var _rawCode$split = rawCode.split('+');
+
+    var _rawCode$split2 = _toArray(_rawCode$split);
+
+    var code = _rawCode$split2[0];
+
+    var modifiers = _rawCode$split2.slice(1);
+
+    var properties = modifiers.reduce(function (properties, modifier) {
+      modifier = modifier === 'cmd' ? (0, _emberKeyboardUtilsGetCmdKey['default'])() : modifier;
+      properties[modifier + 'Key'] = true;
+
+      return properties;
+    }, {});
+
+    (0, _emberKeyboardUtilsAssignPolyfill['default'])(event, { code: code, keyCode: (0, _emberKeyboard.getKeyCode)(code) }, properties);
+
+    _ember['default'].$(document).trigger(event);
+  };
+
+  var triggerKeyDown = function triggerKeyDown(code) {
+    triggerKeyEvent('keydown', code);
+  };
+
+  var triggerKeyPress = function triggerKeyPress(code) {
+    triggerKeyEvent('keypress', code);
+  };
+
+  var triggerKeyUp = function triggerKeyUp(code) {
+    triggerKeyEvent('keyup', code);
+  };
+
+  exports.triggerKeyDown = triggerKeyDown;
+  exports.triggerKeyPress = triggerKeyPress;
+  exports.triggerKeyUp = triggerKeyUp;
 });
 define('ember-load-initializers/index', ['exports', 'ember'], function (exports, _ember) {
   'use strict';
@@ -89615,6 +90025,949 @@ define("ember-modal-dialog/templates/components/tether-dialog", ["exports"], fun
       templates: [child0, child1, child2]
     };
   })());
+});
+define('ember-moment/computeds/-base', ['exports', 'ember', 'ember-moment/utils/get-value', 'ember-moment/utils/get-dependent-keys'], function (exports, _ember, _emberMomentUtilsGetValue, _emberMomentUtilsGetDependentKeys) {
+  'use strict';
+
+  exports['default'] = computedFactory;
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  var computed = _ember['default'].computed;
+
+  function computedFactory(fn) {
+    return function () {
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var computedArgs = [].concat((0, _emberMomentUtilsGetDependentKeys['default'])(args));
+
+      computedArgs.push(function () {
+        var _this = this;
+
+        var params = args.map(function (arg) {
+          return _emberMomentUtilsGetValue['default'].call(_this, arg);
+        });
+
+        return fn.call(this, params);
+      });
+
+      return computed.apply(undefined, _toConsumableArray(computedArgs));
+    };
+  }
+});
+define('ember-moment/computeds/calendar', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function calendarComputed(params) {
+    if (!params || params && params.length > 2) {
+      throw new TypeError('ember-moment: Invalid Number of arguments, at most 2');
+    }
+
+    var _params = _slicedToArray(params, 2);
+
+    var date = _params[0];
+    var referenceTime = _params[1];
+
+    return (0, _moment['default'])(date).calendar(referenceTime);
+  });
+});
+define('ember-moment/computeds/duration', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function durationComputed(params) {
+    return _moment['default'].duration.apply(_moment['default'], _toConsumableArray(params));
+  });
+});
+define('ember-moment/computeds/format', ['exports', 'ember', 'moment', 'ember-getowner-polyfill', 'ember-moment/computeds/-base'], function (exports, _ember, _moment, _emberGetownerPolyfill, _emberMomentComputedsBase) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  var CONFIG_KEY = 'config:environment';
+  var get = _ember['default'].get;
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function formatComtputed(_ref) {
+    var _ref2 = _slicedToArray(_ref, 2);
+
+    var value = _ref2[0];
+    var optionalFormat = _ref2[1];
+
+    if (!optionalFormat) {
+      var owner = (0, _emberGetownerPolyfill['default'])(this);
+
+      if (owner && owner.hasRegistration && owner.hasRegistration(CONFIG_KEY)) {
+        var config = owner.resolveRegistration(CONFIG_KEY);
+
+        if (config) {
+          optionalFormat = get(config, 'moment.outputFormat');
+        }
+      }
+    }
+
+    return (0, _moment['default'])(value).format(optionalFormat);
+  });
+});
+define('ember-moment/computeds/from-now', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function fromNowComputed(params) {
+    var maybeHideSuffix = undefined;
+
+    if (params.length > 1) {
+      maybeHideSuffix = params.pop();
+    }
+
+    return _moment['default'].apply(undefined, _toConsumableArray(params)).fromNow(maybeHideSuffix);
+  });
+});
+define('ember-moment/computeds/humanize', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function humanizeComputed(_ref) {
+    var _ref2 = _slicedToArray(_ref, 2);
+
+    var duration = _ref2[0];
+    var suffixless = _ref2[1];
+
+    if (!_moment['default'].isDuration(duration)) {
+      duration = _moment['default'].duration(duration);
+    }
+
+    return duration.humanize(suffixless);
+  });
+});
+define('ember-moment/computeds/locale', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function localeComputed(_ref) {
+    var _ref2 = _slicedToArray(_ref, 2);
+
+    var date = _ref2[0];
+    var locale = _ref2[1];
+
+    if (!_moment['default'].isDuration(date)) {
+      date = (0, _moment['default'])(date);
+    }
+
+    return date.locale(locale);
+  });
+});
+define('ember-moment/computeds/moment', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function momentComputed(params) {
+    return _moment['default'].apply(undefined, _toConsumableArray(params));
+  });
+});
+define('ember-moment/computeds/to-now', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function toNowComputed(params) {
+    var maybeHidePrefix = undefined;
+
+    if (params.length > 1) {
+      maybeHidePrefix = params.pop();
+    }
+
+    return _moment['default'].apply(undefined, _toConsumableArray(params)).toNow(maybeHidePrefix);
+  });
+});
+define('ember-moment/computeds/tz', ['exports', 'moment', 'ember-moment/computeds/-base'], function (exports, _moment, _emberMomentComputedsBase) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  exports['default'] = (0, _emberMomentComputedsBase['default'])(function tzComputed(_ref) {
+    var _ref2 = _slicedToArray(_ref, 2);
+
+    var date = _ref2[0];
+    var tz = _ref2[1];
+
+    return (0, _moment['default'])(date).tz(tz);
+  });
+});
+define('ember-moment/helpers/-base', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  var observer = _ember['default'].observer;
+  var inject = _ember['default'].inject;
+  var Helper = _ember['default'].Helper;
+  var runBind = _ember['default'].run.bind;
+
+  exports['default'] = Helper.extend({
+    moment: inject.service(),
+    disableInterval: false,
+
+    localeOrTimeZoneChanged: observer('moment.locale', 'moment.timeZone', function () {
+      this.recompute();
+    }),
+
+    compute: function compute(value, _ref) {
+      var interval = _ref.interval;
+
+      if (this.get('disableInterval')) {
+        return;
+      }
+
+      this.clearTimer();
+
+      if (interval) {
+        this.intervalTimer = setTimeout(runBind(this, this.recompute), parseInt(interval, 10));
+      }
+    },
+
+    morphMoment: function morphMoment(time, _ref2) {
+      var locale = _ref2.locale;
+      var timeZone = _ref2.timeZone;
+
+      locale = locale || this.get('moment.locale');
+
+      if (locale) {
+        time = time.locale(locale);
+      }
+
+      timeZone = timeZone || this.get('moment.timeZone');
+
+      if (timeZone && time.tz) {
+        time = time.tz(timeZone);
+      }
+
+      return time;
+    },
+
+    clearTimer: function clearTimer() {
+      clearTimeout(this.intervalTimer);
+    },
+
+    destroy: function destroy() {
+      this.clearTimer();
+      this._super.apply(this, arguments);
+    }
+  });
+});
+define('ember-moment/helpers/is-after', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var precision = _ref.precision;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      var args = [];
+      var comparisonArgs = [];
+
+      if (length === 1) {
+        comparisonArgs.push(params[0]);
+      } else if (length === 2) {
+        args.push(params[0]);
+        comparisonArgs.push(params[1]);
+      }
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).isAfter.apply(_morphMoment, comparisonArgs.concat([precision]));
+    })
+  });
+});
+define('ember-moment/helpers/is-before', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var precision = _ref.precision;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      var args = [];
+      var comparisonArgs = [];
+
+      if (length === 1) {
+        comparisonArgs.push(params[0]);
+      } else if (length === 2) {
+        args.push(params[0]);
+        comparisonArgs.push(params[1]);
+      }
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).isBefore.apply(_morphMoment, comparisonArgs.concat([precision]));
+    })
+  });
+});
+define('ember-moment/helpers/is-between', ['exports', 'ember', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _ember, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var precision = _ref.precision;
+      var inclusivity = _ref.inclusivity;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      if (length < 2 || length > 3) {
+        throw new TypeError('ember-moment: Invalid Number of arguments, expected 2 or 3');
+      }
+
+      var args = [];
+      var comparisonArgs = _ember['default'].A();
+
+      if (length > 2) {
+        args.push(params.shift());
+      }
+
+      comparisonArgs.pushObjects(params);
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).isBetween.apply(_morphMoment, _toConsumableArray(comparisonArgs).concat([precision, inclusivity]));
+    })
+  });
+});
+define('ember-moment/helpers/is-same-or-after', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var precision = _ref.precision;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      var args = [];
+      var comparisonArgs = [];
+
+      if (length === 1) {
+        comparisonArgs.push(params[0]);
+      } else if (length === 2) {
+        args.push(params[0]);
+        comparisonArgs.push(params[1]);
+      }
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).isSameOrAfter.apply(_morphMoment, comparisonArgs.concat([precision]));
+    })
+  });
+});
+define('ember-moment/helpers/is-same-or-before', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var precision = _ref.precision;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      var args = [];
+      var comparisonArgs = [];
+
+      if (length === 1) {
+        comparisonArgs.push(params[0]);
+      } else if (length === 2) {
+        args.push(params[0]);
+        comparisonArgs.push(params[1]);
+      }
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).isSameOrBefore.apply(_morphMoment, comparisonArgs.concat([precision]));
+    })
+  });
+});
+define('ember-moment/helpers/is-same', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var precision = _ref.precision;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      var args = [];
+      var comparisonArgs = [];
+
+      if (length === 1) {
+        comparisonArgs.push(params[0]);
+      } else if (length === 2) {
+        args.push(params[0]);
+        comparisonArgs.push(params[1]);
+      }
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).isSame.apply(_morphMoment, comparisonArgs.concat([precision]));
+    })
+  });
+});
+define('ember-moment/helpers/moment-calendar', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      if (!params || params && params.length > 2) {
+        throw new TypeError('ember-moment: Invalid Number of arguments, at most 2');
+      }
+
+      var _params = _slicedToArray(params, 2);
+
+      var date = _params[0];
+      var referenceTime = _params[1];
+
+      return this.morphMoment((0, _moment['default'])(date), { locale: locale, timeZone: timeZone }).calendar(referenceTime);
+    })
+  });
+});
+define('ember-moment/helpers/moment-duration', ['exports', 'moment', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentHelpersBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    disableInterval: true,
+
+    compute: function compute(params, _ref) {
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      if (!params || params && params.length > 2) {
+        throw new TypeError('ember-moment: Invalid Number of arguments, at most 2');
+      }
+
+      return this.morphMoment(_moment['default'].duration.apply(_moment['default'], _toConsumableArray(params)), { locale: locale, timeZone: timeZone }).humanize();
+    }
+  });
+});
+define('ember-moment/helpers/moment-format', ['exports', 'ember', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _ember, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  var observer = _ember['default'].observer;
+  var isEmpty = _ember['default'].isEmpty;
+  var get = _ember['default'].get;
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    defaultFormatDidChange: observer('moment.defaultFormat', function () {
+      this.recompute();
+    }),
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var _morphMoment;
+
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      var length = params.length;
+
+      if (length > 3) {
+        throw new TypeError('ember-moment: Invalid Number of arguments, expected at most 4');
+      }
+
+      var args = [];
+      var formatArgs = [];
+      var defaultFormat = get(this, 'moment.defaultFormat');
+
+      args.push(params[0]);
+
+      if (length === 1 && !isEmpty(defaultFormat)) {
+        formatArgs.push(defaultFormat);
+      } else if (length === 2) {
+        formatArgs.push(params[1]);
+      } else if (length > 2) {
+        args.push(params[2]);
+        formatArgs.push(params[1]);
+      }
+
+      return (_morphMoment = this.morphMoment(_moment['default'].apply(undefined, args), { locale: locale, timeZone: timeZone })).format.apply(_morphMoment, formatArgs);
+    })
+  });
+});
+define('ember-moment/helpers/moment-from-now', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var hideSuffix = _ref.hideSuffix;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      return this.morphMoment(_moment['default'].apply(undefined, _toConsumableArray(params)), { locale: locale, timeZone: timeZone }).fromNow(hideSuffix);
+    })
+  });
+});
+define('ember-moment/helpers/moment-to-now', ['exports', 'moment', 'ember-moment/utils/helper-compute', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentUtilsHelperCompute, _emberMomentHelpersBase) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    globalAllowEmpty: false,
+
+    compute: (0, _emberMomentUtilsHelperCompute['default'])(function (params, _ref) {
+      var hidePrefix = _ref.hidePrefix;
+      var locale = _ref.locale;
+      var timeZone = _ref.timeZone;
+
+      this._super.apply(this, arguments);
+
+      return this.morphMoment(_moment['default'].apply(undefined, _toConsumableArray(params)), { locale: locale, timeZone: timeZone }).toNow(hidePrefix);
+    })
+  });
+});
+define('ember-moment/helpers/now', ['exports', 'moment', 'ember-moment/helpers/-base'], function (exports, _moment, _emberMomentHelpersBase) {
+  'use strict';
+
+  exports['default'] = _emberMomentHelpersBase['default'].extend({
+    compute: function compute() {
+      this._super.apply(this, arguments);
+
+      return _moment['default'].now();
+    }
+  });
+});
+define('ember-moment/services/moment', ['exports', 'ember', 'moment'], function (exports, _ember, _moment2) {
+  'use strict';
+
+  var computed = _ember['default'].computed;
+  var logger = _ember['default'].Logger;
+
+  exports['default'] = _ember['default'].Service.extend({
+    _timeZone: null,
+
+    locale: null,
+    defaultFormat: null,
+
+    timeZone: computed('_timeZone', {
+      get: function get() {
+        return this.get('_timeZone');
+      },
+
+      set: function set(propertyKey, timeZone) {
+        if (!_moment2['default'].tz) {
+          logger.warn('[ember-moment] attempted to set timezone, but moment-timezone unavailable.');
+          return;
+        }
+
+        this.set('_timeZone', timeZone);
+
+        return timeZone;
+      }
+    }),
+
+    changeLocale: function changeLocale(locale) {
+      this.set('locale', locale);
+    },
+
+    changeTimeZone: function changeTimeZone(timeZone) {
+      this.set('timeZone', timeZone);
+    },
+
+    isMoment: function isMoment(obj) {
+      return _moment2['default'].isMoment(obj);
+    },
+
+    moment: function moment() {
+      var time = _moment2['default'].apply(undefined, arguments);
+      var locale = this.get('locale');
+      var timeZone = this.get('timeZone');
+
+      if (locale) {
+        time = time.locale(locale);
+      }
+
+      if (timeZone && time.tz) {
+        time = time.tz(timeZone);
+      }
+
+      return time;
+    }
+  });
+});
+define('ember-moment/utils/get-dependent-keys', ['exports', 'ember', 'ember-moment/utils/is-descriptor'], function (exports, _ember, _emberMomentUtilsIsDescriptor) {
+  // source: ember-cpm
+  // https://github.com/cibernox/ember-cpm/blob/7b974567c92e45a815ee18c6cb62e3ba1fa99f1d/addon/utils.js#L49-L73
+
+  'use strict';
+
+  var typeOf = _ember['default'].typeOf;
+
+  function getDependentKeys(argumentArr) {
+    return argumentArr.reduce(function (out, item) {
+      switch (typeOf(item)) {
+        case 'string':
+          var containsSpaces = item.indexOf(' ') !== -1;
+          if (!containsSpaces) {
+            out.push(item);
+          }
+          break;
+        case 'boolean':
+        case 'number':
+          break;
+        default:
+          if (item && item._dependentKeys && (0, _emberMomentUtilsIsDescriptor['default'])(item)) {
+            out = out.concat(item._dependentKeys);
+          }
+          break;
+      }
+
+      return out;
+    }, []);
+  }
+
+  exports['default'] = getDependentKeys;
+});
+define('ember-moment/utils/get-value', ['exports', 'ember', 'ember-moment/utils/is-descriptor'], function (exports, _ember, _emberMomentUtilsIsDescriptor) {
+  // source: ember-cpm
+  // https://github.com/cibernox/ember-cpm/blob/7b974567c92e45a815ee18c6cb62e3ba1fa99f1d/addon/utils.js#L75-L99
+
+  'use strict';
+
+  var typeOf = _ember['default'].typeOf;
+  var get = _ember['default'].get;
+
+  /**
+   Evaluate a value, which could either be a property key or a literal
+   if the value is a string, the object that the computed property is installed
+   on will be checked for a property of the same name. If one is found, it will
+   be evaluated, and the result will be returned. Otherwise the string value its
+   self will be returned
+   All non-string values pass straight through, and are returned unaltered
+   @method getVal
+   @param val value to evaluate
+   */
+  function getValue(val) {
+    if (typeOf(val) === 'string') {
+      var propVal = get(this, val);
+
+      return 'undefined' === typeof propVal ? val : propVal;
+    } else if ((0, _emberMomentUtilsIsDescriptor['default'])(val)) {
+      var funcName = val.func ? 'func' : // Ember < 1.11
+      '_getter'; // Ember >= 1.11
+      return val.altKey ? get(this, val.altKey) : val[funcName].apply(this);
+    } else {
+      return val;
+    }
+  }
+
+  exports['default'] = getValue;
+});
+define('ember-moment/utils/helper-compute', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  var isBlank = _ember['default'].isBlank;
+
+  exports['default'] = function (cb) {
+    return function (params, hash) {
+      if (!params || params && params.length === 0) {
+        throw new TypeError('ember-moment: Invalid Number of arguments, expected at least 1');
+      }
+
+      var datetime = params[0];
+
+      var allowEmpty = hash.allowEmpty || hash['allow-empty'];
+
+      if (allowEmpty === undefined || allowEmpty === null) {
+        allowEmpty = !!this.get('globalAllowEmpty');
+      }
+
+      if (isBlank(datetime)) {
+        if (allowEmpty) {
+          return;
+        } else {
+          _ember['default'].Logger.warn('ember-moment: an empty value (null, undefined, or "") was passed to moment-format');
+        }
+      }
+
+      return cb.apply(this, arguments);
+    };
+  };
+});
+define('ember-moment/utils/is-descriptor', ['exports', 'ember'], function (exports, _ember) {
+  // source: ember-cpm
+  // https://github.com/cibernox/ember-cpm/blob/7b974567c92e45a815ee18c6cb62e3ba1fa99f1d/addon/utils.js#L17-L20
+
+  'use strict';
+
+  var typeOf = _ember['default'].typeOf;
+  var Descriptor = _ember['default'].Descriptor;
+
+  function isDescriptor(prop) {
+    return typeOf(prop) === 'object' && (prop.constructor === Descriptor || // Ember < 1.11
+    prop.isDescriptor); // Ember >= 1.11.0
+  }
+
+  exports['default'] = isDescriptor;
 });
 define('ember-new-computed/index', ['exports', 'ember', 'ember-new-computed/utils/can-use-new-syntax'], function (exports, _ember, _emberNewComputedUtilsCanUseNewSyntax) {
   'use strict';
@@ -90634,6 +91987,65 @@ define("materialize/index", ["exports"], function (exports) {
   "use strict";
 
   exports["default"] = Materialize;
+});
+define('moment/index', ['exports', 'ember'], function (exports, _ember) {
+  /* globals self */
+
+  'use strict';
+
+  var moment = self.moment;
+
+  var ComparableMoment = _ember['default'].Object.extend(_ember['default'].Comparable, moment.fn, {
+    compare: function compare(a, b) {
+      if (moment.isMoment(a) && moment.isMoment(b)) {
+        if (a.isBefore(b)) {
+          return -1;
+        } else if (a.isSame(b)) {
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+
+      throw new Error('Arguments provided to `compare` are not moment objects');
+    },
+
+    clone: function clone() {
+      return comparableMoment(this);
+    }
+  });
+
+  function comparableMoment() {
+    return ComparableMoment.create(moment.apply(undefined, arguments));
+  };
+
+  // Wrap global moment methods that return a full moment object
+  ['utc', 'unix'].forEach(function (methodName) {
+    comparableMoment[methodName] = function () {
+      return ComparableMoment.create(moment[methodName].apply(moment, arguments));
+    };
+  });
+
+  var _loop = function _loop(momentProp) {
+    if (moment.hasOwnProperty(momentProp) && !comparableMoment.hasOwnProperty(momentProp)) {
+      Object.defineProperty(comparableMoment, momentProp, {
+        enumerable: true,
+        configurable: true,
+        get: function get() {
+          return moment[momentProp];
+        },
+        set: function set(newValue) {
+          moment[momentProp] = newValue;
+        }
+      });
+    }
+  };
+
+  for (var momentProp in moment) {
+    _loop(momentProp);
+  }
+
+  exports['default'] = comparableMoment;
 });
 ;/* jshint ignore:start */
 

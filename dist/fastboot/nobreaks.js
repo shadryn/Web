@@ -530,12 +530,22 @@ define('nobreaks/controllers/admin', ['exports', 'ember'], function (exports, _e
     }).observes('tabsSelection')
   });
 });
-define('nobreaks/controllers/admin/epgp', ['exports', 'ember', 'ember-network/fetch', 'nobreaks/const'], function (exports, _ember, _emberNetworkFetch, _nobreaksConst) {
+define('nobreaks/controllers/admin/epgp', ['exports', 'ember', 'ember-network/fetch', 'moment', 'nobreaks/const'], function (exports, _ember, _emberNetworkFetch, _moment, _nobreaksConst) {
   exports['default'] = _ember['default'].Controller.extend({
+    moment: _ember['default'].inject.service(),
+    raidDate: '',
+    epgpData: '',
     isProcessing: false,
     submitError: false,
 
+    init: function init() {
+      this.set('raidDate', (0, _moment['default'])());
+    },
+
     actions: {
+      changeDefaultFormat: function changeDefaultFormat() {
+        this.set('moment.defaultFormat', 'MM/DD/YYYY');
+      },
       submit: function submit() {
         var _this = this;
 
@@ -551,13 +561,13 @@ define('nobreaks/controllers/admin/epgp', ['exports', 'ember', 'ember-network/fe
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
+            raidDate: (0, _moment['default'])(this.get('raidDate')).format('MM/DD/YYYY'),
             epgpData: this.get('epgpData')
           })
         }).then(function (response) {
           _this.set('isProcessing', false);
 
           if (response.status >= 400) {
-            _ember['default'].get(_this, 'flashMessages').alert('The API Key you entered is invalid');
             return _this.set('submitError', 'The API Key you entered is invalid');
           }
 
@@ -654,6 +664,11 @@ define('nobreaks/helpers/index-to-class', ['exports', 'ember', 'nobreaks/const']
 
   exports['default'] = _ember['default'].Helper.helper(indexToClass);
 });
+define('nobreaks/helpers/is-after', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/is-after'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersIsAfter) {
+  exports['default'] = _emberMomentHelpersIsAfter['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
 define('nobreaks/helpers/is-array', ['exports', 'ember', 'ember-truth-helpers/helpers/is-array'], function (exports, _ember, _emberTruthHelpersHelpersIsArray) {
 
   var forExport = null;
@@ -665,6 +680,31 @@ define('nobreaks/helpers/is-array', ['exports', 'ember', 'ember-truth-helpers/he
   }
 
   exports['default'] = forExport;
+});
+define('nobreaks/helpers/is-before', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/is-before'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersIsBefore) {
+  exports['default'] = _emberMomentHelpersIsBefore['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/is-between', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/is-between'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersIsBetween) {
+  exports['default'] = _emberMomentHelpersIsBetween['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/is-same-or-after', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/is-same-or-after'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersIsSameOrAfter) {
+  exports['default'] = _emberMomentHelpersIsSameOrAfter['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/is-same-or-before', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/is-same-or-before'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersIsSameOrBefore) {
+  exports['default'] = _emberMomentHelpersIsSameOrBefore['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/is-same', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/is-same'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersIsSame) {
+  exports['default'] = _emberMomentHelpersIsSame['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
 });
 define('nobreaks/helpers/lt', ['exports', 'ember', 'ember-truth-helpers/helpers/lt'], function (exports, _ember, _emberTruthHelpersHelpersLt) {
 
@@ -690,6 +730,34 @@ define('nobreaks/helpers/lte', ['exports', 'ember', 'ember-truth-helpers/helpers
 
   exports['default'] = forExport;
 });
+define('nobreaks/helpers/moment-calendar', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/moment-calendar'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersMomentCalendar) {
+  exports['default'] = _emberMomentHelpersMomentCalendar['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/moment-duration', ['exports', 'ember-moment/helpers/moment-duration'], function (exports, _emberMomentHelpersMomentDuration) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberMomentHelpersMomentDuration['default'];
+    }
+  });
+});
+define('nobreaks/helpers/moment-format', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/moment-format'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersMomentFormat) {
+  exports['default'] = _emberMomentHelpersMomentFormat['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/moment-from-now', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/moment-from-now'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersMomentFromNow) {
+  exports['default'] = _emberMomentHelpersMomentFromNow['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
+define('nobreaks/helpers/moment-to-now', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/helpers/moment-to-now'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentHelpersMomentToNow) {
+  exports['default'] = _emberMomentHelpersMomentToNow['default'].extend({
+    globalAllowEmpty: !!_ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.allowEmpty')
+  });
+});
 define('nobreaks/helpers/not-eq', ['exports', 'ember', 'ember-truth-helpers/helpers/not-equal'], function (exports, _ember, _emberTruthHelpersHelpersNotEqual) {
 
   var forExport = null;
@@ -713,6 +781,14 @@ define('nobreaks/helpers/not', ['exports', 'ember', 'ember-truth-helpers/helpers
   }
 
   exports['default'] = forExport;
+});
+define('nobreaks/helpers/now', ['exports', 'ember-moment/helpers/now'], function (exports, _emberMomentHelpersNow) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberMomentHelpersNow['default'];
+    }
+  });
 });
 define('nobreaks/helpers/or', ['exports', 'ember', 'ember-truth-helpers/helpers/or'], function (exports, _ember, _emberTruthHelpersHelpersOr) {
 
@@ -1460,6 +1536,11 @@ define('nobreaks/services/md-settings', ['exports', 'ember-cli-materialize/servi
 define('nobreaks/services/modal-dialog', ['exports', 'ember-modal-dialog/services/modal-dialog'], function (exports, _emberModalDialogServicesModalDialog) {
   exports['default'] = _emberModalDialogServicesModalDialog['default'];
 });
+define('nobreaks/services/moment', ['exports', 'ember', 'nobreaks/config/environment', 'ember-moment/services/moment'], function (exports, _ember, _nobreaksConfigEnvironment, _emberMomentServicesMoment) {
+  exports['default'] = _emberMomentServicesMoment['default'].extend({
+    defaultFormat: _ember['default'].get(_nobreaksConfigEnvironment['default'], 'moment.outputFormat')
+  });
+});
 define("nobreaks/templates/admin", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -1584,7 +1665,7 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("      ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
+          var el1 = dom.createElement("p");
           dom.setAttribute(el1, "class", "red-text");
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
@@ -1598,7 +1679,7 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
           return morphs;
         },
-        statements: [["content", "submitError", ["loc", [null, [6, 29], [6, 44]]]]],
+        statements: [["content", "submitError", ["loc", [null, [6, 26], [6, 41]]]]],
         locals: [],
         templates: []
       };
@@ -1616,7 +1697,7 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 22,
+            "line": 28,
             "column": 0
           }
         },
@@ -1636,7 +1717,7 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
         dom.setAttribute(el2, "class", "col s6 offset-s3");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("span");
+        var el3 = dom.createElement("p");
         dom.setAttribute(el3, "class", "flow-text");
         var el4 = dom.createTextNode("Enter the contents of the EPGP export into the below form.");
         dom.appendChild(el3, el4);
@@ -1652,7 +1733,7 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "control-group");
+        dom.setAttribute(el4, "class", "row");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
@@ -1663,7 +1744,7 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
         var el4 = dom.createTextNode("\n\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("div");
-        dom.setAttribute(el4, "class", "control-group");
+        dom.setAttribute(el4, "class", "row");
         var el5 = dom.createTextNode("\n        ");
         dom.appendChild(el4, el5);
         var el5 = dom.createComment("");
@@ -1673,7 +1754,25 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "row");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("div");
+        dom.setAttribute(el4, "class", "row");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
@@ -1691,15 +1790,16 @@ define("nobreaks/templates/admin/epgp", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0, 1]);
         var element1 = dom.childAt(element0, [5]);
-        var morphs = new Array(5);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(element0, 3, 3);
         morphs[1] = dom.createElementMorph(element1);
         morphs[2] = dom.createMorphAt(dom.childAt(element1, [1]), 1, 1);
         morphs[3] = dom.createMorphAt(dom.childAt(element1, [3]), 1, 1);
-        morphs[4] = dom.createMorphAt(element1, 5, 5);
+        morphs[4] = dom.createMorphAt(dom.childAt(element1, [5]), 1, 1);
+        morphs[5] = dom.createMorphAt(dom.childAt(element1, [7]), 1, 1);
         return morphs;
       },
-      statements: [["block", "if", [["get", "submitError", ["loc", [null, [5, 10], [5, 21]]]]], [], 0, null, ["loc", [null, [5, 4], [7, 11]]]], ["element", "action", ["submit"], ["on", "submit"], ["loc", [null, [9, 34], [9, 65]]]], ["inline", "md-input", [], ["value", ["subexpr", "@mut", [["get", "apiKey", ["loc", [null, [11, 25], [11, 31]]]]], [], []], "label", "API Key", "class", "col s12", "validate", true, "required", true], ["loc", [null, [11, 8], [11, 93]]]], ["inline", "md-textarea", [], ["label", "EPGP Export", "value", ["subexpr", "@mut", [["get", "epgpData", ["loc", [null, [15, 48], [15, 56]]]]], [], []], "class", "col s12"], ["loc", [null, [15, 8], [15, 74]]]], ["inline", "md-btn-submit", [], ["icon", "mdi-content-send", "iconPosition", "right", "text", "Submit", "isDisabled", ["subexpr", "@mut", [["get", "isProcessing", ["loc", [null, [18, 92], [18, 104]]]]], [], []]], ["loc", [null, [18, 6], [18, 106]]]]],
+      statements: [["block", "if", [["get", "submitError", ["loc", [null, [5, 10], [5, 21]]]]], [], 0, null, ["loc", [null, [5, 4], [7, 11]]]], ["element", "action", ["submit"], ["on", "submit"], ["loc", [null, [9, 34], [9, 65]]]], ["inline", "md-input", [], ["value", ["subexpr", "@mut", [["get", "apiKey", ["loc", [null, [11, 25], [11, 31]]]]], [], []], "label", "API Key", "class", "col s12", "validate", true, "required", true], ["loc", [null, [11, 8], [11, 93]]]], ["inline", "md-input-date", [], ["label", "Raid Date", "value", ["subexpr", "@mut", [["get", "raidDate", ["loc", [null, [15, 48], [15, 56]]]]], [], []], "class", "col s12", "required", true], ["loc", [null, [15, 8], [15, 88]]]], ["inline", "md-textarea", [], ["label", "EPGP Export", "value", ["subexpr", "@mut", [["get", "epgpData", ["loc", [null, [19, 48], [19, 56]]]]], [], []], "class", "col s12", "required", true], ["loc", [null, [19, 8], [19, 88]]]], ["inline", "md-btn-submit", [], ["icon", "mdi-content-send", "iconPosition", "right", "text", "Submit", "isDisabled", ["subexpr", "@mut", [["get", "isProcessing", ["loc", [null, [23, 94], [23, 106]]]]], [], []]], ["loc", [null, [23, 8], [23, 108]]]]],
       locals: [],
       templates: [child0]
     };
@@ -4442,6 +4542,14 @@ define("nobreaks/templates/social", ["exports"], function (exports) {
       templates: [child0]
     };
   })());
+});
+define('nobreaks/utils/get-cmd-key', ['exports', 'ember-keyboard/utils/get-cmd-key'], function (exports, _emberKeyboardUtilsGetCmdKey) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberKeyboardUtilsGetCmdKey['default'];
+    }
+  });
 });
 define('nobreaks/utils/listener-name', ['exports', 'ember-keyboard/utils/listener-name'], function (exports, _emberKeyboardUtilsListenerName) {
   Object.defineProperty(exports, 'default', {
