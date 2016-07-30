@@ -6302,83 +6302,110 @@ button, .btn, .btn-large {
   .raiding .tabs {
     margin-top: 50px; }
 
-.roster,
+.roster-tab,
+.loot-tab,
 .progress-tab {
   padding-top: 50px; }
-  .roster h4, .roster h5,
+  .roster-tab h4, .roster-tab h5,
+  .loot-tab h4,
+  .loot-tab h5,
   .progress-tab h4,
   .progress-tab h5 {
     padding-left: 10px; }
-  .roster h6 ~ p,
+  .roster-tab h6 ~ p,
+  .loot-tab h6 ~ p,
   .progress-tab h6 ~ p {
     font-size: .8em; }
-  .roster .name,
+  .roster-tab .name,
+  .loot-tab .name,
   .progress-tab .name {
     font-size: 1.2em;
     padding-bottom: 10px; }
 
-.roster .epgp-count {
+.roster-tab .epgp-count {
   padding-top: 10px; }
 
-.roster .card-content.deathknight {
+.roster-tab .card-content.deathknight {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/deathknight.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/deathknight.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/deathknight.png") no-repeat center center; }
 
-.roster .card-content.demonhunter {
+.roster-tab .card-content.demonhunter {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/demonhunter.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/demonhunter.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/demonhunter.png") no-repeat center center; }
 
-.roster .card-content.druid {
+.roster-tab .card-content.druid {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/druid.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/druid.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/druid.png") no-repeat center center; }
 
-.roster .card-content.hunter {
+.roster-tab .card-content.hunter {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/hunter.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/hunter.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/hunter.png") no-repeat center center; }
 
-.roster .card-content.mage {
+.roster-tab .card-content.mage {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/mage.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/mage.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/mage.png") no-repeat center center; }
 
-.roster .card-content.monk {
+.roster-tab .card-content.monk {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/monk.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/monk.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/monk.png") no-repeat center center; }
 
-.roster .card-content.paladin {
+.roster-tab .card-content.paladin {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/paladin.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/paladin.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/paladin.png") no-repeat center center; }
 
-.roster .card-content.priest {
+.roster-tab .card-content.priest {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/priest.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/priest.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/priest.png") no-repeat center center; }
 
-.roster .card-content.rogue {
+.roster-tab .card-content.rogue {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/rogue.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/rogue.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/rogue.png") no-repeat center center; }
 
-.roster .card-content.shaman {
+.roster-tab .card-content.shaman {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/shaman.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/shaman.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/shaman.png") no-repeat center center; }
 
-.roster .card-content.warlock {
+.roster-tab .card-content.warlock {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/warlock.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/warlock.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/warlock.png") no-repeat center center; }
 
-.roster .card-content.warrior {
+.roster-tab .card-content.warrior {
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/warrior.png") no-repeat center center;
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/warrior.png") no-repeat center center;
   background: linear-gradient(top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url("/assets/images/classes/crests/warrior.png") no-repeat center center; }
+
+.loot-tab .tab-header {
+  text-align: center; }
+  .loot-tab .tab-header h4 {
+    display: inline-block; }
+  .loot-tab .tab-header .next {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH"; }
+  .loot-tab .tab-header .tab-header-controls {
+    text-align: center;
+    width: 250px; }
+    .loot-tab .tab-header .tab-header-controls .tab-header-control-nav {
+      width: 48px;
+      display: inline-block; }
+
+.loot-tab .card img {
+  margin: 0 auto;
+  display: block; }
 
 .progress-tab .card {
   position: relative; }

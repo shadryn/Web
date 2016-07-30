@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import $ from 'jquery';
 
 export default Ember.Route.extend({
-  setupController: function() {
-    $(document).ready(() => {
-      let listSlideshow = $("#bear-sayings");
+  activate: function() {
+    Ember.run.scheduleOnce('afterRender', this, () => {
+      let listSlideshow = Ember.$('#bear-sayings');
       let listItems = listSlideshow.children('li');
       let listLen = listItems.length;
       let i = 0;

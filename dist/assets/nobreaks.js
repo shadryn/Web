@@ -511,10 +511,12 @@ define('nobreaks/components/tether-dialog', ['exports', 'ember-modal-dialog/comp
   });
 });
 define('nobreaks/const', ['exports'], function (exports) {
-  var API_PATH = 'https://api.nobreaksguild.com/v1';
+  var API_PATH = 'http://localhost:5001/v1';
   exports.API_PATH = API_PATH;
-  var API_MEMBERS_PATH = '/guild/No%20Breaks/epgp/raiders';
-  exports.API_MEMBERS_PATH = API_MEMBERS_PATH;
+  var API_RAIDERS_PATH = '/guild/No%20Breaks/epgp/raiders';
+  exports.API_RAIDERS_PATH = API_RAIDERS_PATH;
+  var API_EPGP_LOOT_PATH = '/guild/No%20Breaks/epgp/loot';
+  exports.API_EPGP_LOOT_PATH = API_EPGP_LOOT_PATH;
   var API_EPGP_UPLOAD_PATH = '/guild/No%20Breaks/epgp/upload';
 
   exports.API_EPGP_UPLOAD_PATH = API_EPGP_UPLOAD_PATH;
@@ -580,9 +582,14 @@ define('nobreaks/controllers/admin/epgp', ['exports', 'ember', 'ember-network/fe
 define('nobreaks/controllers/raiding', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
     tabsSelection: 'raiding.roster',
+    lootDate: 'latest',
 
     tabChange: (function () {
-      this.transitionToRoute(this.tabsSelection);
+      if (this.tabsSelection === 'raiding.loot') {
+        this.transitionToRoute(this.tabsSelection, this.get('lootDate'));
+      } else {
+        this.transitionToRoute(this.tabsSelection);
+      }
     }).observes('tabsSelection')
   });
 });
@@ -1200,6 +1207,7 @@ define('nobreaks/router', ['exports', 'ember', 'nobreaks/config/environment', 'e
     this.route('raiding', function () {
       this.route('roster');
       this.route('loot');
+      this.route('loot', { path: 'loot/:raidDate' });
       this.route('progress');
     });
     this.route('join');
@@ -1223,11 +1231,11 @@ define('nobreaks/routes/admin/epgp', ['exports', 'ember'], function (exports, _e
     model: function model() {}
   });
 });
-define('nobreaks/routes/index', ['exports', 'ember', 'jquery'], function (exports, _ember, _jquery) {
+define('nobreaks/routes/index', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
-    setupController: function setupController() {
-      (0, _jquery['default'])(document).ready(function () {
-        var listSlideshow = (0, _jquery['default'])("#bear-sayings");
+    activate: function activate() {
+      _ember['default'].run.scheduleOnce('afterRender', this, function () {
+        var listSlideshow = _ember['default'].$('#bear-sayings');
         var listItems = listSlideshow.children('li');
         var listLen = listItems.length;
         var i = 0;
@@ -1258,48 +1266,11 @@ define('nobreaks/routes/raiding', ['exports', 'ember'], function (exports, _embe
   exports['default'] = _ember['default'].Route.extend({
     transitionTarget: '',
 
-    model: function model() {
-      /*return new Ember.RSVP.Promise((resolve) => {
-        return Ember.RSVP.Promise.all([
-          () => {*/
-      //return new Ember.RSVP.Promise((resolve) => {
-      //  fetch(API_PATH + API_MEMBERS_PATH).then((response) => { resolve(response.json()); });
-      //});
-      /*      }
-          ], (data) => {
-            console.log('data', data);
-              resolve(data);
-          });
-        });*/
-      /*return fetch(API_PATH + API_MEMBERS_PATH)
-        .then((response) => { return response.json(); }); /*
-        .then((members) => {
-            let transformed = [];
-          members.forEach((member) => {
-            transformed.push({
-              id: member._id,
-              type: 'member',
-              attributes: {
-                name: member.name
-              },
-              relationships: []
-            });
-          });
-            console.dir(transformed);
-            this.get('store').push({data: transformed});
-            console.dir(this.get('store').findAll('member'));
-        }); */
-    },
+    model: function model() {},
 
     actions: {
       error: function error(reason) {
         alert(reason); // "FAIL"
-
-        // Can transition to another route here, e.g.
-        // this.transitionTo('index');
-
-        // Uncomment the line below to bubble this error event:
-        // return true;
       }
     },
 
@@ -1314,13 +1285,23 @@ define('nobreaks/routes/raiding', ['exports', 'ember'], function (exports, _embe
     }
   });
 });
-define('nobreaks/routes/raiding/loot', ['exports', 'ember', 'ember-network/fetch'], function (exports, _ember, _emberNetworkFetch) {
+define('nobreaks/routes/raiding/loot', ['exports', 'ember', 'ember-network/fetch', 'nobreaks/const'], function (exports, _ember, _emberNetworkFetch, _nobreaksConst) {
   exports['default'] = _ember['default'].Route.extend({
+    transitionTarget: '',
+    raidDate: 'latest',
 
-    model: function model() {
-      return (0, _emberNetworkFetch['default'])('/data/progress.json').then(function (response) {
-        return response;
-      });
+    model: function model(params) {
+      if (params.raidDate) {
+        return (0, _emberNetworkFetch['default'])('' + _nobreaksConst.API_PATH + _nobreaksConst.API_EPGP_LOOT_PATH + '/' + params.raidDate).then(function (response) {
+          return response.json();
+        });
+      }
+    },
+
+    redirect: function redirect(model, transition) {
+      if (!transition.params['raiding.loot'].raidDate) {
+        this.transitionTo('raiding.loot', this.get('raidDate'));
+      }
     }
   });
 });
@@ -1338,7 +1319,7 @@ define('nobreaks/routes/raiding/roster', ['exports', 'ember', 'ember-network/fet
   exports['default'] = _ember['default'].Route.extend({
 
     model: function model() {
-      return (0, _emberNetworkFetch['default'])(_nobreaksConst.API_PATH + _nobreaksConst.API_MEMBERS_PATH).then(function (response) {
+      return (0, _emberNetworkFetch['default'])('' + _nobreaksConst.API_PATH + _nobreaksConst.API_RAIDERS_PATH).then(function (response) {
         return response.json();
       });
     }
@@ -2639,11 +2620,11 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 93,
+                "line": 94,
                 "column": 8
               },
               "end": {
-                "line": 93,
+                "line": 94,
                 "column": 33
               }
             },
@@ -2674,11 +2655,11 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 6
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 6
             }
           },
@@ -2703,7 +2684,7 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["block", "link-to", ["join"], [], 0, null, ["loc", [null, [93, 8], [93, 33]]]]],
+        statements: [["block", "link-to", ["join"], [], 0, null, ["loc", [null, [94, 8], [94, 33]]]]],
         locals: [],
         templates: [child0]
       };
@@ -2722,7 +2703,7 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 113,
+            "line": 114,
             "column": 0
           }
         },
@@ -2936,6 +2917,12 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("li");
         var el6 = dom.createTextNode("Angel is talking about dude wipes again...");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("li");
+        var el6 = dom.createTextNode("Why can't I dps in my healing gear??");
         dom.appendChild(el5, el6);
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n      ");
@@ -3175,7 +3162,7 @@ define("nobreaks/templates/index", ["exports"], function (exports) {
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "md-parallax", [], ["image", "/assets/images/legion-2560x1440-wide.jpg"], ["loc", [null, [1, 0], [1, 64]]]], ["inline", "md-parallax", [], ["image", "/assets/images/emerald-nightmare.jpg"], ["loc", [null, [21, 0], [21, 60]]]], ["block", "link-to", ["raiding.roster"], ["tagName", "button", "class", "btn cyan"], 0, null, ["loc", [null, [28, 6], [30, 18]]]], ["inline", "md-parallax", [], ["image", "/assets/images/legion.png"], ["loc", [null, [80, 0], [80, 49]]]], ["block", "link-to", ["join"], ["tagName", "button", "class", "cyan btn"], 1, null, ["loc", [null, [92, 6], [94, 18]]]]],
+      statements: [["inline", "md-parallax", [], ["image", "/assets/images/legion-2560x1440-wide.jpg"], ["loc", [null, [1, 0], [1, 64]]]], ["inline", "md-parallax", [], ["image", "/assets/images/emerald-nightmare.jpg"], ["loc", [null, [21, 0], [21, 60]]]], ["block", "link-to", ["raiding.roster"], ["tagName", "button", "class", "btn cyan"], 0, null, ["loc", [null, [28, 6], [30, 18]]]], ["inline", "md-parallax", [], ["image", "/assets/images/legion.png"], ["loc", [null, [81, 0], [81, 49]]]], ["block", "link-to", ["join"], ["tagName", "button", "class", "cyan btn"], 1, null, ["loc", [null, [93, 6], [95, 18]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -3360,9 +3347,11 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("\n    ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("    ");
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n    ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
@@ -3371,12 +3360,13 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(2);
+          var morphs = new Array(3);
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
-          morphs[1] = dom.createMorphAt(fragment, 4, 4, contextualElement);
+          morphs[1] = dom.createMorphAt(fragment, 3, 3, contextualElement);
+          morphs[2] = dom.createMorphAt(fragment, 5, 5, contextualElement);
           return morphs;
         },
-        statements: [["inline", "md-tab", [], ["value", "raiding.roster", "title", "Roster"], ["loc", [null, [22, 4], [22, 52]]]], ["inline", "md-tab", [], ["value", "raiding.progress", "title", "Progress & Logs"], ["loc", [null, [24, 4], [24, 63]]]]],
+        statements: [["inline", "md-tab", [], ["value", "raiding.roster", "title", "Roster"], ["loc", [null, [22, 4], [22, 52]]]], ["inline", "md-tab", [], ["value", "raiding.loot", "title", "Loot"], ["loc", [null, [23, 4], [23, 48]]]], ["inline", "md-tab", [], ["value", "raiding.progress", "title", "Progress & Logs"], ["loc", [null, [24, 4], [24, 63]]]]],
         locals: [],
         templates: []
       };
@@ -3516,11 +3506,419 @@ define("nobreaks/templates/raiding", ["exports"], function (exports) {
 });
 define("nobreaks/templates/raiding/loot", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 5,
+              "column": 8
+            },
+            "end": {
+              "line": 7,
+              "column": 8
+            }
+          },
+          "moduleName": "nobreaks/templates/raiding/loot.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("          ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("h5");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+          return morphs;
+        },
+        statements: [["content", "model.error.message", ["loc", [null, [6, 14], [6, 37]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      var child0 = (function () {
+        var child0 = (function () {
+          return {
+            meta: {
+              "fragmentReason": false,
+              "revision": "Ember@2.6.2",
+              "loc": {
+                "source": null,
+                "start": {
+                  "line": 11,
+                  "column": 14
+                },
+                "end": {
+                  "line": 11,
+                  "column": 91
+                }
+              },
+              "moduleName": "nobreaks/templates/raiding/loot.hbs"
+            },
+            isEmpty: false,
+            arity: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            buildFragment: function buildFragment(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("play_arrow");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            buildRenderNodes: function buildRenderNodes() {
+              return [];
+            },
+            statements: [],
+            locals: [],
+            templates: []
+          };
+        })();
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.6.2",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 10,
+                "column": 12
+              },
+              "end": {
+                "line": 12,
+                "column": 12
+              }
+            },
+            "moduleName": "nobreaks/templates/raiding/loot.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("              ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+            return morphs;
+          },
+          statements: [["block", "link-to", ["raiding.loot", ["get", "model.nextRaidDate", ["loc", [null, [11, 52], [11, 70]]]]], ["class", "white-text"], 0, null, ["loc", [null, [11, 14], [11, 91]]]]],
+          locals: [],
+          templates: [child0]
+        };
+      })();
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 9,
+              "column": 10
+            },
+            "end": {
+              "line": 13,
+              "column": 10
+            }
+          },
+          "moduleName": "nobreaks/templates/raiding/loot.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [["block", "link-to", ["raiding.loot", ["get", "model.nextRaidDate", ["loc", [null, [10, 38], [10, 56]]]]], ["tagName", "i", "class", "next material-icons"], 0, null, ["loc", [null, [10, 12], [12, 24]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })();
+    var child2 = (function () {
+      var child0 = (function () {
+        var child0 = (function () {
+          return {
+            meta: {
+              "fragmentReason": false,
+              "revision": "Ember@2.6.2",
+              "loc": {
+                "source": null,
+                "start": {
+                  "line": 19,
+                  "column": 14
+                },
+                "end": {
+                  "line": 19,
+                  "column": 91
+                }
+              },
+              "moduleName": "nobreaks/templates/raiding/loot.hbs"
+            },
+            isEmpty: false,
+            arity: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            buildFragment: function buildFragment(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("play_arrow");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            buildRenderNodes: function buildRenderNodes() {
+              return [];
+            },
+            statements: [],
+            locals: [],
+            templates: []
+          };
+        })();
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.6.2",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 18,
+                "column": 12
+              },
+              "end": {
+                "line": 20,
+                "column": 12
+              }
+            },
+            "moduleName": "nobreaks/templates/raiding/loot.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("              ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+            return morphs;
+          },
+          statements: [["block", "link-to", ["raiding.loot", ["get", "model.prevRaidDate", ["loc", [null, [19, 52], [19, 70]]]]], ["class", "white-text"], 0, null, ["loc", [null, [19, 14], [19, 91]]]]],
+          locals: [],
+          templates: [child0]
+        };
+      })();
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 17,
+              "column": 10
+            },
+            "end": {
+              "line": 21,
+              "column": 10
+            }
+          },
+          "moduleName": "nobreaks/templates/raiding/loot.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [["block", "link-to", ["raiding.loot", ["get", "model.prevRaidDate", ["loc", [null, [18, 38], [18, 56]]]]], ["tagName", "i", "class", "prev material-icons"], 0, null, ["loc", [null, [18, 12], [20, 24]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })();
+    var child3 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 27,
+              "column": 4
+            },
+            "end": {
+              "line": 82,
+              "column": 4
+            }
+          },
+          "moduleName": "nobreaks/templates/raiding/loot.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("li");
+          dom.setAttribute(el1, "class", "col s12 m12 l6");
+          var el2 = dom.createTextNode("\n      ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2, "class", "card grey darken-4");
+          var el3 = dom.createTextNode("\n        ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3, "class", "card-content row");
+          var el4 = dom.createTextNode("\n          ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("div");
+          dom.setAttribute(el4, "class", "item-icon-wrap");
+          dom.setAttribute(el4, "class", "m2 hide-on-small-only col");
+          var el5 = dom.createTextNode("\n            ");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createElement("img");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n          ");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n          ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("div");
+          dom.setAttribute(el4, "class", "content-wrap s12 m10 col");
+          var el5 = dom.createTextNode("\n            ");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createElement("h6");
+          dom.setAttribute(el5, "class", "name col s12 white-text");
+          var el6 = dom.createTextNode("\n              ");
+          dom.appendChild(el5, el6);
+          var el6 = dom.createElement("p");
+          var el7 = dom.createTextNode("\n                ");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createElement("span");
+          var el8 = dom.createComment("");
+          dom.appendChild(el7, el8);
+          dom.appendChild(el6, el7);
+          var el7 = dom.createTextNode("\n                ");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createComment("");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createTextNode("\n              ");
+          dom.appendChild(el6, el7);
+          dom.appendChild(el5, el6);
+          var el6 = dom.createTextNode("\n              ");
+          dom.appendChild(el5, el6);
+          var el6 = dom.createElement("p");
+          var el7 = dom.createTextNode("To ");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createComment("");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createTextNode(" for ");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createComment("");
+          dom.appendChild(el6, el7);
+          var el7 = dom.createTextNode(" EPGP");
+          dom.appendChild(el6, el7);
+          dom.appendChild(el5, el6);
+          var el6 = dom.createTextNode("\n            ");
+          dom.appendChild(el5, el6);
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("          ");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n        ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n    ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1, 1, 1]);
+          var element1 = dom.childAt(element0, [1, 1]);
+          var element2 = dom.childAt(element0, [3, 1]);
+          var element3 = dom.childAt(element2, [1]);
+          var element4 = dom.childAt(element3, [1]);
+          var element5 = dom.childAt(element2, [3]);
+          var morphs = new Array(7);
+          morphs[0] = dom.createAttrMorph(element1, 'src');
+          morphs[1] = dom.createAttrMorph(element3, 'style');
+          morphs[2] = dom.createAttrMorph(element4, 'style');
+          morphs[3] = dom.createMorphAt(element4, 0, 0);
+          morphs[4] = dom.createMorphAt(element3, 3, 3);
+          morphs[5] = dom.createMorphAt(element5, 1, 1);
+          morphs[6] = dom.createMorphAt(element5, 3, 3);
+          return morphs;
+        },
+        statements: [["attribute", "src", ["concat", ["https://us.media.blizzard.com/wow/icons/56/", ["get", "item.itemId.icon", ["loc", [null, [32, 67], [32, 83]]]], ".jpg"]]], ["attribute", "style", ["concat", ["color: #", ["get", "item.itemId.quality.hex", ["loc", [null, [36, 34], [36, 57]]]]]]], ["attribute", "style", ["concat", ["color: #", ["get", "item.itemId.context.hex", ["loc", [null, [37, 39], [37, 62]]]]]]], ["content", "item.itemId.context.name", ["loc", [null, [37, 66], [37, 94]]]], ["content", "item.itemId.name", ["loc", [null, [38, 16], [38, 36]]]], ["content", "item.characterId.name", ["loc", [null, [40, 20], [40, 45]]]], ["content", "item.cost", ["loc", [null, [40, 50], [40, 63]]]]],
+        locals: ["item"],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["empty-body"]
+          "name": "triple-curlies"
         },
         "revision": "Ember@2.6.2",
         "loc": {
@@ -3530,26 +3928,105 @@ define("nobreaks/templates/raiding/loot", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 85,
             "column": 0
           }
         },
         "moduleName": "nobreaks/templates/raiding/loot.hbs"
       },
-      isEmpty: true,
+      isEmpty: false,
       arity: 0,
       cachedFragment: null,
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "loot-tab");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "row tab-header");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "col s12");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("span");
+        dom.setAttribute(el4, "class", "tab-header-controls");
+        var el5 = dom.createTextNode("\n");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("span");
+        dom.setAttribute(el5, "class", "tab-header-control-nav");
+        var el6 = dom.createTextNode("\n");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createComment("");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("h4");
+        var el6 = dom.createComment("");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("span");
+        dom.setAttribute(el5, "class", "tab-header-control-nav");
+        var el6 = dom.createTextNode("\n");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createComment("");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("ul");
+        dom.setAttribute(el2, "class", "row");
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
         return el0;
       },
-      buildRenderNodes: function buildRenderNodes() {
-        return [];
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element6 = dom.childAt(fragment, [0]);
+        var element7 = dom.childAt(element6, [1, 1, 1]);
+        var morphs = new Array(5);
+        morphs[0] = dom.createMorphAt(element7, 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element7, [3]), 1, 1);
+        morphs[2] = dom.createMorphAt(dom.childAt(element7, [5]), 0, 0);
+        morphs[3] = dom.createMorphAt(dom.childAt(element7, [7]), 1, 1);
+        morphs[4] = dom.createMorphAt(dom.childAt(element6, [3]), 1, 1);
+        return morphs;
       },
-      statements: [],
+      statements: [["block", "if", [["get", "model.error", ["loc", [null, [5, 14], [5, 25]]]]], [], 0, null, ["loc", [null, [5, 8], [7, 15]]]], ["block", "if", [["get", "model.nextRaidDate", ["loc", [null, [9, 16], [9, 34]]]]], [], 1, null, ["loc", [null, [9, 10], [13, 17]]]], ["content", "model.raidDate", ["loc", [null, [15, 12], [15, 30]]]], ["block", "if", [["get", "model.prevRaidDate", ["loc", [null, [17, 16], [17, 34]]]]], [], 2, null, ["loc", [null, [17, 10], [21, 17]]]], ["block", "each", [["get", "model.items", ["loc", [null, [27, 12], [27, 23]]]]], [], 3, null, ["loc", [null, [27, 4], [82, 13]]]]],
       locals: [],
-      templates: []
+      templates: [child0, child1, child2, child3]
     };
   })());
 });
@@ -3565,11 +4042,11 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
               "loc": {
                 "source": null,
                 "start": {
-                  "line": 15,
+                  "line": 16,
                   "column": 14
                 },
                 "end": {
-                  "line": 19,
+                  "line": 20,
                   "column": 14
                 }
               },
@@ -3613,11 +4090,11 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 9,
+                "line": 10,
                 "column": 6
               },
               "end": {
-                "line": 25,
+                "line": 26,
                 "column": 6
               }
             },
@@ -3686,7 +4163,7 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
             morphs[3] = dom.createAttrMorph(element2, 'src');
             return morphs;
           },
-          statements: [["attribute", "class", ["concat", ["col s12 m6 l3 ", ["subexpr", "if", [["get", "boss.mythicKills", ["loc", [null, [10, 36], [10, 52]]]], "killed"], [], ["loc", [null, [10, 31], [10, 63]]]]]]], ["content", "boss.name", ["loc", [null, [14, 50], [14, 63]]]], ["block", "if", [["get", "boss.mythicKills", ["loc", [null, [15, 20], [15, 36]]]]], [], 0, null, ["loc", [null, [15, 14], [19, 21]]]], ["attribute", "src", ["get", "boss.thumbnail", ["loc", [null, [20, 25], [20, 39]]]]]],
+          statements: [["attribute", "class", ["concat", ["col s12 m6 l3 ", ["subexpr", "if", [["get", "boss.mythicKills", ["loc", [null, [11, 36], [11, 52]]]], "killed"], [], ["loc", [null, [11, 31], [11, 63]]]]]]], ["content", "boss.name", ["loc", [null, [15, 50], [15, 63]]]], ["block", "if", [["get", "boss.mythicKills", ["loc", [null, [16, 20], [16, 36]]]]], [], 0, null, ["loc", [null, [16, 14], [20, 21]]]], ["attribute", "src", ["get", "boss.thumbnail", ["loc", [null, [21, 25], [21, 39]]]]]],
           locals: ["boss"],
           templates: [child0]
         };
@@ -3698,11 +4175,11 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 4,
+              "line": 5,
               "column": 2
             },
             "end": {
-              "line": 28,
+              "line": 29,
               "column": 2
             }
           },
@@ -3749,7 +4226,7 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
           morphs[1] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
           return morphs;
         },
-        statements: [["content", "raid.name", ["loc", [null, [6, 8], [6, 21]]]], ["block", "each", [["get", "raid.bosses", ["loc", [null, [9, 14], [9, 25]]]]], [], 0, null, ["loc", [null, [9, 6], [25, 15]]]]],
+        statements: [["content", "raid.name", ["loc", [null, [7, 8], [7, 21]]]], ["block", "each", [["get", "raid.bosses", ["loc", [null, [10, 14], [10, 25]]]]], [], 0, null, ["loc", [null, [10, 6], [26, 15]]]]],
         locals: ["raid"],
         templates: [child0]
       };
@@ -3767,7 +4244,7 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 30,
+            "line": 31,
             "column": 0
           }
         },
@@ -3783,11 +4260,18 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
         dom.setAttribute(el1, "class", "progress-tab");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("h4");
-        var el3 = dom.createTextNode("Mythic Progression");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "row tab-header");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("h4");
+        var el4 = dom.createTextNode("Mythic Progression");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n\n");
+        var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
@@ -3801,7 +4285,7 @@ define("nobreaks/templates/raiding/progress", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 3, 3);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model.raids", ["loc", [null, [4, 10], [4, 21]]]]], [], 0, null, ["loc", [null, [4, 2], [28, 11]]]]],
+      statements: [["block", "each", [["get", "model.raids", ["loc", [null, [5, 10], [5, 21]]]]], [], 0, null, ["loc", [null, [5, 2], [29, 11]]]]],
       locals: [],
       templates: [child0]
     };
@@ -3817,11 +4301,11 @@ define("nobreaks/templates/raiding/roster", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 4,
+              "line": 6,
               "column": 4
             },
             "end": {
-              "line": 26,
+              "line": 28,
               "column": 4
             }
           },
@@ -3938,7 +4422,7 @@ define("nobreaks/templates/raiding/roster", ["exports"], function (exports) {
           morphs[6] = dom.createMorphAt(dom.childAt(element1, [7]), 1, 1);
           return morphs;
         },
-        statements: [["attribute", "class", ["concat", ["card-content row ", ["subexpr", "index-to-class", [["get", "character.characterId.class", ["loc", [null, [7, 54], [7, 81]]]], true], [], ["loc", [null, [7, 37], [7, 88]]]]]]], ["content", "character.characterId.name", ["loc", [null, [9, 48], [9, 78]]]], ["attribute", "src", ["concat", ["https://us.battle.net/static-render/us/", ["get", "character.characterId.thumbnail", ["loc", [null, [10, 63], [10, 94]]]]]]], ["content", "character.characterId.items.averageItemLevelEquipped", ["loc", [null, [13, 17], [13, 73]]]], ["content", "character.characterId.items.averageItemLevel", ["loc", [null, [14, 14], [14, 62]]]], ["content", "character.characterId.spec.name", ["loc", [null, [17, 17], [17, 52]]]], ["inline", "epgp-total", [["get", "character.totalEarned", ["loc", [null, [20, 33], [20, 54]]]], ["get", "character.totalSpent", ["loc", [null, [20, 55], [20, 75]]]]], [], ["loc", [null, [20, 20], [20, 77]]]]],
+        statements: [["attribute", "class", ["concat", ["card-content row ", ["subexpr", "index-to-class", [["get", "character.characterId.class", ["loc", [null, [9, 54], [9, 81]]]], true], [], ["loc", [null, [9, 37], [9, 88]]]]]]], ["content", "character.characterId.name", ["loc", [null, [11, 48], [11, 78]]]], ["attribute", "src", ["concat", ["https://us.battle.net/static-render/us/", ["get", "character.characterId.thumbnail", ["loc", [null, [12, 63], [12, 94]]]]]]], ["content", "character.characterId.items.averageItemLevelEquipped", ["loc", [null, [15, 17], [15, 73]]]], ["content", "character.characterId.items.averageItemLevel", ["loc", [null, [16, 14], [16, 62]]]], ["content", "character.characterId.spec.name", ["loc", [null, [19, 17], [19, 52]]]], ["inline", "epgp-total", [["get", "character.totalEarned", ["loc", [null, [22, 33], [22, 54]]]], ["get", "character.totalSpent", ["loc", [null, [22, 55], [22, 75]]]]], [], ["loc", [null, [22, 20], [22, 77]]]]],
         locals: ["character"],
         templates: []
       };
@@ -3956,7 +4440,7 @@ define("nobreaks/templates/raiding/roster", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 29,
+            "line": 31,
             "column": 0
           }
         },
@@ -3969,11 +4453,18 @@ define("nobreaks/templates/raiding/roster", ["exports"], function (exports) {
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1, "class", "roster");
+        dom.setAttribute(el1, "class", "roster-tab");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("h4");
-        var el3 = dom.createTextNode("Mythic Raid Team");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "row tab-header");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("h4");
+        var el4 = dom.createTextNode("Mythic Raid Team");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
@@ -3999,7 +4490,7 @@ define("nobreaks/templates/raiding/roster", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 3]), 1, 1);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model", ["loc", [null, [4, 12], [4, 17]]]]], [], 0, null, ["loc", [null, [4, 4], [26, 13]]]]],
+      statements: [["block", "each", [["get", "model", ["loc", [null, [6, 12], [6, 17]]]]], [], 0, null, ["loc", [null, [6, 4], [28, 13]]]]],
       locals: [],
       templates: [child0]
     };
@@ -4545,7 +5036,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+3e98b2b6"});
+  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+f31feb92"});
 }
 
 define('~fastboot/app-factory', ['nobreaks/app', 'nobreaks/config/environment'], function(App, config) {

@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('raiding', function() {
     this.route('roster');
     this.route('loot');
+    this.route('loot', { path: 'loot/:raidDate' });
     this.route('progress');
   });
   this.route('join');
