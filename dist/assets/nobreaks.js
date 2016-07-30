@@ -511,7 +511,7 @@ define('nobreaks/components/tether-dialog', ['exports', 'ember-modal-dialog/comp
   });
 });
 define('nobreaks/const', ['exports'], function (exports) {
-  var API_PATH = 'http://localhost:5001/v1';
+  var API_PATH = 'https://api.nobreaksguild.com/v1';
   exports.API_PATH = API_PATH;
   var API_RAIDERS_PATH = '/guild/No%20Breaks/epgp/raiders';
   exports.API_RAIDERS_PATH = API_RAIDERS_PATH;
@@ -5036,7 +5036,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+f31feb92"});
+  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+86fed879"});
 }
 
 define('~fastboot/app-factory', ['nobreaks/app', 'nobreaks/config/environment'], function(App, config) {
