@@ -3826,7 +3826,7 @@ define("nobreaks/templates/raiding/loot", ["exports"], function (exports) {
           dom.appendChild(el3, el4);
           var el4 = dom.createElement("div");
           dom.setAttribute(el4, "class", "item-icon-wrap");
-          dom.setAttribute(el4, "class", "m2 hide-on-small-only col");
+          dom.setAttribute(el4, "class", "s3 m2 col");
           var el5 = dom.createTextNode("\n            ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("img");
@@ -3837,7 +3837,7 @@ define("nobreaks/templates/raiding/loot", ["exports"], function (exports) {
           var el4 = dom.createTextNode("\n          ");
           dom.appendChild(el3, el4);
           var el4 = dom.createElement("div");
-          dom.setAttribute(el4, "class", "content-wrap s12 m10 col");
+          dom.setAttribute(el4, "class", "content-wrap s9 m10 col");
           var el5 = dom.createTextNode("\n            ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("h6");
@@ -4342,12 +4342,12 @@ define("nobreaks/templates/raiding/roster", ["exports"], function (exports) {
           var el5 = dom.createTextNode("\n            ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("img");
-          dom.setAttribute(el5, "class", "col s6");
+          dom.setAttribute(el5, "class", "col s6 m4");
           dom.appendChild(el4, el5);
           var el5 = dom.createTextNode("\n            ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("div");
-          dom.setAttribute(el5, "class", "info col s6 white-text");
+          dom.setAttribute(el5, "class", "info col s6 m8 white-text");
           var el6 = dom.createTextNode("\n              ");
           dom.appendChild(el5, el6);
           var el6 = dom.createElement("h6");
@@ -5036,7 +5036,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+49ca8fbd"});
+  require("nobreaks/app")["default"].create({"name":"nobreaks","version":"2.0.0+81f83eed"});
 }
 
 define('~fastboot/app-factory', ['nobreaks/app', 'nobreaks/config/environment'], function(App, config) {
