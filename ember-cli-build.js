@@ -14,6 +14,14 @@ module.exports = function(defaults) {
 
     fingerprint: {
       extensions: ['js', 'css', 'map']
+    },
+
+    SRI: {
+      enabled: false // Disabled to due the error:
+      // Failed to find a valid digest in the 'integrity' attribute for resource
+      // 'https://nobreaksguild.com/assets/nobreaks-b6f883f49a8fd05de560a2f5891b4dcf.css'
+      // with computed SHA-256 integrity 'x6OrInofe39N112NRlRwUcmW9NLviohhGqAEIzXraQA='.
+      // The resource has been blocked.
     }
   });
 
