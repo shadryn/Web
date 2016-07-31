@@ -1,0 +1,9 @@
+{
+  "assets": {
+    "assets/nobreaks.css": "assets/nobreaks-b6f883f49a8fd05de560a2f5891b4dcf.css",
+    "assets/nobreaks.js": "assets/nobreaks-8a43ca6ec3bf606f8790886bfab918e1.js",
+    "assets/vendor.css": "assets/vendor-c38a35dae18571580f1be2d2eb33c9f7.css",
+    "assets/vendor.js": "assets/vendor-7008c7158fa4ae1edbd77f2bcdca4d45.js"
+  },
+  "prepend": ""
+}

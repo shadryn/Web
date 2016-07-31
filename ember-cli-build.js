@@ -10,6 +10,10 @@ module.exports = function(defaults) {
       includePaths: [
         'bower_components/materialize/sass'
       ]
+    },
+
+    fingerprint: {
+      extensions: ['js', 'css', 'map']
     }
   });
 
