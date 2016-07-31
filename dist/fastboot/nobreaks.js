@@ -3956,7 +3956,7 @@ define("nobreaks/templates/raiding/loot", ["exports"], function (exports) {
           morphs[6] = dom.createMorphAt(element5, 3, 3);
           return morphs;
         },
-        statements: [["attribute", "src", ["concat", ["https://us.media.blizzard.com/wow/icons/56/", ["get", "item.itemId.icon", ["loc", [null, [32, 67], [32, 83]]]], ".jpg"]]], ["attribute", "style", ["concat", ["color: #", ["get", "item.itemId.quality.hex", ["loc", [null, [36, 34], [36, 57]]]]]]], ["attribute", "style", ["concat", ["color: #", ["get", "item.itemId.context.hex", ["loc", [null, [37, 39], [37, 62]]]]]]], ["content", "item.itemId.context.name", ["loc", [null, [37, 66], [37, 94]]]], ["content", "item.itemId.name", ["loc", [null, [38, 16], [38, 36]]]], ["content", "item.characterId.name", ["loc", [null, [40, 20], [40, 45]]]], ["content", "item.cost", ["loc", [null, [40, 50], [40, 63]]]]],
+        statements: [["attribute", "src", ["concat", ["/assets/images/icons/", ["get", "item.itemId.icon", ["loc", [null, [32, 45], [32, 61]]]], ".png"]]], ["attribute", "style", ["concat", ["color: #", ["get", "item.itemId.quality.hex", ["loc", [null, [36, 34], [36, 57]]]]]]], ["attribute", "style", ["concat", ["color: #", ["get", "item.itemId.context.hex", ["loc", [null, [37, 39], [37, 62]]]]]]], ["content", "item.itemId.context.name", ["loc", [null, [37, 66], [37, 94]]]], ["content", "item.itemId.name", ["loc", [null, [38, 16], [38, 36]]]], ["content", "item.characterId.name", ["loc", [null, [40, 20], [40, 45]]]], ["content", "item.cost", ["loc", [null, [40, 50], [40, 63]]]]],
         locals: ["item"],
         templates: []
       };
