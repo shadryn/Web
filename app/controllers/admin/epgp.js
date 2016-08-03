@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
 
   actions: {
     changeDefaultFormat: function() {
-      this.set('moment.defaultFormat', 'MM/DD/YYYY');
+      this.set('moment.defaultFormat', 'MM-DD-YYYY');
     },
     submit: function() {
       this.setProperties({
@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          raidDate: moment(this.get('raidDate')).format('MM/DD/YYYY'),
+          raidDate: moment(this.get('raidDate')).format('MM-DD-YYYY'),
           epgpData: this.get('epgpData')
         })
       })
