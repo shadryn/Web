@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
           return this.set('submitError', 'The API Key you entered is invalid');
         }
 
-        Ember.get(this, 'flashMessages').success('Success!', {sticky: true});
+        Ember.get(this, 'flashMessages').success('Success!');
       });
     }
   }
