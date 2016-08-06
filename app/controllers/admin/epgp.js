@@ -36,13 +36,19 @@ export default Ember.Controller.extend({
         })
       })
       .then((response) => {
-        this.set('isProcessing', false);
-
-        if(response.status >= 400) {
-          return this.set('submitError', 'The API Key you entered is invalid');
+        if (response.status >= 400) {
+          return response.json().then(Ember.RSVP.reject.bind(Ember.RSVP));
         }
 
+        return response.json();
+      })
+      .then(() => {
+        this.set('isProcessing', false);
         Ember.get(this, 'flashMessages').success('Success!');
+      })
+      .catch((response) => {
+        this.set('isProcessing', false);
+        this.set('submitError', response.error.message);
       });
     }
   }

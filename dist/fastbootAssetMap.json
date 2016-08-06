@@ -1,9 +1,9 @@
 {
   "assets": {
-    "assets/nobreaks.css": "assets/nobreaks-9ad316a07f49adfedb2d7b8e9e0b71f4.css",
-    "assets/nobreaks.js": "assets/nobreaks-b7b173a89040311e65b0e500b8353f0f.js",
+    "assets/nobreaks.css": "assets/nobreaks-10b3dae382600d5997f8daf5eec0d864.css",
+    "assets/nobreaks.js": "assets/nobreaks-8d5c0e65b39f84deecb25232443459ae.js",
     "assets/vendor.css": "assets/vendor-c38a35dae18571580f1be2d2eb33c9f7.css",
-    "assets/vendor.js": "assets/vendor-7008c7158fa4ae1edbd77f2bcdca4d45.js"
+    "assets/vendor.js": "assets/vendor-07ead6e303b13f448cf3adb6db0b3255.js"
   },
   "prepend": ""
 }
