@@ -43,40 +43,40 @@
   .card-content {
 
     &.deathknight {
-      @include class_crests('/assets/images/classes/crests/deathknight.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/deathknight.png');
     }
     &.demonhunter {
-      @include class_crests('/assets/images/classes/crests/demonhunter.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/demonhunter.png');
     }
     &.druid {
-      @include class_crests('/assets/images/classes/crests/druid.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/druid.png');
     }
     &.hunter {
-      @include class_crests('/assets/images/classes/crests/hunter.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/hunter.png');
     }
     &.mage {
-      @include class_crests('/assets/images/classes/crests/mage.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/mage.png');
     }
     &.monk {
-      @include class_crests('/assets/images/classes/crests/monk.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/monk.png');
     }
     &.paladin {
-      @include class_crests('/assets/images/classes/crests/paladin.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/paladin.png');
     }
     &.priest {
-      @include class_crests('/assets/images/classes/crests/priest.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/priest.png');
     }
     &.rogue {
-      @include class_crests('/assets/images/classes/crests/rogue.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/rogue.png');
     }
     &.shaman {
-      @include class_crests('/assets/images/classes/crests/shaman.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/shaman.png');
     }
     &.warlock {
-      @include class_crests('/assets/images/classes/crests/warlock.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/warlock.png');
     }
     &.warrior {
-      @include class_crests('/assets/images/classes/crests/warrior.png');
+      @include class_crests('https://api.nobreaksguild.com/cdn/images/classes/crests/warrior.png');
     }
   }
 }
