@@ -13,17 +13,7 @@ const Router = Ember.Router.extend(ResetScrollMixin, googlePageview, {
 }); */
 
 Router.map(function() {
-  this.route('raiding', function() {
-    this.route('roster');
-    this.route('loot');
-    this.route('loot', { path: 'loot/:raidDate' });
-    this.route('progress');
-  });
-  this.route('join');
   this.route('social');
-  this.route('admin', function() {
-    this.route('epgp');
-  });
 });
 
 export default Router;

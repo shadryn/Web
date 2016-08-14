@@ -11,25 +11,22 @@
       "node-fetch"
     ],
     "manifest": {
-      "appFile": "fastboot/nobreaks-457e17b712b9f25eed6c956a4ccb7f84.js",
-      "vendorFile": "fastboot/vendor-07ead6e303b13f448cf3adb6db0b3255.js",
+      "appFile": "fastboot/jackalope.js",
+      "vendorFile": "fastboot/vendor.js",
       "htmlFile": "index.html"
     },
     "appConfig": {
-      "modulePrefix": "nobreaks",
-      "environment": "production",
+      "modulePrefix": "jackalope",
+      "environment": "development",
       "baseURL": "/",
       "locationType": "auto",
       "EmberENV": {
         "FEATURES": {}
       },
       "APP": {
-        "name": "nobreaks",
-        "version": "2.0.0+587ed4ce",
+        "name": "jackalope",
+        "version": "1.0.0+3bfbe64a",
         "autoboot": false
-      },
-      "googleAnalytics": {
-        "webPropertyId": "UA-75863262-1"
       },
       "materializeDefaults": {
         "modalIsFooterFixed": false,
@@ -40,7 +37,7 @@
         "dropdownInDuration": 300,
         "dropdownOutDuration": 300
       },
-      "exportApplicationGlobal": false
+      "exportApplicationGlobal": true
     }
   }
 }

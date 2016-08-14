@@ -1,50 +1,64 @@
-#home {
-  min-height: 800px;
-  padding-top: 100px;
-}
-
-#raiding {
-  min-height: 700px;
-  padding: 150px 0;
-
-  .col {
-    ~ .col {
-      text-align: center;
-      img {
-        max-width: 320px;
-        padding-top: 20px;
-      }
+.navbar-fixed {
+  ~ div {
+    &.parallax-container {
+      height: 800px;
     }
   }
 }
+.header {
+  position: absolute;
+  top: 200px;
+  text-align: center;
+  width: 100%;
+  color: white;
 
-#social {
-  min-height: 300px;
-  a {
-    i {
-      padding-right: 10px;
+  .logo {
+    img {
+      border-radius: 50%;
+      max-height: 300px;
     }
   }
 }
-
-#join {
-  min-height: 800px;
-  padding: 200px 0 100px 0;
-
-  .row {
-    ~.row {
-      padding-top: 100px;
-    }
-  }
-  img {
-    max-width: 300px;
-  }
-}
-
-#store {
+.home {
   min-height: 500px;
   padding-top: 100px;
-  img {
-    width: 300px;
+
+  .profile-image {
+    img {
+      border-radius: 50%;
+      max-height: 300px;
+    }
+  }
+
+  p {
+    font-size: 1.5em;
+  }
+}
+.button-row {
+  min-height: 200px;
+  padding-top: 75px;
+  text-align: center;
+
+  .btn {
+    min-width: 240px;
+  }
+
+  ~ div {
+    &.parallax-container {
+      height: 300px;
+    }
+  }
+}
+.resume {
+  min-height: 1200px;
+  padding-top: 150px;
+
+  .logo {
+    border-radius: 50%;
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 100px;
   }
 }

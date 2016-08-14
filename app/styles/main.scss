@@ -1,12 +1,12 @@
 //scaffolding and global styles
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Abel', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
 }
 
 nav {
   .brand-logo {
-    font-family: 'Abel', sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
   }
 }
@@ -14,6 +14,17 @@ button, .btn {
   margin-bottom: 10px;
   a {
     color: #fff;
+  }
+  i {
+    line-height: 1.5em;
+    vertical-align: top;
+    font-size: 24px;
+
+    &.fa {
+      line-height: 1.3em;
+      vertical-align: baseline;
+      font-size: 20px;
+    }
   }
 }
 .row {

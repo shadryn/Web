@@ -1,26 +1,14 @@
 <div class="navbar-fixed">
-  {{#md-navbar name='No Breaks' class='black' homeRoute='index'}}
+  {{#md-navbar name='Jackalope Design' class='blue-grey darken-2' homeRoute='index'}}
     <div class="navbar-fixed">
       <!-- A workaround to get the "active" class
         to apply to the active <li> automatically -->
       {{#link-to 'index' tagName='li'}}
         {{link-to 'About' 'index'}}
       {{/link-to}}
-      {{#link-to 'raiding.roster' tagName='li'}}
-        {{link-to 'Raiding' 'raiding.roster'}}
-      {{/link-to}}
-      {{#link-to 'join' tagName='li'}}
-        {{link-to 'Join' 'join'}}
-      {{/link-to}}
       {{#link-to 'social' tagName='li'}}
-        {{link-to 'Social & Events' 'social'}}
+        {{link-to 'Portfolio' 'social'}}
       {{/link-to}}
-      <li>
-        <a href="https://forum.nobreaksguild.com" target="_blank">Forums</a>
-      </li>
-      <li>
-        <a href="http://nobreaks.storenvy.com" target="_blank">Store</a>
-      </li>
     </div>
   {{/md-navbar}}
 </div>
@@ -31,15 +19,10 @@
   <div class="row container">
     <p class="col s6">
       <a href="https://www.facebook.com/groups/448758615283027/" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-      <a href="https://www.twitch.tv/nobreaksraiding" target="_blank"><i class="fa fa-twitch" aria-hidden="true"></i></a>
-      <a href="https://www.youtube.com/channel/UCiTx1a_BI53itw-fHNIib2w" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
     </p>
-    <p class="col s6"><i class="fa fa-copyright" aria-hidden="true"></i> 2016. Made with <i class="fa fa-heart" aria-hidden="true"></i> by Vxar and Shadryn</p>
+    <p class="col s6"><i class="fa fa-copyright" aria-hidden="true"></i> 2016. Made with <i class="fa fa-heart" aria-hidden="true"></i> by Jamie</p>
   </div>
 </div>
-{{#each flashMessages.queue as |flash|}}
-  {{flash-message flash=flash}}
-{{/each}}
 
 {{!-- ember-cli-materialize modal container --}}
 {{md-modal-container}}

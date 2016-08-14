@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'nobreaks',
+    modulePrefix: 'jackalope',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
