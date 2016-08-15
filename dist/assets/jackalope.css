@@ -6226,6 +6226,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   opacity: 1.0;
   z-index: 10001; }
 
+html {
+  min-width: 450px; }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase; }
@@ -6336,6 +6339,8 @@ button, .btn, .btn-large {
   .resume h1 {
     text-align: center;
     margin-bottom: 100px; }
+  .resume .experience, .resume .education, .resume .skills {
+    margin-bottom: 50px; }
   .resume .card .card-image {
     display: flex;
     align-items: center;
@@ -6355,5 +6360,20 @@ button, .btn, .btn-large {
     font-size: 1.2em; }
   .resume .card .company p {
     padding-top: 10px; }
+  .resume .skills .collection .collection-item.avatar {
+    min-height: 75px; }
+    .resume .skills .collection .collection-item.avatar img {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      overflow: hidden;
+      left: 15px;
+      display: inline-block;
+      vertical-align: middle; }
+  .resume .skills .collection .collection-item .title {
+    font-weight: 600;
+    color: #78909c; }
+  .resume .skills .collection .collection-item .secondary-content i {
+    color: #ff8a80; }
 
 /*# sourceMappingURL=jackalope.css.map */

@@ -63,6 +63,9 @@
     text-align: center;
     margin-bottom: 100px;
   }
+  .experience, .education, .skills {
+    margin-bottom: 50px;
+  }
   .card {
     .card-image {
       display: flex;
@@ -90,6 +93,33 @@
       }
       p {
         padding-top: 10px;
+      }
+    }
+  }
+  .skills {
+    .collection {
+      .collection-item {
+        &.avatar {
+          min-height: 75px;
+          img {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
+            left: 15px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+        .title {
+          font-weight: 600;
+          color: #78909c; //blue-grey lighten-1
+        }
+        .secondary-content {
+          i {
+            color: #ff8a80; //red accent-1
+          }
+        }
       }
     }
   }
