@@ -14,13 +14,12 @@
 
   .logo {
     img {
-      border-radius: 50%;
       max-height: 300px;
     }
   }
 }
 .home {
-  min-height: 500px;
+  min-height: 600px;
   padding-top: 100px;
 
   .profile-image {
@@ -54,11 +53,44 @@
   padding-top: 150px;
 
   .logo {
-    border-radius: 50%;
     text-align: center;
+
+    img {
+      max-height: 150px;
+    }
   }
   h1 {
     text-align: center;
     margin-bottom: 100px;
+  }
+  .card {
+    .card-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+    img {
+      max-height: 94px;
+      padding: 10px;
+    }
+
+    .company {
+      h5 {
+        margin: 0.82rem 0 0.3rem 0;
+      }
+      .years {
+        color:#546e7a; //blue-grey darken-1
+        font-weight: 600;
+      }
+      .title {
+        color: #78909c; //blue-grey lighten-1
+        font-weight: 400;
+        font-size: 1.2em;
+      }
+      p {
+        padding-top: 10px;
+      }
+    }
   }
 }

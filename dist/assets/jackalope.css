@@ -6250,6 +6250,31 @@ button, .btn, .btn-large {
 .row {
   margin-bottom: 0; }
 
+.card.horizontal {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  .card.horizontal .card-image {
+    max-width: 50%; }
+    .card.horizontal .card-image img {
+      max-width: 100%;
+      width: auto; }
+  .card.horizontal .card-stacked {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative; }
+    .card.horizontal .card-stacked .card-content {
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1; }
+
 .tabs {
   background-color: transparent; }
   .tabs .tab a {
@@ -6281,11 +6306,10 @@ button, .btn, .btn-large {
   width: 100%;
   color: white; }
   .header .logo img {
-    border-radius: 50%;
     max-height: 300px; }
 
 .home {
-  min-height: 500px;
+  min-height: 600px;
   padding-top: 100px; }
   .home .profile-image img {
     border-radius: 50%;
@@ -6306,19 +6330,30 @@ button, .btn, .btn-large {
   min-height: 1200px;
   padding-top: 150px; }
   .resume .logo {
-    border-radius: 50%;
     text-align: center; }
+    .resume .logo img {
+      max-height: 150px; }
   .resume h1 {
     text-align: center;
     margin-bottom: 100px; }
-
-.social .row {
-  padding: 50px 0; }
-
-.social .card {
-  min-height: 250px;
-  color: #000; }
-  .social .card .card-content p {
-    padding: 20px 10px; }
+  .resume .card .card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; }
+  .resume .card img {
+    max-height: 94px;
+    padding: 10px; }
+  .resume .card .company h5 {
+    margin: 0.82rem 0 0.3rem 0; }
+  .resume .card .company .years {
+    color: #546e7a;
+    font-weight: 600; }
+  .resume .card .company .title {
+    color: #78909c;
+    font-weight: 400;
+    font-size: 1.2em; }
+  .resume .card .company p {
+    padding-top: 10px; }
 
 /*# sourceMappingURL=jackalope.css.map */
