@@ -5,7 +5,7 @@ var app = express();
 app.use('/', express.static(__dirname + '/dist'));
 app.use('*', express.static(__dirname + '/dist'));
 
-var listener = app.listen(process.env.PORT || 5000, function() {
+var listener = app.listen(process.env.PORT || 4100, function() {
   var host = listener.address().address;
   var port = listener.address().port;
 
