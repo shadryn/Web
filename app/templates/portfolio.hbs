@@ -1,15 +1,13 @@
 <div class="portfolio section blue-grey lighten-5">
-  <div class="row container">
+  <div class="row">
     <h1>Portfolio</h1>
     {{#masonry-grid items=items as |item|}}
-      <div class="col s4">
-        <div class="card">
-          <div class="card-image">
-            <img class="materialboxed" src="{{item.url}}">
-          </div>
-          <div class="card-content">
-            <p>{{item.description}}</p>
-          </div>
+      <div class="card">
+        <div class="card-image">
+          <img class="materialboxed" src="{{item.url}}">
+        </div>
+        <div class="card-content">
+          <p>{{item.description}}</p>
         </div>
       </div>
     {{/masonry-grid}}

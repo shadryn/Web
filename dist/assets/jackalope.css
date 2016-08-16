@@ -6309,20 +6309,23 @@ button, .btn, .btn-large {
   width: 100%;
   color: white; }
   .header .logo img {
-    max-height: 300px; }
+    max-width: 300px;
+    text-align: center; }
 
 .home {
   min-height: 600px;
-  padding-top: 100px; }
-  .home .profile-image img {
-    border-radius: 50%;
-    max-height: 300px; }
+  padding: 100px 0; }
+  .home .profile-image {
+    text-align: center; }
+    .home .profile-image img {
+      border-radius: 50%;
+      max-height: 300px; }
   .home p {
     font-size: 1.5em; }
 
 .button-row {
   min-height: 200px;
-  padding-top: 75px;
+  padding: 75px 0;
   text-align: center; }
   .button-row .btn, .button-row .btn-large {
     min-width: 240px; }
@@ -6375,11 +6378,16 @@ button, .btn, .btn-large {
   .resume .skills .collection .collection-item .secondary-content i {
     color: #ff8a80; }
 
+.parallax-container {
+  height: 300px; }
+
 .portfolio {
   min-height: 1200px;
-  padding-top: 200px; }
+  padding-top: 100px;
+  padding-left: 50px; }
   .portfolio .masonry-item {
-    margin: 30px;
-    float: left; }
+    margin: 10px;
+    float: left;
+    width: 30%; }
 
 /*# sourceMappingURL=jackalope.css.map */

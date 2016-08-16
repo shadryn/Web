@@ -523,7 +523,21 @@ define('jackalope/components/tether-dialog', ['exports', 'ember-modal-dialog/com
 });
 define('jackalope/controllers/portfolio', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
-    items: _ember['default'].A([{ url: 'assets/img/portfolio/menti-logo.jpg',
+    items: _ember['default'].A([{ url: 'assets/img/portfolio/Engage.png',
+      description: 'Digital Roots Engage main view'
+    }, { url: 'assets/img/portfolio/dr-site.jpg',
+      description: 'Digital Roots website re-design concept'
+    }, { url: 'assets/img/portfolio/pt.png',
+      description: 'Digital Roots dashboard for Performance Tracker'
+    }, { url: 'assets/img/portfolio/insights-command.jpg',
+      description: 'Digital Roots dashboard concept for Insights project'
+    }, { url: 'assets/img/portfolio/login-screen.png',
+      description: 'Digital Roots login screen'
+    }, { url: 'assets/img/portfolio/one-pager.jpg',
+      description: 'Digital Roots one-pager'
+    }, { url: 'assets/img/portfolio/insights-news.jpg',
+      description: 'Digital Roots mobile concept for Insights project'
+    }, { url: 'assets/img/portfolio/menti-logo.jpg',
       description: 'Menti Logo'
     }, { url: 'assets/img/portfolio/ab-permissions.png',
       description: 'App Builder permissions screen'
@@ -3215,6 +3229,49 @@ define('jackalope/templates/components/tether-dialog', ['exports', 'ember-modal-
 });
 define("jackalope/templates/index", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 31,
+              "column": 6
+            },
+            "end": {
+              "line": 33,
+              "column": 6
+            }
+          },
+          "moduleName": "jackalope/templates/index.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("i");
+          dom.setAttribute(el1, "class", "material-icons");
+          var el2 = dom.createTextNode("collections");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode(" View Portfolio\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -3229,7 +3286,7 @@ define("jackalope/templates/index", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 40,
+            "line": 42,
             "column": 0
           }
         },
@@ -3300,7 +3357,7 @@ define("jackalope/templates/index", ["exports"], function (exports) {
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "col m12 l8");
+        dom.setAttribute(el3, "class", "col m12 l7 push-l1");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("h1");
@@ -3365,19 +3422,11 @@ define("jackalope/templates/index", ["exports"], function (exports) {
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
         dom.setAttribute(el3, "class", "col s12 l4");
-        var el4 = dom.createTextNode("\n      ");
+        var el4 = dom.createTextNode("\n");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("a");
-        dom.setAttribute(el4, "class", "btn default waves-effect waves-light red accent-1");
-        var el5 = dom.createElement("i");
-        dom.setAttribute(el5, "class", "material-icons");
-        var el6 = dom.createTextNode("collections");
-        dom.appendChild(el5, el6);
-        dom.appendChild(el4, el5);
-        var el5 = dom.createTextNode(" View Portfolio");
-        dom.appendChild(el4, el5);
+        var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
+        var el4 = dom.createTextNode("    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
@@ -3423,16 +3472,17 @@ define("jackalope/templates/index", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(3);
+        var morphs = new Array(4);
         morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        morphs[1] = dom.createMorphAt(fragment, 12, 12, contextualElement);
-        morphs[2] = dom.createMorphAt(fragment, 14, 14, contextualElement);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [8, 1, 3]), 1, 1);
+        morphs[2] = dom.createMorphAt(fragment, 12, 12, contextualElement);
+        morphs[3] = dom.createMorphAt(fragment, 14, 14, contextualElement);
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "md-parallax", [], ["image", "assets/img/trees.jpg"], ["loc", [null, [1, 0], [1, 44]]]], ["inline", "md-parallax", [], ["image", "assets/img/sunset.jpg"], ["loc", [null, [38, 0], [38, 45]]]], ["inline", "partial", ["resume"], [], ["loc", [null, [39, 0], [39, 20]]]]],
+      statements: [["inline", "md-parallax", [], ["image", "assets/img/trees.jpg"], ["loc", [null, [1, 0], [1, 44]]]], ["block", "link-to", ["portfolio"], ["tagName", "a", "class", "btn default waves-effect waves-light red accent-1"], 0, null, ["loc", [null, [31, 6], [33, 18]]]], ["inline", "md-parallax", [], ["image", "assets/img/sunset.jpg"], ["loc", [null, [40, 0], [40, 45]]]], ["inline", "partial", ["resume"], [], ["loc", [null, [41, 0], [41, 20]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });
@@ -3450,7 +3500,7 @@ define("jackalope/templates/portfolio", ["exports"], function (exports) {
               "column": 4
             },
             "end": {
-              "line": 15,
+              "line": 13,
               "column": 4
             }
           },
@@ -3465,34 +3515,27 @@ define("jackalope/templates/portfolio", ["exports"], function (exports) {
           var el1 = dom.createTextNode("      ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
-          dom.setAttribute(el1, "class", "col s4");
+          dom.setAttribute(el1, "class", "card");
           var el2 = dom.createTextNode("\n        ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
-          dom.setAttribute(el2, "class", "card");
+          dom.setAttribute(el2, "class", "card-image");
           var el3 = dom.createTextNode("\n          ");
           dom.appendChild(el2, el3);
-          var el3 = dom.createElement("div");
-          dom.setAttribute(el3, "class", "card-image");
-          var el4 = dom.createTextNode("\n            ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("img");
-          dom.setAttribute(el4, "class", "materialboxed");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode("\n          ");
-          dom.appendChild(el3, el4);
+          var el3 = dom.createElement("img");
+          dom.setAttribute(el3, "class", "materialboxed");
           dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n        ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n        ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2, "class", "card-content");
           var el3 = dom.createTextNode("\n          ");
           dom.appendChild(el2, el3);
-          var el3 = dom.createElement("div");
-          dom.setAttribute(el3, "class", "card-content");
-          var el4 = dom.createTextNode("\n            ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("p");
-          var el5 = dom.createComment("");
-          dom.appendChild(el4, el5);
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode("\n          ");
+          var el3 = dom.createElement("p");
+          var el4 = dom.createComment("");
           dom.appendChild(el3, el4);
           dom.appendChild(el2, el3);
           var el3 = dom.createTextNode("\n        ");
@@ -3506,14 +3549,14 @@ define("jackalope/templates/portfolio", ["exports"], function (exports) {
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var element0 = dom.childAt(fragment, [1, 1]);
+          var element0 = dom.childAt(fragment, [1]);
           var element1 = dom.childAt(element0, [1, 1]);
           var morphs = new Array(2);
           morphs[0] = dom.createAttrMorph(element1, 'src');
           morphs[1] = dom.createMorphAt(dom.childAt(element0, [3, 1]), 0, 0);
           return morphs;
         },
-        statements: [["attribute", "src", ["concat", [["get", "item.url", ["loc", [null, [8, 46], [8, 54]]]]]]], ["content", "item.description", ["loc", [null, [11, 15], [11, 35]]]]],
+        statements: [["attribute", "src", ["concat", [["get", "item.url", ["loc", [null, [7, 44], [7, 52]]]]]]], ["content", "item.description", ["loc", [null, [10, 13], [10, 33]]]]],
         locals: ["item"],
         templates: []
       };
@@ -3532,7 +3575,7 @@ define("jackalope/templates/portfolio", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 21,
+            "line": 19,
             "column": 0
           }
         },
@@ -3549,7 +3592,7 @@ define("jackalope/templates/portfolio", ["exports"], function (exports) {
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "row container");
+        dom.setAttribute(el2, "class", "row");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("h1");
@@ -3580,7 +3623,7 @@ define("jackalope/templates/portfolio", ["exports"], function (exports) {
         morphs[1] = dom.createMorphAt(fragment, 2, 2, contextualElement);
         return morphs;
       },
-      statements: [["block", "masonry-grid", [], ["items", ["subexpr", "@mut", [["get", "items", ["loc", [null, [4, 26], [4, 31]]]]], [], []]], 0, null, ["loc", [null, [4, 4], [15, 21]]]], ["content", "outlet", ["loc", [null, [20, 0], [20, 10]]]]],
+      statements: [["block", "masonry-grid", [], ["items", ["subexpr", "@mut", [["get", "items", ["loc", [null, [4, 26], [4, 31]]]]], [], []]], 0, null, ["loc", [null, [4, 4], [13, 21]]]], ["content", "outlet", ["loc", [null, [18, 0], [18, 10]]]]],
       locals: [],
       templates: [child0]
     };

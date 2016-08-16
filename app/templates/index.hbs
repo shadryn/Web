@@ -12,7 +12,7 @@
         <img src="assets/img/me.jpg" alt="meow" />
       </div>
     </div>
-    <div class="col m12 l8">
+    <div class="col m12 l7 push-l1">
       <h1>Hello, there!</h1>
       <h3>I'm Jamie Smylnycky</h3>
       <p>
@@ -28,7 +28,9 @@
       <a href="assets/resume.pdf" target="_blank" class="btn default waves-effect waves-light red accent-1"><i class="material-icons">picture_as_pdf</i> Download Résumé</a>
     </div>
     <div class="col s12 l4">
-      <a class="btn default waves-effect waves-light red accent-1"><i class="material-icons">collections</i> View Portfolio</a>
+      {{#link-to 'portfolio' tagName='a' class='btn default waves-effect waves-light red accent-1'}}
+        <i class="material-icons">collections</i> View Portfolio
+      {{/link-to}}
     </div>
     <div class="col s12 l4">
       <a href="http://www.linkedin.com/in/jamie-smylnycky" target="_blank" class="btn default waves-effect waves-light red accent-1"><i class="fa fa-linkedin" aria-hidden="true"></i> Linked In</a>

@@ -14,15 +14,17 @@
 
   .logo {
     img {
-      max-height: 300px;
+      max-width: 300px;
+      text-align: center;
     }
   }
 }
 .home {
   min-height: 600px;
-  padding-top: 100px;
+  padding: 100px 0;
 
   .profile-image {
+    text-align: center;
     img {
       border-radius: 50%;
       max-height: 300px;
@@ -35,7 +37,7 @@
 }
 .button-row {
   min-height: 200px;
-  padding-top: 75px;
+  padding: 75px 0;
   text-align: center;
 
   .btn {
