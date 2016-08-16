@@ -1,0 +1,20 @@
+<div class="portfolio section blue-grey lighten-5">
+  <div class="row container">
+    <h1>Portfolio</h1>
+    {{#masonry-grid items=items as |item|}}
+      <div class="col s4">
+        <div class="card">
+          <div class="card-image">
+            <img class="materialboxed" src="{{item.url}}">
+          </div>
+          <div class="card-content">
+            <p>{{item.description}}</p>
+          </div>
+        </div>
+      </div>
+    {{/masonry-grid}}
+  </div>
+</div>
+
+
+{{outlet}}

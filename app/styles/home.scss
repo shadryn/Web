@@ -103,8 +103,7 @@
           min-height: 75px;
           img {
             position: absolute;
-            width: 42px;
-            height: 42px;
+            max-width: 45px;
             overflow: hidden;
             left: 15px;
             display: inline-block;

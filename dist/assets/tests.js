@@ -7,13 +7,13 @@ define('jackalope/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
-define('jackalope/tests/const.jshint', ['exports'], function (exports) {
+define('jackalope/tests/controllers/portfolio.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | const.js');
+  QUnit.module('JSHint | controllers/portfolio.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'const.js should pass jshint.');
+    assert.ok(true, 'controllers/portfolio.js should pass jshint.');
   });
 });
 define('jackalope/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
@@ -158,6 +158,15 @@ define('jackalope/tests/helpers/start-app.jshint', ['exports'], function (export
     assert.ok(true, 'helpers/start-app.js should pass jshint.');
   });
 });
+define('jackalope/tests/models/portfolio.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | models/portfolio.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/portfolio.js should pass jshint.');
+  });
+});
 define('jackalope/tests/resolver.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -185,13 +194,13 @@ define('jackalope/tests/routes/index.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/index.js should pass jshint.');
   });
 });
-define('jackalope/tests/routes/social.jshint', ['exports'], function (exports) {
+define('jackalope/tests/routes/portfolio.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | routes/social.js');
+  QUnit.module('JSHint | routes/portfolio.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/social.js should pass jshint.');
+    assert.ok(false, 'routes/portfolio.js should pass jshint.\nroutes/portfolio.js: line 6, col 7, \'$\' is not defined.\n\n1 error');
   });
 });
 define('jackalope/tests/test-helper', ['exports', 'jackalope/tests/helpers/resolver', 'jackalope/tests/helpers/flash-message', 'ember-qunit'], function (exports, _jackalopeTestsHelpersResolver, _jackalopeTestsHelpersFlashMessage, _emberQunit) {
@@ -205,6 +214,28 @@ define('jackalope/tests/test-helper.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'test-helper.js should pass jshint.');
+  });
+});
+define('jackalope/tests/unit/controllers/portfolio-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('controller:portfolio', 'Unit | Controller | portfolio', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
+  });
+});
+define('jackalope/tests/unit/controllers/portfolio-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/controllers/portfolio-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/controllers/portfolio-test.js should pass jshint.');
   });
 });
 define('jackalope/tests/unit/controllers/raiding-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -265,6 +296,28 @@ define('jackalope/tests/unit/helpers/index-to-class-test.jshint', ['exports'], f
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/helpers/index-to-class-test.js should pass jshint.');
+  });
+});
+define('jackalope/tests/unit/models/portfolio-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('portfolio', 'Unit | Model | portfolio', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('jackalope/tests/unit/models/portfolio-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/models/portfolio-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/portfolio-test.js should pass jshint.');
   });
 });
 define('jackalope/tests/unit/routes/admin-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -353,7 +406,7 @@ define('jackalope/tests/unit/routes/raiding-test.jshint', ['exports'], function 
 });
 define('jackalope/tests/unit/routes/social-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('route:social', 'Unit | Route | social', {
+  (0, _emberQunit.moduleFor)('route:portfolio', 'Unit | Route | portfolio', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });

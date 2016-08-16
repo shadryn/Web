@@ -13,7 +13,7 @@ const Router = Ember.Router.extend(ResetScrollMixin, googlePageview, {
 }); */
 
 Router.map(function() {
-  this.route('social');
+  this.route('portfolio');
 });
 
 export default Router;

@@ -6364,8 +6364,7 @@ button, .btn, .btn-large {
     min-height: 75px; }
     .resume .skills .collection .collection-item.avatar img {
       position: absolute;
-      width: 42px;
-      height: 42px;
+      max-width: 45px;
       overflow: hidden;
       left: 15px;
       display: inline-block;
@@ -6375,5 +6374,12 @@ button, .btn, .btn-large {
     color: #78909c; }
   .resume .skills .collection .collection-item .secondary-content i {
     color: #ff8a80; }
+
+.portfolio {
+  min-height: 1200px;
+  padding-top: 200px; }
+  .portfolio .masonry-item {
+    margin: 30px;
+    float: left; }
 
 /*# sourceMappingURL=jackalope.css.map */
