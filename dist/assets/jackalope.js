@@ -3631,7 +3631,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("jackalope/app")["default"].create({"name":"jackalope","version":"1.0.0+20bc7f3f"});
+  require("jackalope/app")["default"].create({"name":"jackalope","version":"1.0.0+c55369e7"});
 }
 
 define('~fastboot/app-factory', ['jackalope/app', 'jackalope/config/environment'], function(App, config) {
