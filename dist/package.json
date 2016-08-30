@@ -25,7 +25,7 @@
       },
       "APP": {
         "name": "jackalope",
-        "version": "1.0.0+c55369e7",
+        "version": "1.0.0+46d3ffa9",
         "autoboot": false
       },
       "materializeDefaults": {

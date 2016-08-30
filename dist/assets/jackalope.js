@@ -2827,7 +2827,7 @@ define("jackalope/templates/application", ["exports"], function (exports) {
               "column": 2
             },
             "end": {
-              "line": 13,
+              "line": 16,
               "column": 2
             }
           },
@@ -2853,7 +2853,22 @@ define("jackalope/templates/application", ["exports"], function (exports) {
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("    ");
+          var el2 = dom.createTextNode("      ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("li");
+          var el3 = dom.createTextNode("\n        ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("a");
+          dom.setAttribute(el3, "href", "https://jackalopedesignblog.wordpress.com/");
+          dom.setAttribute(el3, "alt", "blog");
+          dom.setAttribute(el3, "target", "_blank");
+          var el4 = dom.createTextNode("Blog");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -2886,7 +2901,7 @@ define("jackalope/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 28,
+            "line": 31,
             "column": 0
           }
         },
@@ -2963,7 +2978,7 @@ define("jackalope/templates/application", ["exports"], function (exports) {
         morphs[2] = dom.createMorphAt(fragment, 6, 6, contextualElement);
         return morphs;
       },
-      statements: [["block", "md-navbar", [], ["name", "Jackalope Design", "class", "blue-grey darken-2", "homeRoute", "index"], 0, null, ["loc", [null, [2, 2], [13, 16]]]], ["content", "outlet", ["loc", [null, [17, 0], [17, 10]]]], ["content", "md-modal-container", ["loc", [null, [27, 0], [27, 22]]]]],
+      statements: [["block", "md-navbar", [], ["name", "Jackalope Design", "class", "blue-grey darken-2", "homeRoute", "index"], 0, null, ["loc", [null, [2, 2], [16, 16]]]], ["content", "outlet", ["loc", [null, [20, 0], [20, 10]]]], ["content", "md-modal-container", ["loc", [null, [30, 0], [30, 22]]]]],
       locals: [],
       templates: [child0]
     };
@@ -3631,7 +3646,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("jackalope/app")["default"].create({"name":"jackalope","version":"1.0.0+c55369e7"});
+  require("jackalope/app")["default"].create({"name":"jackalope","version":"1.0.0+46d3ffa9"});
 }
 
 define('~fastboot/app-factory', ['jackalope/app', 'jackalope/config/environment'], function(App, config) {
