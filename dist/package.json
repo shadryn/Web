@@ -11,7 +11,7 @@
       "node-fetch"
     ],
     "manifest": {
-      "appFile": "fastboot/jackalope-4a9e7debbf784e1bd18480b0421a2fbc.js",
+      "appFile": "fastboot/jackalope-f7dca7c321506dbf3ffbf91c662cd0a7.js",
       "vendorFile": "fastboot/vendor-c854da268ce8b60406d24d12d9ba6c21.js",
       "htmlFile": "index.html"
     },
@@ -25,7 +25,7 @@
       },
       "APP": {
         "name": "jackalope",
-        "version": "1.0.0+a340696c",
+        "version": "1.0.0+1a1e6ebb",
         "autoboot": false
       },
       "googleAnalytics": {
